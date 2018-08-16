@@ -1,0 +1,31 @@
+<ActionBar class="action-bar">
+    <!-- 
+    Use the NavigationButton as a side-drawer button in Android
+    because ActionItems are shown on the right side of the ActionBar
+    -->
+    <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+    <!-- 
+    Use the ActionItem for IOS with position set to left. Using the
+    NavigationButton as a side-drawer button in iOS is not possible,
+    because its function is to always navigate back in the application.
+    -->
+    <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
+        ios.position="left">
+    </ActionItem>
+    <Label class="action-bar-title" text="Featured"></Label>
+</ActionBar>
+<ScrollView sdkExampleTitle sdkToggleNavButton>
+    <FlexboxLayout flexDirection="column" backgroundColor="lightgray" class="container">
+        <GridLayout tkExampleTitle tkToggleNavButton>
+            <RadListView [items]="texonomies.taxonomies[0].root.taxons">
+                   <ListViewGridLayout tkListViewLayout scrollDirection="Vertical"  ios:itemHeight="{{midItemHeight}}" spanCount="2"></ListViewGridLayout>
+               <ng-template tkListItemTemplate let-item="item" let-odd="odd">
+                   <StackLayout orientation="vertical">
+                       <Label class="box" backgroundImage="{{item.icon}}"    ="10"  backgroundPosition="10" [text]="item.name"></Label>      
+                   </StackLayout>
+               </ng-template>
+           </RadListView>    
+       </GridLayout>
+   
+    </FlexboxLayout>    
+</ScrollView>
