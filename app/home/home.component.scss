@@ -10,24 +10,84 @@
     width: 130px
 }
 
-.abc {
-    width: 50%;
-    float: left;
-}
-
 .container {
-    padding:0 10dpi;
+    padding: 0 10dpi;
+    .savetoday {
+        padding: 7dpi 20dpi;
+        .discount {
+            background-color: $action-color;
+            padding: 5dpi 15dpi 5dpi;
+            text-align: center;
+            border-radius: 5dpi;
+            font-size: 18em;
+            color: $background-light;
+            font-weight: bold;
+            margin: 6dpi 10dpi 10dpi 0;
+        }
+        .autoship {
+            margin-top: 5dpi;
+            font-weight: bold;
+            color: $secondary;
+            white-space: normal;
+            word-wrap: break-word;
+        }
+    }
+    .shopby {
+        padding: 7dpi 10dpi;
+        font-size: 18em;
+        color: $secondary;
+        .icon {
+            margin-top: 2dpi;
+            font-size: 28em;
+            color: $accent-dark;
+        }
+    }
+    .box {
+        font-weight: bold;
+        font-size: 15em;
+        background-color: $background-light;
+        margin: 3dpi;
+        padding: 5dpi;
+        height: 150vh;
+        background-repeat: no-repeat;
+        background-size: 340px 340px;
+        background-position: right bottom;
+        border-radius: 5dpi;
+    }
 }
 
-.box {
-    font-weight: bold;
-    font-size: 15em;
-    background-color: #fff;
-    margin: 3dpi;
-    padding: 5dpi;
-    box-shadow:2px 2px 2px 2px green;
-    height:150vh;
+.layoutBackgroundImageURL {
+    background-image: url("https://docs.nativescript.org/img/cli-getting-started/angular/chapter0/NativeScript_logo.png");
     background-repeat: no-repeat;
-    background-size: 340px 340px;
-    background-position: right bottom;
+    height: 120;
+    margin: 15;
+}
+
+.promoimg {
+    padding: 20dpi 4dpi;
+}
+
+.product-base {
+    width: 350px;
+    border-radius: 5dpi;
+    border-color: $item-color-android;
+    padding: 10dpi;
+    margin: 3dpi;
+    height: auto;
+    .product-img {
+        text-align: center
+    }
+    .product-name {
+        font-size: 15em;
+        color: $secondary;
+        .name {
+            white-space: normal;
+            word-wrap: break-word;
+            height: 160px;
+        }
+    }
+    .product-price {
+        font-size: 20dpi;
+        color: $action-price-color
+    }
 }

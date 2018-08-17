@@ -9,23 +9,58 @@
     NavigationButton as a side-drawer button in iOS is not possible,
     because its function is to always navigate back in the application.
     -->
-    <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
-        ios.position="left">
+    <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()" ios.position="left">
     </ActionItem>
     <Label class="action-bar-title" text="Featured"></Label>
 </ActionBar>
+
 <ScrollView sdkExampleTitle sdkToggleNavButton>
     <FlexboxLayout flexDirection="column" backgroundColor="lightgray" class="container">
-        <GridLayout tkExampleTitle tkToggleNavButton>
+        <StackLayout class="savetoday" orientation="horizontal">
+            <Label class="m-r-10 discount" text="Save 30% Today"></Label>
+            <Label class="autoship" text="On Your First Autoship"> </Label>
+        </StackLayout>
+        <StackLayout class="shopby" orientation="horizontal">
+            <Label class="fa icon m-r-10" text="&#xf009;"></Label>
+            <Label text="Shop by Category"> </Label>
+        </StackLayout>
+        <StackLayout>
             <RadListView [items]="texonomies.taxonomies[0].root.taxons">
-                   <ListViewGridLayout tkListViewLayout scrollDirection="Vertical"  ios:itemHeight="{{midItemHeight}}" spanCount="2"></ListViewGridLayout>
-               <ng-template tkListItemTemplate let-item="item" let-odd="odd">
-                   <StackLayout orientation="vertical">
-                       <Label class="box" backgroundImage="{{item.icon}}"    ="10"  backgroundPosition="10" [text]="item.name"></Label>      
-                   </StackLayout>
-               </ng-template>
-           </RadListView>    
-       </GridLayout>
-   
-    </FlexboxLayout>    
+                <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" ios:itemHeight="{{midItemHeight}}" spanCount="2"></ListViewGridLayout>
+                <ng-template tkListItemTemplate let-item="item" let-odd="odd">
+                    <StackLayout orientation="vertical">
+                        <Label shadow="8" class="box" backgroundImage="{{item.icon}}" [text]="item.name"></Label>
+                    </StackLayout>
+                </ng-template>
+            </RadListView>
+        </StackLayout>
+        <StackLayout class="promoimg">
+            <Image src="~/assets/promo.png" stretch="aspectFill"></Image>
+        </StackLayout>
+        <StackLayout>
+            <RadListView [items]="products.products">
+                <ListViewLinearLayout tkListViewLayout scrollDirection="Horizontal" ios:itemHeight="{{midItemHeight}}"></ListViewLinearLayout>
+                <ng-template let-product="item" let-i="index" let-odd="odd" let-even="even">
+
+                    <StackLayout class="product-base" borderWidth="1" rows="*, *, *" columns="*, *" [nsRouterLink]="['/product', product.id]">
+                        <StackLayout row="1" class="product-img">
+                            <Image [src]="product.master.images[0].product_url" stretch="none" class="m-r-20"></Image>
+                        </StackLayout>
+                        <StackLayout row="2" class="m-t-5 m-b-5"></StackLayout>
+                        <StackLayout row="3" class="product-name">
+                            <Label class="name" [text]="product.name"></Label>
+                        </StackLayout>
+                        <StackLayout row="4" class="product-price">
+                            <Label>
+                                <FormattedString>
+                                    <Span text="&#8377;"></Span>
+                                    <Span [text]="product.price"></Span>
+                                </FormattedString>
+                            </Label>
+                        </StackLayout>
+                    </StackLayout>
+                </ng-template>
+            </RadListView>
+        </StackLayout>
+    </FlexboxLayout>
 </ScrollView>

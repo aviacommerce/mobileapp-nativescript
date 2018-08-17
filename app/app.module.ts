@@ -12,6 +12,8 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 
+import { NgShadowModule } from "nativescript-ng-shadow";
+
 @NgModule({
     bootstrap: [
         AppComponent
@@ -24,7 +26,9 @@ import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
         NativeScriptHttpClientModule,
         NativeScriptRouterModule,
         NativeScriptFormsModule,
-        NativeScriptUIListViewModule
+        NativeScriptUIListViewModule,
+        NgShadowModule
+
     ],
     declarations: [
         AppComponent
