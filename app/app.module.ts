@@ -13,6 +13,7 @@ import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 
 import { NgShadowModule } from "nativescript-ng-shadow";
+import { ProductService } from "~/core/services/product.service";
 
 @NgModule({
     bootstrap: [
@@ -37,7 +38,8 @@ import { NgShadowModule } from "nativescript-ng-shadow";
         NO_ERRORS_SCHEMA
     ],
     providers: [
-        TaxonomyService
+        TaxonomyService,
+        ProductService
     ]
 })
 export class AppModule { }

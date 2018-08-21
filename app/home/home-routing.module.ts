@@ -7,7 +7,6 @@ import { HomeComponent } from "./home.component";
 const routes: Routes = [
     { path: "", component: HomeComponent }
 ];
-
 @NgModule({
     imports: [NativeScriptRouterModule.forChild(routes)],
     exports: [NativeScriptRouterModule]

@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import * as app from "application";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
+import { ProductService } from "~/core/services/product.service";
 
 @Component({
     selector: "Search",
@@ -8,13 +9,18 @@ import { RadSideDrawer } from "nativescript-ui-sidedrawer";
     templateUrl: "./search.component.html"
 })
 export class SearchComponent implements OnInit {
+    products: Object;
+    constructor(private myService: ProductService) {
 
-    constructor() {
-        // Use the component constructor to inject providers.
     }
-
-    ngOnInit(): void {
-        // Init your component properties here.
+    ngOnInit() {
+        this.extractData();
+    }
+    extractData() {
+        this.myService.getProducts(1)
+            .subscribe((productdata) => {
+                this.products = productdata;
+            });
     }
 
     onDrawerButtonTap(): void {

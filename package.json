@@ -24,6 +24,7 @@
     "@angular/router": "~6.0.6",
     "nativescript-angular": "~6.0.6",
     "nativescript-ng-shadow": "^2.1.0",
+    "nativescript-star-ratings": "^1.0.0",
     "nativescript-theme-core": "~1.0.4",
     "nativescript-ui-listview": "^3.5.11",
     "nativescript-ui-sidedrawer": "~4.1.0",

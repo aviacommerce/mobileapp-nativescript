@@ -1,21 +1,16 @@
-<ActionBar class="action-bar">
-    <!-- 
-    Use the NavigationButton as a side-drawer button in Android
-    because ActionItems are shown on the right side of the ActionBar
-    -->
-    <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
-    <!-- 
-    Use the ActionItem for IOS with position set to left. Using the
-    NavigationButton as a side-drawer button in iOS is not possible,
-    because its function is to always navigate back in the application.
-    -->
-    <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
-        ios.position="left">
-    </ActionItem>
-    <Label class="action-bar-title" text="Search"></Label>
-</ActionBar>
-
-<GridLayout class="page page-content">
-    <Label class="page-icon fa" text="&#xf002;"></Label>
-    <Label class="page-placeholder" text="<!-- Page content goes here -->"></Label>
-</GridLayout>
+<ab-component></ab-component>
+<RadListView [items]="products.products" (itemTap)="onItemTap($event)" class="list-group">
+    <ng-template let-product="item" let-i="index" let-odd="odd" let-even="even">
+        <GridLayout class="list-group-item" rows="*, *, *" columns="*, *" [nsRouterLink]="['/product', product.id]">
+            <Label [text]="product.name"></Label>
+            <Label col="1" horizontalAlignment="right" class="list-group-item-text m-r-5">
+                <FormattedString>
+                    <Span text="&#8377;"></Span>
+                    <Span [text]="product.price"></Span>
+                </FormattedString>
+            </Label>
+            <StackLayout row="1" class="hr-light m-t-5 m-b-5" colSpan="2"></StackLayout>
+            <Image row="2" [src]="product.master.images[0].product_url" stretch="aspectFill" height="120" class="m-r-20"></Image>
+        </GridLayout>
+    </ng-template>
+</RadListView>

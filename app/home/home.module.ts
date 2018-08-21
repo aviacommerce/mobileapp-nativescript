@@ -1,13 +1,13 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptCommonModule } from "nativescript-angular/common";
 
+import { NativeScriptFormsModule } from "nativescript-angular/forms";
+import { NativeScriptRouterModule } from "nativescript-angular/router";
+import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
+
+import { SharedModule } from "~/shared/shared.module";
 import { HomeRoutingModule } from "./home-routing.module";
 import { HomeComponent } from "./home.component";
-
-import { NativeScriptRouterModule } from "nativescript-angular/router";
-
-import { NativeScriptFormsModule } from "nativescript-angular/forms";
-import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 
 @NgModule({
     imports: [
@@ -16,7 +16,9 @@ import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
         NativeScriptCommonModule,
         NativeScriptUIListViewModule,
         NativeScriptFormsModule,
-        NativeScriptRouterModule
+        NativeScriptRouterModule,
+        SharedModule
+
     ],
     declarations: [
         HomeComponent
