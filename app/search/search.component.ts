@@ -6,7 +6,8 @@ import { ProductService } from "~/core/services/product.service";
 @Component({
     selector: "Search",
     moduleId: module.id,
-    templateUrl: "./search.component.html"
+    templateUrl: "./search.component.html",
+    styleUrls: ["./search.component.css"]
 })
 export class SearchComponent implements OnInit {
     products: Object;
@@ -22,7 +23,6 @@ export class SearchComponent implements OnInit {
                 this.products = productdata;
             });
     }
-
     onDrawerButtonTap(): void {
         const sideDrawer = <RadSideDrawer>app.getRootView();
         sideDrawer.showDrawer();

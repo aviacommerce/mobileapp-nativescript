@@ -31,12 +31,12 @@ export class HomeComponent implements OnInit {
         this.myService.getTaxonomies()
             .subscribe((result) => {
                 this.texonomies = (result);
-                console.log(this.texonomies.taxonomies);
+
             });
-        this.myService.getProducts(1)
-            .subscribe((productdata) => {
-                this.products = productdata;
-            });
+        // this.myService.getProducts(1)
+        //     .subscribe((productdata) => {
+        //         this.products = productdata;
+        //     });
     }
 
     onTextChanged(args) {

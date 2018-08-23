@@ -23,8 +23,5 @@ export class ActionBarComponent {
         alert("You are searching for " + this.searchBar.text);
     }
 
-    onTextChanged(args) {
-        this.searchBar = <SearchBar>args.object;
-        console.log("SearchBar text changed! New value: " + this.searchBar.text);
-    }
+  
 }
