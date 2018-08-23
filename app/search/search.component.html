@@ -1,16 +1,34 @@
 <ab-component></ab-component>
-<RadListView [items]="products.products" (itemTap)="onItemTap($event)" class="list-group">
-    <ng-template let-product="item" let-i="index" let-odd="odd" let-even="even">
-        <GridLayout class="list-group-item" rows="*, *, *" columns="*, *" [nsRouterLink]="['/product', product.id]">
-            <Label [text]="product.name"></Label>
-            <Label col="1" horizontalAlignment="right" class="list-group-item-text m-r-5">
-                <FormattedString>
-                    <Span text="&#8377;"></Span>
-                    <Span [text]="product.price"></Span>
-                </FormattedString>
+<FlexLayout>
+  <StackLayout>
+    <sb-component></sb-component>
+  </StackLayout>
+  <StackLayout class="list">
+    <ListView [items]="products" class="list-group" (loadMoreItems)="loadMoreItems()">
+      <ng-template let-product="item" let-i="index" let-odd="odd" let-even="even">
+        <GridLayout borderBottomWidth="1" class="product-base" rows="*, *, *" columns="*, *">
+          <StackLayout col="0" class="imgcontainer" width="40%">
+            <Image [src]="product.master.images[0].product_url" stretch="aspectFit" height="120" class="m-r-20"></Image>
+            <Label text="More Choices Avialable" class="more"></Label>
+          </StackLayout>
+          <StackLayout col="1" colSpan="2" width="90%">
+            <Label [text]="product.name" class="product-name"></Label>
+            <Label col="1" class="product-price">
+              <FormattedString>
+                <Span text="&#8377;"></Span>
+                <Span [text]="product.price"></Span>
+              </FormattedString>
             </Label>
-            <StackLayout row="1" class="hr-light m-t-5 m-b-5" colSpan="2"></StackLayout>
-            <Image row="2" [src]="product.master.images[0].product_url" stretch="aspectFill" height="120" class="m-r-20"></Image>
+            <Label text="30% Off First Item" horizontalAlignment="left" class="off"></Label>
+            <Label class="free-ship m-b-5 m-t-5" borderTopWidth="1" borderBottomWidth="1">
+              <FormattedString>
+                <Span class="free" text="Free 1-2 day "></Span>
+                <Span text="Shipping Over 699"></Span>
+              </FormattedString>
+            </Label>
+          </StackLayout>
         </GridLayout>
-    </ng-template>
-</RadListView>
+      </ng-template>
+    </ListView>
+  </StackLayout>
+</FlexLayout>

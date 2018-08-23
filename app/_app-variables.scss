@@ -16,10 +16,8 @@ $action-color:#fe9700;
 $action-price-color:#d0011b;
 $accent-dark: #a3d032 !default;
 $accent-light: #4781FE !default;
-
 $success-dark: #06CE6A !default;
 $success-light: #00E676 !default;
-
 $warning-dark: #f39c11 !default;
 $warning-light: #F2C112 !default;
 
@@ -75,3 +73,18 @@ $btn-color-outline-highlighted: lighten($btn-color, 10%);
 $headings-color: $blue-dark;
 $secondary: $blue-dark;
 $text-color: $blue-dark;
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$gray-10:  #ccc !default;
+$gray-11:  #979797 !default;
+$gray-12:  #d4d4d4 !default;
+$gray-13:  #a7a7a7 !default;
+$black:    #000 !default;
