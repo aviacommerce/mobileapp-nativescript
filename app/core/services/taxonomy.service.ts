@@ -9,7 +9,7 @@ export class TaxonomyService {
   constructor(private http: HttpClient) { }
 
   getTaxonomies(): any {
-    return this.http.get<Array<any>>(`https://ofypets.indiepet.co.in/api/v1/taxonomies?set=nested`);
+    return this.http.get<Array<any>>(`https://app.ofypets.com/api/v1/taxonomies?set=nested`);
   }
 
   getProducts(pageNumber: 1) {
