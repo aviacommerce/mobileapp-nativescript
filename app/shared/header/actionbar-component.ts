@@ -22,6 +22,4 @@ export class ActionBarComponent {
         this.searchBar = <SearchBar>args.object;
         alert("You are searching for " + this.searchBar.text);
     }
-
-  
 }
