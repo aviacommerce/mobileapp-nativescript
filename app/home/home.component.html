@@ -12,7 +12,7 @@
 		</StackLayout>
 		<StackLayout >
 			<RadListView [items]="texonomies.taxonomies[0].root.taxons">
-				<ListViewGridLayout tkListViewLayout scrollDirection="Vertical" ios:itemHeight="{{midItemHeight}}" spanCount="2"></ListViewGridLayout>
+				<ListViewGridLayout tkListViewLayout scrollDirection="Vertical" spanCount="2"></ListViewGridLayout>
 				<ng-template tkListItemTemplate let-item="item" let-odd="odd">
 					<StackLayout orientation="vertical">
 						<Label shadow="8" class="box" backgroundImage="{{item.icon}}" [text]="item.name"></Label>
@@ -25,7 +25,7 @@
 		</StackLayout>
 		<StackLayout >
 			<RadListView [items]="products.products">
-				<ListViewLinearLayout tkListViewLayout scrollDirection="Horizontal" ios:itemHeight="{{midItemHeight}}"></ListViewLinearLayout>
+				<ListViewLinearLayout tkListViewLayout scrollDirection="Horizontal" ></ListViewLinearLayout>
 				<ng-template let-product="item" let-i="index" let-odd="odd" let-even="even">
 					<StackLayout class="product-base" borderWidth="1" rows="*, *, *" columns="*, *" [nsRouterLink]="['/product', product.id]">
 						<StackLayout row="1" class="product-img">

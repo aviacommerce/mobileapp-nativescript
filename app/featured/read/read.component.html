@@ -1,6 +1,5 @@
-
 <StackLayout>
-    <RadListView [items]="tut[0]">
+    <RadListView [items]="tut">
         <ListViewLinearLayout tkListViewLayout scrollDirection="Horizontal"></ListViewLinearLayout>
         <ng-template let-product="item" let-i="index" let-odd="odd" let-even="even">
             <StackLayout class="product-base" borderWidth="1" rows="*, *, *" columns="*, *" [nsRouterLink]="['/product', product.id]">
@@ -10,8 +9,11 @@
             </StackLayout>
         </ng-template>
     </RadListView>
-</StackLayout> 
-
-<StackLayout>
-    <Label [text]="tut[0].name"></Label>
 </StackLayout>
+<RadListView [items]="tut" class="list-group">
+    <ng-template let-dataitem="item" let-i="index" let-third="third" let-header="header" let-footer="footer">
+        <GridLayout [class.third]="third" [class.header]="header" [class.footer]="footer" class="list-group-item">
+            <Label [text]="dataitem.name" android:class="label-item"></Label>
+        </GridLayout>
+    </ng-template>
+</RadListView>

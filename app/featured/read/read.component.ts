@@ -16,13 +16,13 @@ export class ReadComponent implements OnInit {
     tut
     // Section 2
     constructor(private store: Store<State>) {
-       
+       debugger
         this.tutorials = store.select('tutorial');
         this.tutorials.subscribe((result) => {
             this.tut = (result);        
         });
-        console.log(this.tut[0]);
-        
+       console.log(this.tut);
+
     }
     ngOnInit() { }
 }
