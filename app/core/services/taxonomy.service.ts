@@ -18,15 +18,4 @@ export class TaxonomyService {
   getProductDetail(id: string) {
     return this.http.get(`https://app.ofypets.com/api/v1/products/${id}?data_set=large`);
   }
-
-  private createRequestHeader() {
-    // set headers here e.g.
-    const headers = new HttpHeaders({
-      AuthKey: "my-key",
-      AuthToken: "my-token",
-      "Content-Type": "application/json"
-    });
-
-    return headers;
-  }
 }

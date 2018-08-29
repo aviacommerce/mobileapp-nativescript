@@ -19,7 +19,6 @@ import { reducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
-
 @NgModule({
     bootstrap: [
         AppComponent
@@ -33,10 +32,10 @@ import { EffectsModule } from '@ngrx/effects';
         NativeScriptRouterModule,
         NativeScriptFormsModule,
         NativeScriptUIListViewModule,
-				NgShadowModule,
-				StoreModule.forRoot(reducers ),
-  
-				
+        NgShadowModule,
+        StoreModule.forRoot(reducers),
+
+
 
     ],
     declarations: [
