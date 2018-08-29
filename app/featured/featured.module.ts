@@ -3,6 +3,7 @@ import { NativeScriptCommonModule } from "nativescript-angular/common";
 
 import { FeaturedRoutingModule } from "./featured-routing.module";
 import { FeaturedComponent } from "./featured.component";
+import { ReadComponent } from "~/featured/read/read.component";
 
 @NgModule({
     imports: [
@@ -10,7 +11,8 @@ import { FeaturedComponent } from "./featured.component";
         FeaturedRoutingModule
     ],
     declarations: [
-        FeaturedComponent
+        FeaturedComponent,
+        ReadComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

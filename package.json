@@ -29,6 +29,10 @@
     "nativescript-ui-listview": "^3.5.11",
     "nativescript-ui-sidedrawer": "~4.1.0",
     "reflect-metadata": "~0.1.10",
+    "@ngrx/effects": "^6.1.0",
+    "@ngrx/entity": "^6.1.0",
+    "@ngrx/store": "^6.1.0",
+    "@ngrx/store-devtools": "^6.1.0",
     "rxjs": "~6.1.0",
     "tns-core-modules": "4.1.1",
     "zone.js": "~0.8.18"

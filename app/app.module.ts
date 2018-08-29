@@ -14,6 +14,11 @@ import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 
 import { NgShadowModule } from "nativescript-ng-shadow";
 import { ProductService } from "~/core/services/product.service";
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
     bootstrap: [
@@ -28,7 +33,10 @@ import { ProductService } from "~/core/services/product.service";
         NativeScriptRouterModule,
         NativeScriptFormsModule,
         NativeScriptUIListViewModule,
-        NgShadowModule
+				NgShadowModule,
+				StoreModule.forRoot(reducers ),
+  
+				
 
     ],
     declarations: [

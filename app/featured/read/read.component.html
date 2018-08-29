@@ -1,0 +1,17 @@
+
+<StackLayout>
+    <RadListView [items]="tut[0]">
+        <ListViewLinearLayout tkListViewLayout scrollDirection="Horizontal"></ListViewLinearLayout>
+        <ng-template let-product="item" let-i="index" let-odd="odd" let-even="even">
+            <StackLayout class="product-base" borderWidth="1" rows="*, *, *" columns="*, *" [nsRouterLink]="['/product', product.id]">
+                <StackLayout row="3" class="product-name">
+                    <Label class="name" [text]="product.name"></Label>
+                </StackLayout>
+            </StackLayout>
+        </ng-template>
+    </RadListView>
+</StackLayout> 
+
+<StackLayout>
+    <Label [text]="tut[0].name"></Label>
+</StackLayout>
