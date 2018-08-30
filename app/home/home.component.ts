@@ -1,8 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
-import * as app from "application";
-import { RadSideDrawer } from "nativescript-ui-sidedrawer";
-import { SearchBar } from "ui/search-bar";
-
 import { registerElement } from "nativescript-angular/element-registry";
 import { TaxonomyService } from "~/core/services/taxonomy.service";
 registerElement("StarRating", () => require("nativescript-star-ratings").StarRating);
@@ -15,7 +11,6 @@ registerElement("StarRating", () => require("nativescript-star-ratings").StarRat
 })
 export class HomeComponent implements OnInit {
 	texonomies;
-	// tslint:disable-next-line:ban-types
 	products: Object;
 	taxonImageLink;
 	searchPhrase: string;
@@ -24,21 +19,21 @@ export class HomeComponent implements OnInit {
 	constructor(private myService: TaxonomyService) {
 
 	}
+
 	ngOnInit() {
 		this.extractData();
 	}
+	
 	extractData() {
 		this.myService.getTaxonomies()
 			.subscribe((result) => {
 				this.texonomies = (result);
-			
+
 			});
 		this.myService.getProducts(1)
 			.subscribe((productdata) => {
 				this.products = productdata;
-				
+
 			});
 	}
-
-
 }

@@ -1,14 +1,25 @@
+
+//Module
+import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptCommonModule } from "nativescript-angular/common";
-import { ProductComponent } from "~/product/product.component";
+
+//Routes
 import { ProductRoutingModule } from "~/product/product-routing.module";
+
+//Component
+import { ProductComponent } from "~/product/product.component";
+
+//Actions
 import { ProductActions } from "~/product/actions/product-actions";
 
+//Effects
 import { EffectsModule } from '@ngrx/effects';
 import { ProductEffects } from "~/product/effects/product.effects";
 
-import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
+//Share Module
 import { SharedModule } from "~/shared/shared.module";
+
 @NgModule({
   imports: [
     NativeScriptCommonModule,
@@ -24,8 +35,8 @@ import { SharedModule } from "~/shared/shared.module";
     NO_ERRORS_SCHEMA
   ],
   providers: [
-    ProductActions,
-
+    ProductActions
   ]
 })
+
 export class ProductModule { }

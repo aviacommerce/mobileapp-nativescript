@@ -10,7 +10,7 @@
 			<Label class="fa icon m-r-10" text="&#xf009;"></Label>
 			<Label text="Shop by Category"> </Label>
 		</StackLayout>
-		<StackLayout >
+		<StackLayout>
 			<RadListView [items]="texonomies.taxonomies[0].root.taxons">
 				<ListViewGridLayout tkListViewLayout scrollDirection="Vertical" spanCount="2"></ListViewGridLayout>
 				<ng-template tkListItemTemplate let-item="item" let-odd="odd">
@@ -23,9 +23,9 @@
 		<StackLayout class="promoimg">
 			<Image src="~/assets/promo.png" stretch="aspectFill"></Image>
 		</StackLayout>
-		<StackLayout >
+		<StackLayout>
 			<RadListView [items]="products.products">
-				<ListViewLinearLayout tkListViewLayout scrollDirection="Horizontal" ></ListViewLinearLayout>
+				<ListViewLinearLayout tkListViewLayout scrollDirection="Horizontal"></ListViewLinearLayout>
 				<ng-template let-product="item" let-i="index" let-odd="odd" let-even="even">
 					<StackLayout class="product-base" borderWidth="1" rows="*, *, *" columns="*, *" [nsRouterLink]="['/product', product.id]">
 						<StackLayout row="1" class="product-img">

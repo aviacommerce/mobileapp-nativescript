@@ -14,6 +14,7 @@ export interface State {
   readonly tutorial: Tutorial[],
   products: ProductState
 }
+
 export const reducers: ActionReducerMap<State> = {
   tutorial: reducer,
   products: fromProduct.reducer,

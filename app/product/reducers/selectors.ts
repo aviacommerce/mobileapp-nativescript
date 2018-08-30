@@ -1,7 +1,7 @@
 import { State } from '../../reducers';
 import { ProductState } from './product-state';
 import { createSelector } from 'reselect';
-import { Map, List, fromJS } from 'immutable';
+
 
 // Base product state selector function
 export function getProductState(state: State): ProductState {

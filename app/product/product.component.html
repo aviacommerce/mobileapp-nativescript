@@ -5,7 +5,7 @@
 		<Label text="34 Results" class="result-count" horizontalAlignment="center"></Label>
 	</StackLayout>
 	<StackLayout class="list">
-		<RadListView [items]="products.products"  class="list-group">
+		<RadListView [items]="products.products" class="list-group">
 			<ng-template let-product="item" let-i="index" let-odd="odd" let-even="even">
 				<GridLayout borderBottomWidth="1" class="product-base" rows="*, *, *" columns="*, *" [nsRouterLink]="['/product', product.id]">
 					<StackLayout col="0" class="imgcontainer" width="40%">

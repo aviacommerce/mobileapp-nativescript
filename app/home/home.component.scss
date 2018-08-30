@@ -1,12 +1,15 @@
 @import '../_app-variables.scss';
+
 .img-logo {
 	width: 130px
 }
 
 .container {
 	padding: 0 10dpi;
+
 	.savetoday {
 		padding: 7dpi 20dpi;
+
 		.discount {
 			background-color: $action-color;
 			padding: 5dpi 15dpi 5dpi;
@@ -17,6 +20,7 @@
 			font-weight: bold;
 			margin: 6dpi 10dpi 10dpi 0;
 		}
+
 		.autoship {
 			margin-top: 5dpi;
 			font-weight: bold;
@@ -25,16 +29,19 @@
 			word-wrap: break-word;
 		}
 	}
+
 	.shopby {
 		padding: 7dpi 10dpi;
 		font-size: 18em;
 		color: $secondary;
+
 		.icon {
 			margin-top: 2dpi;
 			font-size: 28em;
 			color: $accent-dark;
 		}
 	}
+
 	.box {
 		font-weight: bold;
 		font-size: 15em;
@@ -49,13 +56,6 @@
 	}
 }
 
-.layoutBackgroundImageURL {
-	background-image: url("https://docs.nativescript.org/img/cli-getting-started/angular/chapter0/NativeScript_logo.png");
-	background-repeat: no-repeat;
-	height: 120;
-	margin: 15;
-}
-
 .promoimg {
 	padding: 20dpi 4dpi;
 }
@@ -67,18 +67,22 @@
 	padding: 10dpi;
 	margin: 3dpi;
 	height: auto;
+
 	.product-img {
 		text-align: center
 	}
+
 	.product-name {
 		font-size: 15em;
 		color: $secondary;
+
 		.name {
 			white-space: normal;
 			word-wrap: break-word;
 			height: 160px;
 		}
 	}
+
 	.product-price {
 		font-size: 20dpi;
 		color: $action-price-color
