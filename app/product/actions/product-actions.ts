@@ -13,6 +13,7 @@ export class ProductActions {
   static GET_REVIEWS_SUCCESS = 'GET_REVIEWS_SUCCESS';
 
   getAllProducts(pageNumber = 1) {
+    
     return {
       type: ProductActions.GET_ALL_PRODUCTS,
       payload: pageNumber

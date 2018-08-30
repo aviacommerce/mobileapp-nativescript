@@ -33,26 +33,20 @@ export class ProductService {
      */
 
     getProduct(id: string): Observable<Product> {
+        debugger
         return this.http
             .get<Product>(
                 `https://app.ofypets.com/api/v1/products/${id}?data_set=large`
             )
-            .pipe(
-                map(resp => {
-                    return resp;
-                })
-            );
+         
     }
     getProducts(pageNumber: 1): Observable<Array<Product>> {
+    
         return this.http
             .get<Array<Product>>(
                 `https://app.ofypets.com/api/v1/products?q[s]=avg_rating+desc&page=${pageNumber}&per_page=20&data_set=small`
             )
-            .pipe(
-                map(
-                    resp => { return resp; }
-                )
-            );
+            
 
     }
     getproductsByKeyword(keyword: string) {

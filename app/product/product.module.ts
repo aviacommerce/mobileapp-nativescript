@@ -1,31 +1,31 @@
+import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
+import { NativeScriptCommonModule } from "nativescript-angular/common";
+import { ProductComponent } from "~/product/product.component";
+import { ProductRoutingModule } from "~/product/product-routing.module";
+import { ProductActions } from "~/product/actions/product-actions";
 
-import { NgModule } from '@angular/core';
+import { EffectsModule } from '@ngrx/effects';
+import { ProductEffects } from "~/product/effects/product.effects";
 
-import { ProductRoutingModule } from './product-routing.module';
-import { ProductComponent } from '~/product/product.component';
-
-// Components
-
-
+import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
+import { SharedModule } from "~/shared/shared.module";
 @NgModule({
-  declarations: [
-    // components
-  
-    ProductComponent,
-   
-    // pipes
-  ],
-  exports: [
-    // components
-  
-  ],
   imports: [
-   
+    NativeScriptCommonModule,
     ProductRoutingModule,
-  
+    EffectsModule.forRoot([ProductEffects]),
+    NativeScriptUIListViewModule,
+    SharedModule
+  ],
+  declarations: [
+    ProductComponent
+  ],
+  schemas: [
+    NO_ERRORS_SCHEMA
   ],
   providers: [
-    
+    ProductActions,
+
   ]
 })
 export class ProductModule { }

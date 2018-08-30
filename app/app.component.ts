@@ -31,10 +31,10 @@ export class AppComponent implements OnInit {
     }
 
     isComponentSelected(url: string): boolean {
-        return this._activatedUrl === url;
+        return this._activatedUrl === url;        
     }
 
-    onNavItemTap(navItemRoute: string): void {
+    onNavItemTap(navItemRoute: string): void {      
         this.routerExtensions.navigate([navItemRoute], {
             transition: {
                 name: "fade"
