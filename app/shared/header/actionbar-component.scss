@@ -1,17 +1,21 @@
-@import '../_app-variables.scss';
+@import '../../_app-variables';
+
 .img-logo {
-    width: 330px
+  width: 330px
 }
 
 .cart {
-    font-size: 25em;
+  font-size: 25em;
 }
 
 .num {
-    padding: 10px;
-    border-radius: 40px;
-    font-size: 10em;
-    background-color: #ae4700;
-    color: #fff;
+  padding: 10px;
+  border-radius: 40px;
+  font-size: 10em;
+  background-color: $action-price-color;
+  color: $white;
 }
-.sinput{background-color: red;}
+
+.sinput {
+  background-color: transparent;
+}

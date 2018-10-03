@@ -3,22 +3,22 @@ import * as app from "application";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 
 @Component({
-    selector: "Featured",
-    moduleId: module.id,
-    templateUrl: "./featured.component.html"
+  selector: "Featured",
+  moduleId: module.id,
+  templateUrl: "./featured.component.html"
 })
 export class FeaturedComponent implements OnInit {
 
-    constructor() {
-        // Use the component constructor to inject providers.
-    }
+  constructor() {
+    // Use the component constructor to inject providers.
+  }
 
-    ngOnInit(): void {
-        // Init your component properties here.
-    }
+  ngOnInit(): void {
+    // Init your component properties here.
+  }
 
-    onDrawerButtonTap(): void {
-        const sideDrawer = <RadSideDrawer>app.getRootView();
-        sideDrawer.showDrawer();
-    }
+  onDrawerButtonTap(): void {
+    const sideDrawer = <RadSideDrawer>app.getRootView();
+    sideDrawer.showDrawer();
+  }
 }
