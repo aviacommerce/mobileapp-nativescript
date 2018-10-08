@@ -6,7 +6,7 @@
   "nativescript": {
     "id": "org.nativescript.ofypetsapp",
     "tns-android": {
-      "version": "4.3.0-2018-08-29-02"
+      "version": "4.2.0"
     }
   },
   "scripts": {

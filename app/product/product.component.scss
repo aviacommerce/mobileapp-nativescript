@@ -16,6 +16,7 @@
     padding: 10dpi;
     height: auto;
     background-color: $background-light;
+    border-radius: 5dpi;
 
     .imgcontainer {
       text-align: center;
@@ -66,5 +67,55 @@
         margin-right: 2dpi;
       }
     }
+  }
+}
+
+.product-base {
+  width: 350px;
+  border-radius: 7px;
+  border-color: $item-color-android;
+  padding: 10dpi;
+  margin: 6dpi;
+  height: auto;
+
+  .product-img {
+    text-align: center
+  }
+
+  .product-name {
+    font-size: 15em;
+    color: $secondary;
+
+    .name {
+      white-space: normal;
+      word-wrap: break-word;
+      height: 160px;
+    }
+  }
+
+  .product-price {
+    font-size: 20dpi;
+    color: $action-price-color
+  }
+}
+
+.product-json {
+  text-overflow: normal;
+  white-space: normal
+}
+
+.product-detail {
+  .price {
+    font-size: 20dpi;
+    color: $action-price-color
+  }
+
+  .btn-primary {
+    background-color: transparent;
+    border-radius: 7px;
+    width: 96%;
+    margin: 10px;
+    border-color: $action-price-color;
+    color: $black;
   }
 }

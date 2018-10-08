@@ -8,14 +8,15 @@ export class TaxonomyService {
 	constructor(private http: HttpClient) { }
 
 	getTaxonomies(): any {
-		return this.http.get<Array<any>>(`https://app.ofypets.com/api/v1/taxonomies?set=nested`);
+		return this.http.get<Array<any>>(`api/v1/taxonomies?set=nested`);
 	}
 
 	getProducts(pageNumber: 1) {
-		return this.http.get(`https://app.ofypets.com/api/v1/products?page=${pageNumber}&per_page=20`);
+		return this.http.get(`api/v1/products?page=${pageNumber}&per_page=20`);
 	}
 
 	getProductDetail(id: string) {
-		return this.http.get(`https://app.ofypets.com/api/v1/products/${id}?data_set=large`);
+		return this.http.get(`api/v1/products/${id}?data_set=large`);
 	}
+	
 }
