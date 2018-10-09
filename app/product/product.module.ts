@@ -1,8 +1,10 @@
 
 //Module
-import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptCommonModule } from "nativescript-angular/common";
+import { NativeScriptFormsModule } from "nativescript-angular/forms";
+import { NativeScriptRouterModule } from "nativescript-angular/router";
+import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 
 //Routes
 import { ProductRoutingModule } from "~/product/product-routing.module";
@@ -19,7 +21,6 @@ import { ProductEffects } from "~/product/effects/product.effects";
 
 //Share Module
 import { SharedModule } from "~/shared/shared.module";
-
 @NgModule({
   imports: [
     NativeScriptCommonModule,
