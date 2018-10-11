@@ -25,7 +25,11 @@ import { TaxonomyService } from "~/core/services/taxonomy.service";
 
 //Reducer
 import { reducers } from './reducers';
-
+import { CheckoutService } from "~/core/services/checkout.service";
+import { CheckoutActions } from "~/checkout/actions/checkout.actions";
+import { EffectsModule } from "@ngrx/effects";
+import { CheckoutEffects } from "~/checkout/effects/checkout.effects";
+require( "nativescript-localstorage" );
 @NgModule({
   bootstrap: [
     AppComponent
@@ -42,6 +46,9 @@ import { reducers } from './reducers';
     NgShadowModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument(),
+    EffectsModule.forRoot([
+      CheckoutEffects
+    ]),
   ],
   declarations: [
     AppComponent
@@ -52,6 +59,8 @@ import { reducers } from './reducers';
   providers: [
     TaxonomyService,
     ProductService,
+    CheckoutService,
+    CheckoutActions,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ]
 })

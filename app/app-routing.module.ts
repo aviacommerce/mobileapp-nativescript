@@ -10,7 +10,12 @@ const routes: Routes = [
   { path: "search", loadChildren: "./search/search.module#SearchModule" },
   { path: "featured", loadChildren: "./featured/featured.module#FeaturedModule" },
   { path: "settings", loadChildren: "./settings/settings.module#SettingsModule" },
-  { path: "product", loadChildren: "./product/product.module#ProductModule" }
+  { path: "product", loadChildren: "./product/product.module#ProductModule" },
+  {
+    path: 'checkout',
+    loadChildren: './checkout/checkout.module#CheckoutModule',
+    data: { preload: true, delay: true },
+  },
 ];
 @NgModule({
   imports: [NativeScriptRouterModule.forRoot(routes)],

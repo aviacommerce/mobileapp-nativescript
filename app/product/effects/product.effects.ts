@@ -27,7 +27,6 @@ export class ProductEffects {
         this.productActions.getAllProductsSuccess({ products: data })
       )
     );
-
   @Effect()
   GetProductDetail$: Observable<Action> = this.actions$
     .ofType(ProductActions.GET_PRODUCT_DETAIL)
@@ -37,6 +36,17 @@ export class ProductEffects {
       ),
       map((product: Product) =>
         this.productActions.getProductDetailSuccess({ product })
+      )
+    );
+  @Effect()
+  GetReview$: Observable<Action> = this.actions$
+    .ofType(ProductActions.GET_REVIEWS)
+    .pipe(
+      switchMap((action: any) =>
+        this.productService.getProductReviews(action.payload)
+      ),
+      map((data: any) =>
+        this.productActions.getProductReviewsSuccess({ reviews: data })
       )
     );
 }

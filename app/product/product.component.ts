@@ -5,13 +5,18 @@ import { Product } from "../core/models/product";
 import { State } from "../reducers";
 import { Store } from "@ngrx/store";
 import { ProductActions } from './../product/actions/product-actions';
-import { getProducts, showAllProducts, relatedProducts } from "../product/reducers/selectors";
+import { getProducts, showAllProducts, relatedProducts, productReviews } from "../product/reducers/selectors";
 import * as app from "application";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ProductService } from "~/core/services/product.service";
 import { SearchActions } from "~/search/action/search.actions";
 import { getProductsByKeyword } from "~/search/reducers/selectors";
 import { switchMap } from "rxjs/operators";
+import { registerElement } from 'nativescript-angular/element-registry';
+import { FormGroup } from "@angular/forms";
+import { TextField } from "tns-core-modules/ui/text-field";
+import { CheckoutActions } from '../checkout/actions/checkout.actions'
+
 @Component({
   selector: "Product",
   moduleId: module.id,
@@ -22,15 +27,31 @@ import { switchMap } from "rxjs/operators";
 export class ProductComponent implements OnInit, OnDestroy {
   products$: Observable<Product>;
   products: Product;
-  relatedProducts$: Observable<Array<Product>>;
+  relatedProducts$: Observable<any>;
   similarProducts$: Observable<Array<Product>>
-  product;
+  reviewProducts$: Observable<any>;
+  product ;
   relatedProducts;
   similarProducts;
   subscriptionList$: Array<Subscription> = [];
-
-  constructor(private store: Store<State>, private actions: ProductActions, private ProductService: ProductService,
-    private route: ActivatedRoute, private router: Router, private searchActions: SearchActions) {
+  reviews;
+  queryParams: any
+  showThanks = false;  
+  submitReview = true;
+  reviewForm: FormGroup;
+  result;
+  firstTx: string = "";
+  rate: Number;
+  title: String;
+  review: String;
+  constructor(
+    private store: Store<State>,
+    private actions: ProductActions,
+    private ProductService: ProductService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private searchActions: SearchActions,
+    private checkoutActions: CheckoutActions) {
   }
 
   ngOnInit(): void {
@@ -40,10 +61,11 @@ export class ProductComponent implements OnInit, OnDestroy {
       this.ProductService.getProductDetail(id).subscribe(data => {
         this.product = data;
       }),
-      this.store.select(showAllProducts).subscribe((productdata) => {
-        this.products = productdata;
-      })
     );
+    this.products$ = this.store.select(showAllProducts)
+    this.store.dispatch(this.actions.getProductReviews(id));
+    this.reviewProducts$ = this.store.select(productReviews);
+   
   }
 
   onDrawerButtonTap(): void {
@@ -63,4 +85,45 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.subscriptionList$.map(sub$ => sub$.unsubscribe());
   }
 
+  parse(formData) {
+    return {
+      review: {
+        rating: formData.rating.toString(),
+        name: formData.name,
+        title: formData.title,
+        review: formData.review,
+      }
+    }
+  }
+  onSubmit(prodId) {
+    if (this.reviewForm.valid) {
+      const values = this.reviewForm.value;
+      const params = this.parse(values)
+      this.ProductService.submitReview(prodId, params)
+        .subscribe(res => {
+          this.result = res;
+          if (this.result === 'info') {
+            this.goToProduct(this.product.slug);
+          } else if (this.result === 'success') {
+            this.showThanks = true;
+            this.submitReview = false;
+          } else {
+            this.goToProduct(this.product.slug)
+          }
+        })
+    }
+  }
+  goToProduct(prodId) {
+    this.router.navigate([prodId])
+  }
+  // submit() {
+  //   alert(this.title);
+  // }
+
+  addToCart() {
+    alert(this.product.id);
+    this.store.dispatch(
+      this.checkoutActions.addToCart(this.product.id, 1)
+     );
+  }
 }

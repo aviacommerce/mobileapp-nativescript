@@ -1,5 +1,6 @@
 
 import { Injectable, Injector } from '@angular/core';
+import { environment } from '../../environments/environment';
 import {
   HttpRequest,
   HttpHandler,
@@ -10,7 +11,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  environment = "https://app.ofypets.com/"
+  
   constructor() {   }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -25,7 +26,7 @@ export class TokenInterceptor implements HttpInterceptor {
     if (url.indexOf('http://') >= 0 || url.indexOf('https://') >= 0) {
       return url;
     } else {
-      return this.environment + url;
+      return environment.apiEndpoint + url;
     }
   }
 }

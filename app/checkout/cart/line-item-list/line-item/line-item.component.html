@@ -1,0 +1,16 @@
+<GridLayout borderBottomWidth="1" class="p-b-10" rows="*, *, *" columns="*, *">
+  <StackLayout col="0" class="imgcontainer" width="40%">
+    <Image [src]="image" stretch="aspectFit" height="120" class="img" class="m-r-20"></Image>
+  </StackLayout>
+  <StackLayout col="1" colSpan="2" width="90%">
+    <Label [text]="name" class="product-name"></Label>
+    <Label col="1" [text]="optionTxt" class="product-name p-y-10"> </Label>
+    <Label col="1" [text]="amount" class="product-price p-y-10"> </Label>
+    <Label class="free-ship m-b-5 m-t-5">
+      <FormattedString>
+        <Span class="m-r-20" text="QTY : "></Span>
+        <Span [text]="quantityCount"></Span>
+      </FormattedString>
+    </Label>
+  </StackLayout>
+</GridLayout>
