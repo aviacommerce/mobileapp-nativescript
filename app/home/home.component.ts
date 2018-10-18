@@ -1,14 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit, OnDestroy } from "@angular/core";
-import { registerElement } from "nativescript-angular/element-registry";
-import { TaxonomyService } from "~/core/services/taxonomy.service";
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
-import { State } from "../reducers";
+import { registerElement } from "nativescript-angular/element-registry";
+import { Observable, Subscription } from "rxjs";
+import { Product } from "~/core/models/product";
+import { TaxonomyService } from "~/core/services/taxonomy.service";
 import { ProductActions } from "~/product/actions/product-actions";
 import { showAllProducts } from "~/product/reducers/selectors";
-import { ProductService } from "~/core/services/product.service";
-import { ActivatedRoute, Route, Router } from "@angular/router";
-import { Observable, Subscription } from 'rxjs';
-import { Product } from "~/core/models/product";
+import { IappState } from "~/reducers";
 registerElement("StarRating", () => require("nativescript-star-ratings").StarRating);
 @Component({
   selector: "Home",
@@ -21,17 +20,19 @@ registerElement("StarRating", () => require("nativescript-star-ratings").StarRat
 export class HomeComponent implements OnInit, OnDestroy {
   texonomies;
   products$: Observable<Product>;
-  products: Object;
+  products: object;
   taxonImageLink;
   searchPhrase: string;
   searchBar;
-  public isAndroid: boolean;
-  public isIos: boolean;
+  isAndroid: boolean;
+  isIos: boolean;
   productID;
   promoImg = "../assets/promo.png";
   subscriptionList$: Array<Subscription> = [];
-  constructor(private myService: TaxonomyService, private ProductService: ProductService,
-    private route: ActivatedRoute, private router: Router, private store: Store<State>, private actions: ProductActions) {
+  constructor(
+    private myService: TaxonomyService,
+    private router: Router, private store: Store<IappState>,
+    private actions: ProductActions) {
   }
 
   ngOnInit() {
@@ -40,24 +41,24 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   extractData() {
     this.store.dispatch(this.actions.getAllProducts(1));
-    this.subscriptionList$.push(      
+    this.subscriptionList$.push(
       this.myService.getTaxonomies()
         .subscribe((result) => {
           this.texonomies = (result);
         })
-    )
+    );
     this.products$ = this.store.select(showAllProducts);
   }
 
   productDetail(productId) {
-    this.router.navigate(['/product'], {
+    this.router.navigate(["/product"], {
       queryParams: {
-        'id': productId
+        id: productId
       }
     });
   }
 
   ngOnDestroy() {
-    this.subscriptionList$.map(sub$ => sub$.unsubscribe());
+    this.subscriptionList$.map((sub$) => sub$.unsubscribe());
   }
 }

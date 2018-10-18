@@ -4106,6 +4106,10 @@ nativescript-intl@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/nativescript-intl/-/nativescript-intl-3.0.0.tgz#82ee9be7d377172b3c4295734723037628e186a7"
 
+nativescript-localstorage@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/nativescript-localstorage/-/nativescript-localstorage-2.0.0.tgz#b8807e76bfbac11ed62c0e33e411f5b063727881"
+
 nativescript-ng-shadow@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/nativescript-ng-shadow/-/nativescript-ng-shadow-2.1.0.tgz#acc5bf2abe9f6b1d20612750ece719cf455c7e65"

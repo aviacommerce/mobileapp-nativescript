@@ -1,0 +1,33 @@
+<ab-component></ab-component>
+<FlexboxLayout class="page">
+  <StackLayout class="form">
+    <Image class="logo" src="~/assets/logo.png"></Image>
+    <StackLayout class="input-field">
+      <TextField class="input" hint="Email" keyboardType="email" autocorrect="false" autocapitalizationType="none"
+        [(ngModel)]="user.email" returnKeyType="next" (returnPress)="focusPassword()"></TextField>
+      <StackLayout class="hr-light"></StackLayout>
+    </StackLayout>
+
+    <StackLayout class="input-field">
+      <TextField #password class="input" hint="Password" secure="true" [(ngModel)]="user.password" [returnKeyType]="isLoggingIn ? 'done' : 'next'"
+        (returnPress)="focusConfirmPassword()"></TextField>
+      <StackLayout class="hr-light"></StackLayout>
+    </StackLayout>
+
+    <StackLayout *ngIf="!isLoggingIn" class="input-field">
+      <TextField #confirmPassword class="input" hint="Confirm password" secure="true" [(ngModel)]="user.confirmPassword"
+        returnKeyType="done"></TextField>
+      <StackLayout class="hr-light"></StackLayout>
+    </StackLayout>
+
+    <Button [text]="isLoggingIn ? 'Log In' : 'Sign Up'" (tap)="submit()" class="btn btn-primary m-t-20"></Button>
+    <Label *ngIf="isLoggingIn" text="Forgot your password?" class="login-label" (tap)="forgotPassword()"></Label>
+  </StackLayout>
+
+  <Label class="login-label sign-up-label" (tap)="toggleForm()">
+    <FormattedString>
+      <Span [text]="isLoggingIn ? 'Don’t have an account? ' : 'Back to Login'"></Span>
+      <Span [text]="isLoggingIn ? 'Sign up' : ''" class="bold"></Span>
+    </FormattedString>
+  </Label>
+</FlexboxLayout>

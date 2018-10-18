@@ -24,4 +24,6 @@ export class User {
   error?: {error: string, errors: Object};
   access_token: string;
   client: string;
+  password: string;
+  confirmPassword: string;
 }

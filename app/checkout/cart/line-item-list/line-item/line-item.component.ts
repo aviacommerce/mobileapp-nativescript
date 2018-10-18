@@ -1,15 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { LineItem } from '~/core/models/line_item';
-import { State } from '~/home/reducers';
-import { Store } from '@ngrx/store';
-import { CheckoutService } from '~/core/services/checkout.service';
-import { CheckoutActions } from '~/checkout/actions/checkout.actions';
+import { Component, Input, OnInit } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { CheckoutActions } from "~/checkout/actions/checkout.actions";
+import { LineItem } from "~/core/models/line_item";
+import { IappState } from "~/reducers";
 
 @Component({
   moduleId: module.id,
-  selector: 'line-item',
-  templateUrl: './line-item.component.html',
-  styleUrls: ['./line-item.component.css']
+  selector: "line-item",
+  templateUrl: "./line-item.component.html",
+  styleUrls: ["./line-item.component.css"]
 })
 
 export class LineItemComponent implements OnInit {
@@ -21,9 +20,8 @@ export class LineItemComponent implements OnInit {
   quantityCount: number;
   optionTxt: string;
   constructor(
-    private store: Store<State>,
-    private checkoutService: CheckoutService,
-    private checkoutActions: CheckoutActions,
+    private store: Store<IappState>,
+    private checkoutActions: CheckoutActions
 
   ) { }
 

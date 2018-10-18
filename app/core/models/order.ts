@@ -1,12 +1,6 @@
-/*
- * Order model
- * Detailed info http://guides.spreecommerce.org/developer/orders.html
- * Public API's http://guides.spreecommerce.org/api/orders.html
- */
-
-import { LineItem } from './line_item';
-import { Address } from './address';
-import { Payment } from './payment';
+import { Address } from "./address";
+import { LineItem } from "./line_item";
+import { Payment } from "./payment";
 
 export class Order {
   id: number;
@@ -45,6 +39,7 @@ export class Order {
 
 // NOTE: This just mimics the serializer exposed in the API
 // Not sure if it is required, review it in APRIL
+// tslint:disable-next-line:max-classes-per-file
 export class LightOrder {
   number: string;
   payment_state: string;
