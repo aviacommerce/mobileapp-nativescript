@@ -72,6 +72,7 @@ export class ProductActions {
 
   getProductReviews(product_id: any) {
     return {
+
       type: ProductActions.GET_REVIEWS,
       payload: product_id
     };

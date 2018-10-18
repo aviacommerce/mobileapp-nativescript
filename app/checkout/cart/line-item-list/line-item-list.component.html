@@ -1,0 +1,24 @@
+<ab-component></ab-component>
+<FlexLayout class="lineitem prod-item">
+  <StackLayout class="savetoday" orientation="horizontal">
+    <Label class="m-r-10 discount" text="Save 30% Today"></Label>
+    <Label class="autoship" text="On Your First Autoship"> </Label>
+  </StackLayout>
+  <StackLayout class="p-t-0"> </StackLayout>
+  <StackLayout *ngIf="lineItems$ | async; let lineItems">
+    <ListView [items]="lineItems">
+      <StackLayout *ngFor="let item of lineItems" class="p-t-10 p-b-10">
+        <line-item [lineItem]="item"></line-item>
+      </StackLayout>
+    </ListView>
+  </StackLayout>
+</FlexLayout>
+<AbsoluteLayout backgroundColor="lightgray">
+  <Label class="m-r-10 discount"></Label>
+  <Button class="btn btn-primary btn-active" id="button" text="Proceed To checkout" left="0" bottom="10">
+    <FormattedString>
+      <Stacklayout><Label class="m-r-20" text="{{itemTotal| number:'1.2-2'}}"></Label></Stacklayout>
+      <Stacklayout><Label text="Proceed To checkout"></Label></Stacklayout>
+    </FormattedString>
+  </Button>
+</AbsoluteLayout>

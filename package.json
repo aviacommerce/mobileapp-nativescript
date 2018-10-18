@@ -28,6 +28,7 @@
     "@ngrx/store-devtools": "^6.1.0",
     "immutable": "^3.8.2",
     "nativescript-angular": "~6.0.6",
+    "nativescript-localstorage": "^2.0.0",
     "nativescript-ng-shadow": "^2.1.0",
     "nativescript-star-ratings": "^1.0.0",
     "nativescript-theme-core": "~1.0.4",

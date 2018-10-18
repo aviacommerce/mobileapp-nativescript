@@ -1,22 +1,26 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptCommonModule } from "nativescript-angular/common";
-import { FeaturedRoutingModule } from "./featured-routing.module";
-import { FeaturedComponent } from "./featured.component";
 import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
+import { CartComponent } from "./cart.component";
+import { CartRoutingModule } from "./cart-routing.module";
 import { SharedModule } from "~/shared/shared.module";
+import { LineItemListComponent } from './line-item-list/line-item-list.component';
+import { LineItemComponent } from './line-item-list/line-item/line-item.component'
 @NgModule({
   imports: [
     NativeScriptCommonModule,
-    FeaturedRoutingModule,
+    CartRoutingModule,
     NativeScriptUIListViewModule,
-
     SharedModule
   ],
   declarations: [
-    FeaturedComponent,
+    CartComponent,
+    LineItemListComponent,
+    LineItemComponent
   ],
   schemas: [
     NO_ERRORS_SCHEMA
   ]
 })
-export class FeaturedModule { }
+
+export class CartModule { }
