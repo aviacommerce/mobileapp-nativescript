@@ -1,22 +1,22 @@
-import { LineItem } from './../../core/models/line_item';
-import { Order } from './../../core/models/order';
+import { LineItem } from "./../../core/models/line_item";
+import { Order } from "./../../core/models/order";
 
 export class CheckoutActions {
-  static FETCH_CURRENT_ORDER = 'FETCH_CURRENT_ORDER';
-  static FETCH_CURRENT_ORDER_SUCCESS = 'FETCH_CURRENT_ORDER_SUCCESS';
-  static ADD_TO_CART = 'ADD_TO_CART';
-  static ADD_TO_CART_SUCCESS = 'ADD_TO_CART_SUCCESS';
-  static REMOVE_LINE_ITEM = 'REMOVE_LINE_ITEM';
-  static REMOVE_LINE_ITEM_SUCCESS = 'REMOVE_LINE_ITEM_SUCCESS';
-  static CHANGE_LINE_ITEM_QUANTITY = 'CHANGE_LINE_ITEM_QUANTITY';
-  static PLACE_ORDER = 'PLACE_ORDER';
-  static CHANGE_ORDER_STATE = 'CHANGE_ORDER_STATE';
-  static CHANGE_ORDER_STATE_SUCCESS = 'CHANGE_ORDER_STATE_SUCCESS';
-  static UPDATE_ORDER = 'UPDATE_ORDER';
-  static UPDATE_ORDER_SUCCESS = 'UPDATE_ORDER_SUCCESS';
-  static ORDER_COMPLETE_SUCCESS = 'ORDER_COMPLETE_SUCCESS';
-  static GET_ORDER_DETAILS = 'GET_ORDER_DETAILS';
-  static GET_ORDER_DETAILS_SUCCESS = 'GET_ORDER_DETAILS_SUCCESS';
+  static FETCH_CURRENT_ORDER = "FETCH_CURRENT_ORDER";
+  static FETCH_CURRENT_ORDER_SUCCESS = "FETCH_CURRENT_ORDER_SUCCESS";
+  static ADD_TO_CART = "ADD_TO_CART";
+  static ADD_TO_CART_SUCCESS = "ADD_TO_CART_SUCCESS";
+  static REMOVE_LINE_ITEM = "REMOVE_LINE_ITEM";
+  static REMOVE_LINE_ITEM_SUCCESS = "REMOVE_LINE_ITEM_SUCCESS";
+  static CHANGE_LINE_ITEM_QUANTITY = "CHANGE_LINE_ITEM_QUANTITY";
+  static PLACE_ORDER = "PLACE_ORDER";
+  static CHANGE_ORDER_STATE = "CHANGE_ORDER_STATE";
+  static CHANGE_ORDER_STATE_SUCCESS = "CHANGE_ORDER_STATE_SUCCESS";
+  static UPDATE_ORDER = "UPDATE_ORDER";
+  static UPDATE_ORDER_SUCCESS = "UPDATE_ORDER_SUCCESS";
+  static ORDER_COMPLETE_SUCCESS = "ORDER_COMPLETE_SUCCESS";
+  static GET_ORDER_DETAILS = "GET_ORDER_DETAILS";
+  static GET_ORDER_DETAILS_SUCCESS = "GET_ORDER_DETAILS_SUCCESS";
 
   fetchCurrentOrder() {
     return { type: CheckoutActions.FETCH_CURRENT_ORDER };
@@ -98,13 +98,13 @@ export class CheckoutActions {
     return {
       type: CheckoutActions.GET_ORDER_DETAILS,
       payload: order_number
-    }
+    };
   }
 
   getOrderDetailsSuccess(order: Order) {
     return {
       type: CheckoutActions.GET_ORDER_DETAILS,
       payload: order
-    }
+    };
   }
 }

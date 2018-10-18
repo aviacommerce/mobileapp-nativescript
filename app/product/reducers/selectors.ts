@@ -1,10 +1,9 @@
-import { State } from '../../reducers';
-import { ProductState } from './product-state';
-import { createSelector } from 'reselect';
-
+import { createSelector } from "reselect";
+import { IappState } from "../../reducers";
+import { ProductState } from "./product-state";
 
 // Base product state selector function
-export function getProductState(state: State): ProductState {
+export function getProductState(state: IappState): ProductState {
   return state.products;
 }
 
@@ -12,7 +11,8 @@ export function getProductState(state: State): ProductState {
 export function fetchProducts(state: ProductState) {
   const ids = state.productIds.toJS();
   const productEntities = state.productEntities.toJS();
-  return ids.map(id => productEntities[id]);
+
+  return ids.map((id) => productEntities[id]);
 }
 
 export function fetchAllTaxonomies(state: ProductState) {
@@ -46,4 +46,3 @@ export const showAllProducts = createSelector(getProductState, fetchAllProductSe
 export const relatedProducts = createSelector(getProductState, fetchReletedProducts);
 export const productReviews = createSelector(getProductState, fetchProductReviews);
 export const rootTaxonomyId = createSelector(getProductState, fetchRootTaxonId);
-

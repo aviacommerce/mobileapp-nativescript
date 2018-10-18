@@ -1,35 +1,28 @@
 
-// Routes
-import { AppRoutingModule } from "~/app-routing.module";
-
-//Component
-import { AppComponent } from "~/app.component";
-
-//Module
-
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
+import { EffectsModule } from "@ngrx/effects";
+import { StoreModule } from "@ngrx/store";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
-import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angular/side-drawer-directives";
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
-import { NativeScriptFormsModule } from "nativescript-angular/forms";
-import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 import { NgShadowModule } from "nativescript-ng-shadow";
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { TokenInterceptor } from './core/interceptors/interceptor';
-//service
+import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
+import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angular/side-drawer-directives";
+import { AppRoutingModule } from "~/app-routing.module";
+import { AppComponent } from "~/app.component";
 import { ProductService } from "~/core/services/product.service";
 import { TaxonomyService } from "~/core/services/taxonomy.service";
+import { AuthActions } from "./auth/actions/auth.actions";
+import { CheckoutActions } from "./checkout/actions/checkout.actions";
+import { CheckoutEffects } from "./checkout/effects/checkout.effects";
+import { TokenInterceptor } from "./core/interceptors/interceptor";
+import { AuthService } from "./core/services/auth.service";
+import { CheckoutService } from "./core/services/checkout.service";
+import { reducers } from "./reducers";
 
-//Reducer
-import { reducers } from './reducers';
-import { CheckoutService } from "~/core/services/checkout.service";
-import { CheckoutActions } from "~/checkout/actions/checkout.actions";
-import { EffectsModule } from "@ngrx/effects";
-import { CheckoutEffects } from "~/checkout/effects/checkout.effects";
-require( "nativescript-localstorage" );
 @NgModule({
   bootstrap: [
     AppComponent
@@ -49,6 +42,7 @@ require( "nativescript-localstorage" );
     EffectsModule.forRoot([
       CheckoutEffects
     ]),
+    StoreDevtoolsModule.instrument()
   ],
   declarations: [
     AppComponent
@@ -61,7 +55,9 @@ require( "nativescript-localstorage" );
     ProductService,
     CheckoutService,
     CheckoutActions,
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    AuthService,
+    AuthActions,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ]
 })
 
