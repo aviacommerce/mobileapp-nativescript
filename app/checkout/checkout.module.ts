@@ -1,12 +1,12 @@
-import { CheckoutEffects } from './effects/checkout.effects';
-import { EffectsModule } from '@ngrx/effects';
-import { CheckoutActions } from './actions/checkout.actions';
-import { CartModule } from './cart/cart.module';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { routes } from './checkout.routes';
-import { SharedModule } from '~/shared/shared.module';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { RouterModule } from "@angular/router";
+import { EffectsModule } from "@ngrx/effects";
+import { SharedModule } from "~/shared/shared.module";
+import { CheckoutActions } from "./actions/checkout.actions";
+import { CartModule } from "./cart/cart.module";
+import { routes } from "./checkout.routes";
+import { CheckoutEffects } from "./effects/checkout.effects";
 
 @NgModule({
   imports: [
@@ -17,14 +17,14 @@ import { SharedModule } from '~/shared/shared.module';
     ]),
     CartModule,
     SharedModule
-    
+
   ],
   declarations: [
 
   ],
   providers: [
     CheckoutActions
-    
+
   ]
 })
 export class CheckoutModule { }

@@ -1,11 +1,11 @@
 
-import { SearchState } from './search.state';
-import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { State } from '../../reducers';
+import { createSelector } from "@ngrx/store";
+import { IappState } from "../../reducers";
+import { SearchState } from "./search.state";
 
 /******************* Base Search State ******************/
 
-export function getSearchState(state: State): SearchState {
+export function getSearchState(state: IappState): SearchState {
   return state.search;
 }
 /******************* Individual selectors ******************/

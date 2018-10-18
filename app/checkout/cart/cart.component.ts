@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
+import { Store } from "@ngrx/store";
 import * as app from "application";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
-import { Observable } from 'rxjs';
-import { Store } from "@ngrx/store";
-import { State } from "~/reducers";
-import { getTotalCartValue, getTotalCartItems, getItemTotal } from "~/checkout/reducers/selectors";
+import { Observable } from "rxjs";
+import { getItemTotal, getTotalCartItems, getTotalCartValue } from "~/checkout/reducers/selectors";
+import { IappState } from "~/reducers";
 @Component({
   selector: "Featured",
   moduleId: module.id,
@@ -17,7 +17,7 @@ export class CartComponent implements OnInit {
   shipTotal$: Observable<number>;
   itemTotal$: Observable<number>;
 
-  constructor(private store: Store<State>) {
+  constructor(private store: Store<IappState>) {
     this.totalCartValue$ = this.store.select(getTotalCartValue);
     this.totalCartItems$ = this.store.select(getTotalCartItems);
     this.itemTotal$ = this.store.select(getItemTotal);
@@ -31,5 +31,4 @@ export class CartComponent implements OnInit {
     const sideDrawer = <RadSideDrawer>app.getRootView();
     sideDrawer.showDrawer();
   }
-  
 }

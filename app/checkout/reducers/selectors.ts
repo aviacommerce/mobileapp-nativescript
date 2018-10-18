@@ -1,10 +1,9 @@
-import { CheckoutState } from './checkout.state';
-import { State } from '../../reducers';
-import { createSelector } from 'reselect';
-import { Map, Record, List, fromJS } from 'immutable';
+import { createSelector } from "reselect";
+import { IappState } from "../../reducers";
+import { CheckoutState } from "./checkout.state";
 
 // Base Cart State function
-export function getCheckoutState(state: State): CheckoutState {
+export function getCheckoutState(state: IappState): CheckoutState {
   return state.checkout;
 }
 
@@ -12,7 +11,8 @@ export function getCheckoutState(state: State): CheckoutState {
 export function fetchLineItems(state: CheckoutState) {
   const ids = state.lineItemIds.toJS();
   const lineItemEntitites = state.lineItemEntities.toJS();
-  return ids.map(id => lineItemEntitites[id]);
+
+  return ids.map((id) => lineItemEntitites[id]);
 }
 
 export function fetchOrderNumber(state: CheckoutState) {

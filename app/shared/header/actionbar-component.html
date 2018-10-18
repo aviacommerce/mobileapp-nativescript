@@ -1,25 +1,12 @@
 <ActionBar class="action-bar">
-  <!-- 
-    Use the NavigationButton as a side-drawer button in Android
-    because ActionItems are shown on the right side of the ActionBar
-    -->
   <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
-  <!-- 
-    Use the ActionItem for IOS with position set to left. Using the
-    NavigationButton as a side-drawer button in iOS is not possible,
-    because its function is to always navigate back in the application.
-    -->
   <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()" ios.position="left">
   </ActionItem>
   <ActionItem ios.position="right" class="fa">
-    <!-- <Label class="fa cart" text="&#xf07a;"></Label>
-        <AbsoluteLayout>
-            <Label class="cart" text="jay"></Label>
-        </AbsoluteLayout> -->
-    <AbsoluteLayout [nsRouterLink]="['/checkout/cart']" (tap)= "abc()">
+    <AbsoluteLayout [nsRouterLink]="['/checkout/cart']" (tap)="navigateToCart()">
       <Label left="10" top="0" width="50" height="50" class="fa cart" text="&#xf07a;"></Label>
       <Label [text]="totalCartItems | async" left="35" top="5" style="padding:10px;border-radius: 40px;font-size:10em;background-color: #ae4700;color:#fff;"></Label>
-    </AbsoluteLayout> 
+    </AbsoluteLayout>
   </ActionItem>
   <Label class="action-bar-title" text="Featured"></Label>
   <Image class="img-logo" src="https://cdn.shopify.com/s/files/1/1636/8341/t/9/assets/logo.png?7537922900183348109"></Image>

@@ -1,56 +1,55 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { RadSideDrawer } from "nativescript-ui-sidedrawer";
-import { Observable, Subscription } from 'rxjs';
-import { Product } from "../core/models/product";
-import { State } from "../reducers";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
-import { ProductActions } from './../product/actions/product-actions';
-import { getProducts, showAllProducts, relatedProducts, productReviews } from "../product/reducers/selectors";
 import * as app from "application";
-import { Router, ActivatedRoute } from "@angular/router";
+import { registerElement } from "nativescript-angular/element-registry";
+import { RadSideDrawer } from "nativescript-ui-sidedrawer";
+import { Observable, Subscription } from "rxjs";
+import { switchMap } from "rxjs/operators";
+import { TextField } from "tns-core-modules/ui/text-field";
 import { ProductService } from "~/core/services/product.service";
 import { SearchActions } from "~/search/action/search.actions";
 import { getProductsByKeyword } from "~/search/reducers/selectors";
-import { switchMap } from "rxjs/operators";
-import { registerElement } from 'nativescript-angular/element-registry';
-import { FormGroup } from "@angular/forms";
-import { TextField } from "tns-core-modules/ui/text-field";
-import { CheckoutActions } from '../checkout/actions/checkout.actions'
+import { CheckoutActions } from "../checkout/actions/checkout.actions";
+import { Product } from "../core/models/product";
+import { getProducts, productReviews, relatedProducts, showAllProducts } from "../product/reducers/selectors";
+import { IappState } from "../reducers";
+import { ProductActions } from "./../product/actions/product-actions";
 
 @Component({
   selector: "Product",
   moduleId: module.id,
   templateUrl: "./product.component.html",
-  styleUrls: ["./product.component.scss"],
+  styleUrls: ["./product.component.scss"]
 })
 
 export class ProductComponent implements OnInit, OnDestroy {
   products$: Observable<Product>;
   products: Product;
   relatedProducts$: Observable<any>;
-  similarProducts$: Observable<Array<Product>>
+  similarProducts$: Observable<Array<Product>>;
   reviewProducts$: Observable<any>;
-  product ;
+  product;
   relatedProducts;
   similarProducts;
   subscriptionList$: Array<Subscription> = [];
   reviews;
-  queryParams: any
-  showThanks = false;  
+  queryParams: object;
+  showThanks = false;
   submitReview = true;
   reviewForm: FormGroup;
   result;
   firstTx: string = "";
-  rate: Number;
-  title: String;
-  review: String;
+  rate: number;
+  title: string;
+  review: string;
   constructor(
-    private store: Store<State>,
+    private store: Store<IappState>,
     private actions: ProductActions,
-    private ProductService: ProductService,
+    private productService: ProductService,
     private route: ActivatedRoute,
     private router: Router,
-    private searchActions: SearchActions,
     private checkoutActions: CheckoutActions) {
   }
 
@@ -58,14 +57,14 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.store.dispatch(this.actions.getAllProducts(1));
     const id = this.route.snapshot.queryParams.id;
     this.subscriptionList$.push(
-      this.ProductService.getProductDetail(id).subscribe(data => {
+      this.productService.getProductDetail(id).subscribe((data) => {
         this.product = data;
-      }),
+      })
     );
-    this.products$ = this.store.select(showAllProducts)
+    this.products$ = this.store.select(showAllProducts);
     this.store.dispatch(this.actions.getProductReviews(id));
     this.reviewProducts$ = this.store.select(productReviews);
-   
+
   }
 
   onDrawerButtonTap(): void {
@@ -74,15 +73,11 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   productDeatail(productID) {
-    this.router.navigate(['/product'], {
+    this.router.navigate(["/product"], {
       queryParams: {
-        'id': productID
+        id: productID
       }
     });
-  }
-
-  ngOnDestroy() {
-    this.subscriptionList$.map(sub$ => sub$.unsubscribe());
   }
 
   parse(formData) {
@@ -91,39 +86,40 @@ export class ProductComponent implements OnInit, OnDestroy {
         rating: formData.rating.toString(),
         name: formData.name,
         title: formData.title,
-        review: formData.review,
+        review: formData.review
       }
-    }
+    };
   }
+
   onSubmit(prodId) {
     if (this.reviewForm.valid) {
       const values = this.reviewForm.value;
-      const params = this.parse(values)
-      this.ProductService.submitReview(prodId, params)
-        .subscribe(res => {
+      const params = this.parse(values);
+      this.productService.submitReview(prodId, params)
+        .subscribe((res) => {
           this.result = res;
-          if (this.result === 'info') {
+          if (this.result === "info") {
             this.goToProduct(this.product.slug);
-          } else if (this.result === 'success') {
+          } else if (this.result === "success") {
             this.showThanks = true;
             this.submitReview = false;
           } else {
-            this.goToProduct(this.product.slug)
+            this.goToProduct(this.product.slug);
           }
-        })
+        });
     }
   }
+
   goToProduct(prodId) {
-    this.router.navigate([prodId])
+    this.router.navigate([prodId]);
   }
-  // submit() {
-  //   alert(this.title);
-  // }
 
   addToCart() {
-    alert(this.product.id);
-    this.store.dispatch(
-      this.checkoutActions.addToCart(this.product.id, 1)
-     );
+    // Todo: Get quantity from user input.
+    this.store.dispatch(this.checkoutActions.addToCart(this.product.id, 1));
+  }
+
+  ngOnDestroy() {
+    this.subscriptionList$.map((sub$) => sub$.unsubscribe());
   }
 }

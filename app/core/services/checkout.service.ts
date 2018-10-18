@@ -1,32 +1,23 @@
-import { map, tap, switchMap } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
-import { CheckoutActions } from './../../checkout/actions/checkout.actions';
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { LineItem } from './../models/line_item';
-import { State } from '../../reducers/index';
-import { Store } from '@ngrx/store';
-import { Order } from '../models/order';
-import { environment } from '../../environments/environment';
-import { isPlatformBrowser } from '@angular/common';
-import { Observable, of } from 'rxjs';
+import { isPlatformBrowser } from "@angular/common";
+import { HttpClient } from "@angular/common/http";
+import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { Observable, of } from "rxjs";
+import { map, switchMap, tap } from "rxjs/operators";
+import { IappState } from "../../reducers/index";
+import { Order } from "../models/order";
+import { CheckoutActions } from "./../../checkout/actions/checkout.actions";
+import { LineItem } from "./../models/line_item";
 
 @Injectable()
 export class CheckoutService {
-  /**
-   *Creates an instance of CheckoutService.
-   * @param {HttpClient} http
-   * @param {CheckoutActions} actions
-   * @param {Store<State>} store
-   * @param {ToastrService} toastyService
-   * @param {*} platformId
-   * @memberof CheckoutService
-   */
+
   constructor(
     private http: HttpClient,
     private actions: CheckoutActions,
-    private store: Store<State>,
+    private store: Store<IappState>,
 
-    @Inject(PLATFORM_ID) private platformId: Object) {
+    @Inject(PLATFORM_ID) private platformId: object) {
   }
 
   /**
@@ -40,22 +31,22 @@ export class CheckoutService {
   createNewLineItem(variant_id: number, quantity: number): Observable<LineItem> {
 
     if (!this.getOrderToken()) {
-      const order_params = { order: { line_items: { 0: { variant_id: variant_id, quantity: quantity } } } };
-      return this.createNewOrder(order_params).pipe(map(order => order.line_items[0]));
+      const order_params = { order: { line_items: { 0: { variant_id, quantity } } } };
+      return this.createNewOrder(order_params).pipe(map((order) => order.line_items[0]));
     }
 
     const params = {
-      line_item: { variant_id: variant_id, quantity: quantity }
+      line_item: { variant_id, quantity }
     };
     const url = `api/v1/orders/${this.orderNumber()}/line_items?order_token=${this.getOrderToken()}`;
     return this.http.post<LineItem>(url, params).pipe(
       tap(
-        lineItem => {
+        (lineItem) => {
 
           return lineItem;
         },
-        _ => {
-          localStorage.removeItem('order');
+        (_) => {
+          localStorage.removeItem("order");
           this.createNewLineItem(variant_id, quantity).subscribe();
         }
       )
@@ -64,38 +55,41 @@ export class CheckoutService {
 
   createNewOrder(orderParams): Observable<Order> {
     const new_order_url = `api/v1/orders`;
+
     return this.http.post<Order>(new_order_url, orderParams).pipe(
       tap(
-        order => {
+        (order) => {
           this.setOrderTokenInLocalStorage({ order_token: order.token, order_number: order.number });
           this.store.dispatch(this.actions.fetchCurrentOrderSuccess(order));
-        },
+        }
 
       )
     );
   }
 
   fetchCurrentOrder() {
-    return this.http.get<Order>('api/v1/orders/current').pipe(
-      switchMap(order => {
+    return this.http.get<Order>("api/v1/orders/current").pipe(
+      switchMap((order) => {
         if (order) {
           return of(order);
         } else {
           if (this.getOrderToken()) {
-            const s_order = JSON.parse(localStorage.getItem('order'));
+            const s_order = JSON.parse(localStorage.getItem("order"));
+
             return this.getOrder(s_order.order_number);
           } else {
             return of(null);
           }
         }
       }),
-      map(order => {
+      map((order) => {
         if (!order) {
-          localStorage.removeItem('order');
+          localStorage.removeItem("order");
           return;
         }
         const { token, number } = order;
         this.setOrderTokenInLocalStorage({ order_token: token, order_number: number });
+        
         return this.store.dispatch(this.actions.fetchCurrentOrderSuccess(order));
       })
     );
@@ -113,16 +107,6 @@ export class CheckoutService {
     return this.http.get<Order>(url);
   }
 
-  removeLocalOrder() {
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.removeItem('order');
-    }
-  }
-
-  createEmptyOrder() {
-    return this.http.post<Order>(`api/v1/orders`, { order: {} });
-  }
-
   /**
    *
    *
@@ -135,7 +119,7 @@ export class CheckoutService {
     const url = `api/v1/orders/${this.orderNumber()}/line_items/${
       lineItem.id
       }?order_token=${this.getOrderToken()}`;
-    return this.http.delete(url).pipe(map(_ => lineItem));
+    return this.http.delete(url).pipe(map((_) => lineItem));
   }
 
   /**
@@ -152,7 +136,7 @@ export class CheckoutService {
     return this.http
       .put<Order>(url, {})
       .pipe(
-        map(order =>
+        map((order) =>
           this.store.dispatch(this.actions.changeOrderStateSuccess(order))
         )
       );
@@ -173,7 +157,7 @@ export class CheckoutService {
     return this.http
       .put<Order>(url, params)
       .pipe(
-        map(order =>
+        map((order) =>
           this.store.dispatch(this.actions.updateOrderSuccess(order))
         )
       );
@@ -214,9 +198,8 @@ export class CheckoutService {
           }
         }
       )
-      .pipe(map(_ => this.changeOrderState().subscribe()));
+      .pipe(map((_) => this.changeOrderState().subscribe()));
   }
-
 
   /**
    *
@@ -227,18 +210,18 @@ export class CheckoutService {
    * @memberof CheckoutService
    */
   getOrderToken() {
-    const order = JSON.parse(localStorage.getItem('order'));
+    const order = JSON.parse(localStorage.getItem("order"));
     return order ? order.order_token : null;
   }
 
   orderNumber() {
-    const order = isPlatformBrowser(this.platformId) ? JSON.parse(localStorage.getItem('order')) : {};
+    const order = isPlatformBrowser(this.platformId) ? JSON.parse(localStorage.getItem("order")) : {};
     return order ? order.order_number : null;
   }
 
   shipmentAvailability(pincode: number): Observable<{ available: boolean }> {
     return this.http
-      .post<{ available: boolean }>(`address/shipment_availability`, { pincode: pincode });
+      .post<{ available: boolean }>(`address/shipment_availability`, { pincode });
   }
   /**
    *
@@ -250,7 +233,7 @@ export class CheckoutService {
    */
   setOrderTokenInLocalStorage(token: any): void {
     const jsonData = JSON.stringify(token);
-    localStorage.setItem('order', jsonData);
+    localStorage.setItem("order", jsonData);
 
   }
 }

@@ -1,14 +1,14 @@
 
-import { SearchState } from './search.state';
-import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { State } from '../../reducers';
+import { createFeatureSelector, createSelector } from "@ngrx/store";
+import { IappState } from "../../reducers";
+import { SearchState } from "./search.state";
 
 /******************* Base Search State ******************/
-export const getHomeState = createFeatureSelector<State>('home');
+export const getHomeState = createFeatureSelector<IappState>("home");
 
 export const getSearchState = createSelector(
   getHomeState,
-  (state: State) => state.search
+  (state: IappState) => state.search
 );
 
 /******************* Individual selectors ******************/

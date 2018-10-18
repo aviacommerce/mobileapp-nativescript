@@ -1,0 +1,86 @@
+import { isPlatformBrowser } from "@angular/common";
+import { HttpClient, HttpHeaders, HttpRequest } from "@angular/common/http";
+import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
+import { Router } from "@angular/router";
+import { Store } from "@ngrx/store";
+import { Observable, of } from "rxjs";
+import { catchError, map, tap } from "rxjs/operators";
+import { AuthActions } from "~/auth/actions/auth.actions";
+import { IappState } from "~/reducers";
+import { Authenticate, User } from "../models/user";
+import { CheckoutService } from "./checkout.service";
+
+@Injectable()
+export class AuthService {
+
+  constructor(
+    private http: HttpClient,
+    private actions: AuthActions,
+    private store: Store<IappState>,
+    private router: Router,
+    private checkOutService: CheckoutService,
+    @Inject(PLATFORM_ID) private platformId: object
+  ) { }
+
+  authorized(): Observable<{ status: string } & User> {
+    return this.http
+      .get<{ status: string } | User>("auth/authenticated")
+      .pipe(catchError((error) => of(error.error)));
+  }
+
+  login({ email, password }: Authenticate): Observable<User> {
+    const params = { spree_user: { email, password } };
+
+    return this.http.post<User>("login.json", params).pipe(
+      map((user) => {
+        this.setTokenInLocalStorage(user);
+        this.store.dispatch(this.actions.loginSuccess());
+
+        return user;
+      }),
+      tap(
+        (_) => this.router.navigate(["/"])
+      )
+    );
+  }
+
+  logout() {
+    return this.http.get("logout.json").pipe(
+      map((res: Response) => {
+        if (isPlatformBrowser(this.platformId)) {
+          localStorage.clear();
+        }
+        this.store.dispatch(this.actions.logoutSuccess());
+
+        return res;
+      })
+    );
+  }
+
+  getTokenHeader(request: HttpRequest<any>): HttpHeaders {
+    const userJson = isPlatformBrowser(this.platformId) ? localStorage.getItem("user") : "{}";
+
+    const user: User =
+      ["undefined", null].indexOf(userJson) === -1
+        ? JSON.parse(userJson)
+        : {};
+
+    return new HttpHeaders({
+      "Content-Type": request.headers.get("Content-Type") || "application/json",
+      "token-type": "Bearer",
+      access_token: user.access_token || [],
+      client: user.client || [],
+      uid: user.uid || [],
+      "Auth-Token": user.spree_api_key || [],
+      "ng-api": "true",
+      "Guest-Order-Token": this.checkOutService.getOrderToken() || []
+    });
+  }
+
+  private setTokenInLocalStorage(userData: object): void {
+    const jsonData = JSON.stringify(userData);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem("user", jsonData);
+    }
+  }
+}
