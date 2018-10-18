@@ -23,7 +23,7 @@
     <StackLayout class="promoimg">
       <Image src="~/assets/promo.png" stretch="aspectFill"></Image>
     </StackLayout>
-    <StackLayout *ngIf="products">
+    <StackLayout *ngIf="products$ | async; let products">
       <RadListView [items]="products.products">
         <ListViewLinearLayout tkListViewLayout scrollDirection="Horizontal"></ListViewLinearLayout>
         <ng-template let-product="item" let-i="index" let-odd="odd" let-even="even">

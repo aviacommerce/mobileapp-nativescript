@@ -1,0 +1,23 @@
+@import '../../../../app-variables';
+
+img {
+  width: 120px;
+  height: 160px;
+  object-fit: contain;
+}
+
+.product-name {
+  font-size: 15em;
+  color: $secondary;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.product-price {
+  white-space: normal;
+  word-wrap: break-word;
+  margin-top: 0.4em;
+  text-align: left;
+  font-size: 20em;
+  color: $action-price-color;
+}

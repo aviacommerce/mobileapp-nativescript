@@ -5,10 +5,13 @@ import { SearchBarComponent } from "~/shared/searchbar/searchbar-component";
 import { SearchActions } from "~/search/action/search.actions";
 import { SearchEffects } from "~/search/effects/search.effects";
 import { EffectsModule } from "@ngrx/effects";
+import { CheckoutActions } from "~/checkout/actions/checkout.actions";
+import { CheckoutEffects } from "~/checkout/effects/checkout.effects";
 @NgModule({
   imports: [
     NativeScriptCommonModule,
     EffectsModule.forRoot([SearchEffects]),
+    EffectsModule.forRoot([CheckoutEffects]),
   ],
   declarations: [
     ActionBarComponent,
@@ -22,7 +25,8 @@ import { EffectsModule } from "@ngrx/effects";
     SearchBarComponent
   ],
   providers: [
-    SearchActions
+    SearchActions,
+    CheckoutActions
   ]
 })
 

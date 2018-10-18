@@ -7,7 +7,8 @@ import { ProductActions } from "~/product/actions/product-actions";
 import { showAllProducts } from "~/product/reducers/selectors";
 import { ProductService } from "~/core/services/product.service";
 import { ActivatedRoute, Route, Router } from "@angular/router";
-import { Subscription } from "rxjs";
+import { Observable, Subscription } from 'rxjs';
+import { Product } from "~/core/models/product";
 registerElement("StarRating", () => require("nativescript-star-ratings").StarRating);
 @Component({
   selector: "Home",
@@ -19,6 +20,7 @@ registerElement("StarRating", () => require("nativescript-star-ratings").StarRat
 
 export class HomeComponent implements OnInit, OnDestroy {
   texonomies;
+  products$: Observable<Product>;
   products: Object;
   taxonImageLink;
   searchPhrase: string;
@@ -38,15 +40,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   extractData() {
     this.store.dispatch(this.actions.getAllProducts(1));
-    this.subscriptionList$.push(
-      this.store.select(showAllProducts).subscribe((productdata) => {
-        this.products = productdata;
-      }),
+    this.subscriptionList$.push(      
       this.myService.getTaxonomies()
         .subscribe((result) => {
           this.texonomies = (result);
         })
     )
+    this.products$ = this.store.select(showAllProducts);
   }
 
   productDetail(productId) {

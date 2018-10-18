@@ -21,11 +21,16 @@ import { ProductEffects } from "~/product/effects/product.effects";
 
 //Share Module
 import { SharedModule } from "~/shared/shared.module";
+import { CheckoutActions } from "../checkout/actions/checkout.actions";
+import { CheckoutEffects } from '../checkout/effects/checkout.effects';
 @NgModule({
   imports: [
     NativeScriptCommonModule,
     ProductRoutingModule,
     EffectsModule.forRoot([ProductEffects]),
+    EffectsModule.forRoot([
+      CheckoutEffects
+    ]),
     NativeScriptUIListViewModule,
     SharedModule
   ],
@@ -36,7 +41,8 @@ import { SharedModule } from "~/shared/shared.module";
     NO_ERRORS_SCHEMA
   ],
   providers: [
-    ProductActions
+    ProductActions,
+    CheckoutActions
   ]
 })
 

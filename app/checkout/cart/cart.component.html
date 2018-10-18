@@ -1,0 +1,13 @@
+<ab-component></ab-component>
+<ScrollView sdkExampleTitle sdkToggleNavButton>
+  <FlexboxLayout flexDirection="column" backgroundColor="lightgray" class="container">
+    <StackLayout>
+      <line-item-list [itemTotal]="itemTotal$ | async"></line-item-list>
+      <!-- <Label text='{{totalCartValue$ | async  | json}}'></Label>
+      <Label text='Ended'></Label>
+      <Label text='{{totalCartItems$ | async  | json}}'></Label>
+      <Label text='Stared'></Label>
+      <Label text='{{itemTotal$ | async  | json}}'></Label> -->
+    </StackLayout>
+  </FlexboxLayout>
+</ScrollView>
