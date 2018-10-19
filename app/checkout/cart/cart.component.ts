@@ -72,4 +72,9 @@ export class CartComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscriptionList$.map((sub$) => sub$.unsubscribe());
   }
+  orderlink() {
+    this.router.navigate(["/checkout/order"], {    
+    })
+  }
+
 }
