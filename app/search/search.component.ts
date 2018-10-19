@@ -1,13 +1,13 @@
 import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Params, Router } from "@angular/router";
+import { Store } from "@ngrx/store";
 import * as app from "application";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
-import { ProductService } from "../core/services/product.service";
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable } from "rxjs";
 import { Product } from "../core/models/product";
-import { State } from "../reducers";
-import { Store } from "@ngrx/store";
+import { ProductService } from "../core/services/product.service";
 import { ProductActions } from "../product/actions/product-actions";
+import { IappState } from "../reducers";
 import { SearchActions } from "./action/search.actions";
 import { getProductsByKeyword } from "./reducers/selectors";
 
@@ -22,15 +22,16 @@ export class SearchComponent implements OnInit {
   products: Object;
   products1: Object;
   page: number;
-  upadatedstring: string
+  upadatedstring: string;
   queryParams: Params;
   productCount: number;
-  public myItems: string[] = [];
-  public counter = 1;
+  myItems: Array<string> = [];
+  counter = 1;
   products$: Observable<Product>;
-  constructor(private myService: ProductService,
-    private routernomal: Router, private activeRoute: ActivatedRoute,
-    private store: Store<State>,
+  constructor(
+    private routernomal: Router,
+    private activeRoute: ActivatedRoute,
+    private store: Store<IappState>,
     private actions: ProductActions,
     private searchActions: SearchActions) {
     this.store.dispatch(this.actions.getAllProducts(1));
@@ -40,7 +41,7 @@ export class SearchComponent implements OnInit {
       this.products = productdata;
       this.productCount = this.productCount;
     });
-    this.activeRoute.queryParams.subscribe(params => {
+    this.activeRoute.queryParams.subscribe((params) => {
       this.queryParams = params;
     });
 
@@ -54,26 +55,26 @@ export class SearchComponent implements OnInit {
   }
 
   queryMap = {
-    Newest: 'updated_at+asc',
-    'Avg.Customer Review': 'avg_rating+desc',
-    'Most Reviews': 'reviews_count+desc',
-    'A To Z': 'name+asc',
-    'Z To A': 'name+desc',
-    Relevance: '',
-  }
-  seltected = "Z To A"
+    Newest: "updated_at+asc",
+    "Avg.Customer Review": "avg_rating+desc",
+    "Most Reviews": "reviews_count+desc",
+    "A To Z": "name+asc",
+    "Z To A": "name+desc",
+    Relevance: ""
+  };
+  seltected = "Z To A";
   sortFilter(i) {
     const urlTree = this.routernomal.createUrlTree([], {
       queryParams: { "q[s]": this.queryMap[i] },
-      queryParamsHandling: 'merge',
-      preserveFragment: true,
+      queryParamsHandling: "merge",
+      preserveFragment: true
     });
 
   }
 
   loadMoreItems() {
     this.page = this.counter + 1;
-    this.upadatedstring = this.queryParams['q[name_cont_any]'] + `&page=${this.page}`
+    this.upadatedstring = this.queryParams["q[name_cont_any]"] + `&page=${this.page}`;
     this.store.dispatch(
       this.searchActions.getproductsByKeyword(this.upadatedstring)
     );

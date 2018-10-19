@@ -1,8 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { Subscription } from "rxjs";
 import { Page } from "tns-core-modules/ui/page/page";
 import { User } from "~/core/models/user";
 import { AuthService } from "~/core/services/auth.service";
-
 @Component({
   moduleId: module.id,
   selector: "login-register",
@@ -10,16 +10,22 @@ import { AuthService } from "~/core/services/auth.service";
   styleUrls: ["./login-register.component.scss"]
 })
 
-export class LoginRegisterComponent implements OnInit {
+export class LoginRegisterComponent implements OnInit, OnDestroy {
   isLoggingIn = true;
-  user: User;
+  user: any;
+  subscriptionList$: Array<Subscription> = [];
 
   @ViewChild("password") password: ElementRef;
   @ViewChild("confirmPassword") confirmPassword: ElementRef;
 
   constructor(private page: Page, private authService: AuthService) {
     this.page.actionBarHidden = false;
-    this.user = new User();
+    // this.user = new User();
+    this.user = {
+      email: "gopalshimpi@gmail.com",
+      password: "gopal123",
+      confirmPassword: "123"
+    };
   }
 
   toggleForm() {
@@ -45,7 +51,9 @@ export class LoginRegisterComponent implements OnInit {
   }
 
   login() {
-    this.authService.login(this.user).subscribe();
+    this.subscriptionList$.push(
+      this.authService.login(this.user).subscribe()
+    );
   }
 
   register() {
@@ -77,5 +85,9 @@ export class LoginRegisterComponent implements OnInit {
       okButtonText: "OK",
       message: msg
     });
+  }
+
+  ngOnDestroy() {
+    this.subscriptionList$.map((sub$) => sub$.unsubscribe());
   }
 }

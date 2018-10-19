@@ -8,6 +8,7 @@ import { TaxonomyService } from "~/core/services/taxonomy.service";
 import { ProductActions } from "~/product/actions/product-actions";
 import { showAllProducts } from "~/product/reducers/selectors";
 import { IappState } from "~/reducers";
+import { Taxonomy } from "~/core/models/taxonomy";
 registerElement("StarRating", () => require("nativescript-star-ratings").StarRating);
 @Component({
   selector: "Home",
@@ -18,7 +19,7 @@ registerElement("StarRating", () => require("nativescript-star-ratings").StarRat
 })
 
 export class HomeComponent implements OnInit, OnDestroy {
-  texonomies;
+  texonomies: Array<Taxonomy>;
   products$: Observable<Product>;
   products: object;
   taxonImageLink;
@@ -33,10 +34,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     private myService: TaxonomyService,
     private router: Router, private store: Store<IappState>,
     private actions: ProductActions) {
+      this.extractData();
   }
 
   ngOnInit() {
-    this.extractData();
+    
   }
 
   extractData() {

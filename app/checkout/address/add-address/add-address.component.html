@@ -1,0 +1,58 @@
+<ActionBar title="Add New Address">
+  <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="onBack()"></NavigationButton>
+</ActionBar>
+<FlexboxLayout class="page">
+  <StackLayout class="form">
+
+    <StackLayout class="input-field">
+      <TextField required class="input" hint="First Name" #elementModel="ngModel" [(ngModel)]="address.firstname"></TextField>
+      <!-- <Label class='error' *ngIf="!elementModel.valid" text="*required"></Label> -->
+      <StackLayout class="hr-light"></StackLayout>
+    </StackLayout>
+
+
+    <StackLayout class="input-field">
+      <TextField required class="input" hint="First Name" #elementModel="ngModel" [(ngModel)]="address.lastname"></TextField>
+      <!-- <Label class='error' *ngIf="!elementModel.valid" text="*required"></Label> -->
+      <StackLayout class="hr-light"></StackLayout>
+    </StackLayout>
+
+    <StackLayout class="input-field">
+      <TextField required class="input" hint="Pin Code" #elementModel="ngModel" [(ngModel)]="address.zipcode"></TextField>
+      <!-- <Label class='error' *ngIf="!elementModel.valid" text="*required"></Label> -->
+      <StackLayout class="hr-light"></StackLayout>
+    </StackLayout>
+
+    <StackLayout class="input-field">
+      <TextField required class="input" hint="Locality/Town" #elementModel="ngModel" [(ngModel)]="address.city"></TextField>
+      <!-- <Label class='error' *ngIf="!elementModel.valid" text="*required"></Label> -->
+      <StackLayout class="hr-light"></StackLayout>
+    </StackLayout>
+
+    <StackLayout class="input-field">
+      <TextField required class="input" hint="City/District" #elementModel="ngModel" [(ngModel)]="address.address2"></TextField>
+      <!-- <Label class='error' *ngIf="!elementModel.valid" text="*required"></Label> -->
+      <StackLayout class="hr-light"></StackLayout>
+    </StackLayout>
+
+    <StackLayout class="input-field">
+      <TextField required class="input" hint="Address" #elementModel="ngModel" [(ngModel)]="address.address1"></TextField>
+      <!-- <Label class='error' *ngIf="!elementModel.valid" text="*required"></Label> -->
+      <StackLayout class="hr-light"></StackLayout>
+    </StackLayout>
+
+    <StackLayout class="input-field">
+        <TextField required class="input" hint="Phone" #elementModel="ngModel" [(ngModel)]="address.phone"></TextField>
+        <!-- <Label class='error' *ngIf="!elementModel.valid" text="*required"></Label> -->
+        <StackLayout class="hr-light"></StackLayout>
+      </StackLayout>
+
+      <StackLayout class="input-field">
+          <TextField required class="input" hint="state" #elementModel="ngModel" [(ngModel)]="address.state_name"></TextField>
+          <!-- <Label class='error' *ngIf="!elementModel.valid" text="*required"></Label> -->
+          <StackLayout class="hr-light"></StackLayout>
+        </StackLayout>
+
+    <Button text="Save Address" class="btn btn-primary m-t-20" (tap)="saveAddress()"></Button>
+  </StackLayout>
+</FlexboxLayout>
