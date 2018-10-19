@@ -29,7 +29,6 @@ export class CheckoutService {
    * @memberof CheckoutService
    */
   createNewLineItem(variant_id: number, quantity: number): Observable<LineItem> {
-
     if (!this.getOrderToken()) {
       const order_params = { order: { line_items: { 0: { variant_id, quantity } } } };
       return this.createNewOrder(order_params).pipe(map((order) => order.line_items[0]));
@@ -89,7 +88,7 @@ export class CheckoutService {
         }
         const { token, number } = order;
         this.setOrderTokenInLocalStorage({ order_token: token, order_number: number });
-        
+
         return this.store.dispatch(this.actions.fetchCurrentOrderSuccess(order));
       })
     );
@@ -154,6 +153,7 @@ export class CheckoutService {
     const url = `api/v1/checkouts/${
       this.orderNumber()
       }.json?order_token=${this.getOrderToken()}`;
+
     return this.http
       .put<Order>(url, params)
       .pipe(
@@ -211,11 +211,13 @@ export class CheckoutService {
    */
   getOrderToken() {
     const order = JSON.parse(localStorage.getItem("order"));
+
     return order ? order.order_token : null;
   }
 
   orderNumber() {
     const order = isPlatformBrowser(this.platformId) ? JSON.parse(localStorage.getItem("order")) : {};
+
     return order ? order.order_number : null;
   }
 
