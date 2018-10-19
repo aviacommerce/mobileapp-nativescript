@@ -7,6 +7,6 @@
     "**/.hg": true,
     "**/CVS": true,
     "**/.DS_Store": true,
-    "app/**/*.js": true
+    "app/**/*.{js,css}": true,
   }
 }
