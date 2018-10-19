@@ -4,6 +4,7 @@ import { RouterModule } from "@angular/router";
 import { EffectsModule } from "@ngrx/effects";
 import { SharedModule } from "~/shared/shared.module";
 import { CheckoutActions } from "./actions/checkout.actions";
+import { AddressModule } from "./address/address.module";
 import { CartModule } from "./cart/cart.module";
 import { routes } from "./checkout.routes";
 import { CheckoutEffects } from "./effects/checkout.effects";
@@ -16,7 +17,8 @@ import { CheckoutEffects } from "./effects/checkout.effects";
       CheckoutEffects
     ]),
     CartModule,
-    SharedModule
+    SharedModule,
+    AddressModule
 
   ],
   declarations: [
