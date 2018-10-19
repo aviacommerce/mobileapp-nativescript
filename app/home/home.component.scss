@@ -6,6 +6,12 @@
 
 .container {
   padding: 0 10dpi;
+  background-color: $white - 10;
+
+  .typeofproduct {
+    font-size: 16px;
+    color: $secondary
+  }
 
   .savetoday {
     padding: 7dpi 20dpi;
