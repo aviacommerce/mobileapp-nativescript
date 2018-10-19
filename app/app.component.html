@@ -1,7 +1,6 @@
 <page-router-outlet></page-router-outlet>
 <RadSideDrawer [drawerTransition]="sideDrawerTransition">
   <GridLayout tkDrawerContent rows="auto, *" class="sidedrawer sidedrawer-left">
-
     <StackLayout row="0" class="sidedrawer-header">
       <Label class="sidedrawer-header-image fa" text="&#xf2bd;"></Label>
       <Label *ngIf="!isAuthenticated; else noUser" class="sidedrawer-header-brand" 
@@ -12,7 +11,6 @@
         <Label class="footnote" text="{{user.email}}"></Label>
       </ng-template>
     </StackLayout>
-
     <ScrollView row="1">
       <StackLayout class="sidedrawer-content">
         <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/home')"
@@ -20,30 +18,9 @@
           <Label col="0" text="&#xf015;" class="fa"></Label>
           <Label col="1" text="Home" class="p-r-10"></Label>
         </GridLayout>
-        <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/search')"
-          (tap)="onNavItemTap('/search')">
-          <Label col="0" text="&#xf002;" class="fa"></Label>
-          <Label col="1" text="Search" class="p-r-10"></Label>
-        </GridLayout>
-        <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/featured')"
-          (tap)="onNavItemTap('/featured')">
-          <Label col="0" text="&#xf005;" class="fa"></Label>
-          <Label col="1" text="Featured" class="p-r-10"></Label>
-        </GridLayout>
-        <StackLayout class="hr-light"></StackLayout>
-        <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/settings')"
-          (tap)="onNavItemTap('/settings')">
-          <Label col="0" text="&#xf013;" class="fa"></Label>
-          <Label col="1" text="Settings" class="p-r-10"></Label>
-        </GridLayout>
-        <StackLayout class="hr-light"></StackLayout>
-        <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/product')"
-          (tap)="onNavItemTap('/product')">
-          <Label col="0" text="&#xf013;" class="fa"></Label>
-          <Label col="1" text="Product" class="p-r-10"></Label>
-        </GridLayout>
+        <StackLayout class="hr-light"></StackLayout>      
         <GridLayout columns="auto, *" class="sidedrawer-list-item"(tap)="logout()">
-          <Label col="0" text="&#xf1ea;" class="fa"></Label>
+          <Label col="0" text="&#xf08b;" class="fa"></Label>
           <Label col="1" text="Logout" class="p-r-10"></Label>
         </GridLayout>
       </StackLayout>

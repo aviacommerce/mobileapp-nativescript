@@ -238,4 +238,7 @@ export class CheckoutService {
     localStorage.setItem("order", jsonData);
 
   }
+  getOrderDetail(orderNumber: string): Observable<Order> {
+    return this.http.get<Order>(`api/v1/orders/${orderNumber}`)
+  }
 }

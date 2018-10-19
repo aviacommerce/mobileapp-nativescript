@@ -8,7 +8,7 @@ import { AddressModule } from "./address/address.module";
 import { CartModule } from "./cart/cart.module";
 import { routes } from "./checkout.routes";
 import { CheckoutEffects } from "./effects/checkout.effects";
-
+import { OrderModule } from "./order-success/order-respone.module"
 @NgModule({
   imports: [
     CommonModule,
@@ -18,10 +18,13 @@ import { CheckoutEffects } from "./effects/checkout.effects";
     ]),
     CartModule,
     SharedModule,
-    AddressModule
+    AddressModule,
+    OrderModule
+    
 
   ],
   declarations: [
+    
 
   ],
   providers: [
