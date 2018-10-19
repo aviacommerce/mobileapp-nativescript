@@ -41,8 +41,8 @@ export class ProductService {
   getProducts(pageNumber: 1): Observable<Array<Product>> {
     return this.http
       .get<Array<Product>>(
-        `api/v1/products?q[s]=avg_rating+desc&page=${pageNumber}&per_page=20&data_set=small`
-      );
+        `api/v1/products?q[s]=updated_at+asc&page=${pageNumber}&per_page=20&data_set=small`
+      )
   }
 
   getproductsByKeyword(keyword: string): Observable<any> {

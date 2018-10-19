@@ -3,11 +3,16 @@
   <FlexboxLayout flexDirection="column" backgroundColor="lightgray" class="container">
     <StackLayout>
       <line-item-list [itemTotal]="itemTotal$ | async"></line-item-list>
-      <!-- <Label text='{{totalCartValue$ | async  | json}}'></Label>
-      <Label text='Ended'></Label>
-      <Label text='{{totalCartItems$ | async  | json}}'></Label>
-      <Label text='Stared'></Label>
-      <Label text='{{itemTotal$ | async  | json}}'></Label> -->
     </StackLayout>
+    <StackLayout class="p-t-0"> </StackLayout>
+
+
+    <StackLayout  class='button-container'>
+        <Label class="m-r-10 discount" text="Cart Subtotal {{currency}} {{itemTotal$ | async}}"> </Label>
+        <Button class="btn btn-primary btn-active" id="button" text="Proceed To checkout">
+        </Button>
+      </StackLayout>
   </FlexboxLayout>
+
+ 
 </ScrollView>

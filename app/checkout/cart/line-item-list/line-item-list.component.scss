@@ -36,6 +36,10 @@
   margin: 2%;
   border-color: $action-price-color;
   color: $black;
-  position: absolute;
   bottom: 0;
+}
+
+.button-container {
+  text-align: center;
+  background-color: $white;
 }

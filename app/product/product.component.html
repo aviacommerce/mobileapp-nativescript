@@ -10,16 +10,14 @@
             <StackLayout rows="auto, auto, auto">
               <Image [src]="product.master.images[0].product_url" height="200" class="m-b-15"></Image>
               <StackLayout row="1" class="hr-light m-t-5 m-b-5"></StackLayout>
-              <StackLayout class="p-l-10 p-r-10 p-t-5 p-b-5" orientation="horizontal">
+              <!-- <StackLayout class="p-l-10 p-r-10 p-t-5 p-b-5" orientation="horizontal">
                 <StackLayout width="20%" class="left" horizontalAlignment="left">
                   <Label class="h3" horizontalAlignment="left" text="By Abc"></Label>
                 </StackLayout>
                 <StackLayout width="80%" class="right p-r-20" horizontalAlignment="right">
                   <Label class="h3" horizontalAlignment="right" text="Reviews"></Label>
-                  <StarRating style="font-size: 10px;" emptyBorderColor="white" emptyColor="white" filledBorderColor="black"
-                    filledColor="red" value="1" max="4" isindicator="false"></StarRating>
                 </StackLayout>
-              </StackLayout>
+              </StackLayout> -->
               <StackLayout class="p-10">
                 <Label class="name" color="#000" fontSize="16px;" fontWeight="bold" horizontalAlignment="left" [text]="product.name"></Label>
               </StackLayout>
@@ -40,14 +38,14 @@
                   <Label class="price" horizontalAlignment="right" [text]="product.display_price"></Label>
                 </StackLayout>
               </StackLayout>
-              <StackLayout class="p-l-10 p-r-10 p-t-5 p-b-5" orientation="horizontal">
+              <!-- <StackLayout class="p-l-10 p-r-10 p-t-5 p-b-5" orientation="horizontal">
                 <StackLayout width="50%" class="left" horizontalAlignment="left">
                   <Label class="h3" horizontalAlignment="left" text="You Save"></Label>
                 </StackLayout>
                 <StackLayout width="50%" class="right" horizontalAlignment="right">
                   <Label class="price" horizontalAlignment="right" [text]="product.discount"></Label>
                 </StackLayout>
-              </StackLayout>
+              </StackLayout> -->
               <StackLayout row="1" class="hr-light m-t-5 m-b-5"></StackLayout>
               <StackLayout class="right" horizontalAlignment="center">
                 <StackLayout orientation="horizontal" horizontalAlignment="center">
@@ -92,7 +90,7 @@
             </StackLayout>
           </ScrollView>
         </StackLayout>
-        <StackLayout *tabItem="{title: 'Faq'}">
+        <!-- <StackLayout *tabItem="{title: 'Faq'}">
           <Label text="Faq" class="m-15 h2 text-left" color="blue"></Label>
           <ScrollView>
             <Label text="content" textWrap="true" class="m-15"></Label>
@@ -127,7 +125,7 @@
               </StackLayout>
             </StackLayout>
           </ScrollView>
-        </StackLayout>
+        </StackLayout> -->
       </TabView>
     </GridLayout>
   </GridLayout>
