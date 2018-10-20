@@ -9,6 +9,8 @@ import { CartModule } from "./cart/cart.module";
 import { routes } from "./checkout.routes";
 import { CheckoutEffects } from "./effects/checkout.effects";
 import { OrderModule } from "./order-success/order-respone.module"
+import { PaymentModule } from "./payment/payment.module";
+
 @NgModule({
   imports: [
     CommonModule,
@@ -19,17 +21,13 @@ import { OrderModule } from "./order-success/order-respone.module"
     CartModule,
     SharedModule,
     AddressModule,
-    OrderModule
-    
-
+    OrderModule,
+    PaymentModule
   ],
   declarations: [
-    
-
   ],
   providers: [
     CheckoutActions
-
   ]
 })
 export class CheckoutModule { }

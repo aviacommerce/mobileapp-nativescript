@@ -30,7 +30,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   relatedProducts$: Observable<any>;
   similarProducts$: Observable<Array<Product>>;
   reviewProducts$: Observable<any>;
-  product;
+  product: any;
   relatedProducts;
   similarProducts;
   subscriptionList$: Array<Subscription> = [];
@@ -57,7 +57,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.store.dispatch(this.actions.getAllProducts(1));
     const id = this.route.snapshot.queryParams.id;
     this.subscriptionList$.push(
-      this.productService.getProductDetail(id).subscribe((data) => {
+      this.productService.getProduct(id).subscribe((data) => {
         this.product = data;
       })
     );
@@ -114,9 +114,9 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.router.navigate([prodId]);
   }
 
-  addToCart() {
+  addToCart(id: any) {
     // Todo: Get quantity from user input.
-    this.store.dispatch(this.checkoutActions.addToCart(this.product.id, 1));
+    this.store.dispatch(this.checkoutActions.addToCart(id, 1));
   }
 
   ngOnDestroy() {

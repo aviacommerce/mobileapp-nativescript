@@ -10,8 +10,8 @@
       <Label class="fa icon m-r-10" text="&#xf009;"></Label>
       <Label text="Shop by Category"> </Label>
     </StackLayout>
-    <StackLayout>
-      <RadListView [items]="texonomies.taxonomies[0].root.taxons">
+    <StackLayout *ngIf="taxonomies$ | async; let taxonomies">
+      <RadListView [items]="taxonomies[0]?.root.taxons">
         <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" spanCount="2"></ListViewGridLayout>
         <ng-template tkListItemTemplate let-item="item" let-odd="odd">
           <StackLayout orientation="vertical">
@@ -27,7 +27,7 @@
         <Label class="typeofproduct" text="Popular products"></Label>
       </StackLayout>
     <StackLayout *ngIf="products$ | async; let products">
-      <RadListView [items]="products.products">
+      <RadListView [items]="products">
         <ListViewLinearLayout tkListViewLayout scrollDirection="Horizontal"></ListViewLinearLayout>
         <ng-template let-product="item" let-i="index" let-odd="odd" let-even="even">
           <StackLayout class="product-base" borderWidth="1" rows="*, *, *" columns="*, *" (tap)="productDetail(product.id)">

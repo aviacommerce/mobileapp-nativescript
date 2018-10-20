@@ -1,10 +1,11 @@
-import { CJsonApi } from './../models/jsonapi';
-import { Taxonomy } from './../models/taxonomy';
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Product } from '../models/product';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
+import { Product } from "../models/product";
+import { CJsonApi } from "./../models/jsonapi";
+import { Taxonomy } from "./../models/taxonomy";
+import { JsonApiParserService } from "./json-api-parser.service";
 
 @Injectable()
 export class ProductService {
@@ -16,6 +17,7 @@ export class ProductService {
 	 */
   constructor(
     private http: HttpClient,
+    private apiParser: JsonApiParserService
 
   ) { }
   // tslint:disable-next-line:member-ordering
@@ -33,16 +35,28 @@ export class ProductService {
 
   getProduct(id: string): Observable<Product> {
     return this.http
-      .get<Product>(
+      .get<{ data: CJsonApi }>(
         `api/v1/products/${id}?data_set=large`
+      )
+      .pipe(
+        map((resp) => {
+          const product = this.apiParser.parseSingleObj(resp.data) as Product;
+
+          return product;
+        })
       );
   }
 
-  getProducts(pageNumber: 1): Observable<Array<Product>> {
+  getProducts(pageNumber: number): Observable<Array<Product>> {
     return this.http
-      .get<Array<Product>>(
-        `api/v1/products?q[s]=updated_at+asc&page=${pageNumber}&per_page=20&data_set=small`
+      .get<{ data: Array<CJsonApi> }>(
+        `api/v1/products?q[s]=avg_rating+desc&page=${pageNumber}&per_page=20&data_set=small`
       )
+      .pipe(
+        map(
+          (resp) => this.apiParser.parseArrayofObject(resp.data) as Array<Product>
+        )
+      );
   }
 
   getproductsByKeyword(keyword: string): Observable<any> {
@@ -52,8 +66,8 @@ export class ProductService {
       );
   }
 
-  getProductDetail(id: string) {
-    return this.http.get(`api/v1/products/${id}?data_set=large`);
+  getProductDetail(id: string): Observable<Product> {
+    return this.http.get<Product>(`api/v1/products/${id}?data_set=large`);
   }
 
   getRelatedProducts(productId: number): Observable<Array<Product>> {
@@ -64,7 +78,7 @@ export class ProductService {
   getProductReviews(products): Observable<any> {
     return this.http.get(`products/${products}/reviews`);
   }
- 
+
   submitReview(productId: any, params: any) {
     return this.http.post(`products/${productId}/reviews`, params).pipe(
       map(
@@ -78,9 +92,14 @@ export class ProductService {
         },
         (error) => {
           this.error = error;
+
           return this.error.type;
         }
       )
     );
+  }
+
+  getTaxonomies(): Observable<Array<Taxonomy>> {
+    return this.http.get<Array<Taxonomy>>(`api/v1/taxonomies?set=nested`);
   }
 }

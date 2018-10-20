@@ -33,8 +33,8 @@ export class AuthenticationEffects {
   afterLoginSuccess$: Observable<Action> = this.actions$
     .ofType(AuthActions.LOGIN_SUCCESS)
     .pipe(
-      switchMap(() =>{
-        return this.checkoutService.fetchCurrentOrder()
+      switchMap(() => {
+        return this.checkoutService.fetchCurrentOrder();
       }),
       map((_) => this.authActions.noOp())
     );

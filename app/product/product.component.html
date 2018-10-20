@@ -1,5 +1,5 @@
 <ab-component></ab-component>
-<FlexLayout class="product-detail">
+<FlexLayout class="product-detail" *ngIf="product; let product">
   <GridLayout class="page page-content">
     <ScrollView>
     </ScrollView>
@@ -8,7 +8,8 @@
         <StackLayout *tabItem="{title: 'Highlights'}">
           <ScrollView>
             <StackLayout rows="auto, auto, auto">
-              <Image [src]="product.master.images[0].product_url" height="200" class="m-b-15"></Image>
+              <Image [src]="product.master.images[0].product_url" height="200"
+                class="m-b-15"></Image>
               <StackLayout row="1" class="hr-light m-t-5 m-b-5"></StackLayout>
               <!-- <StackLayout class="p-l-10 p-r-10 p-t-5 p-b-5" orientation="horizontal">
                 <StackLayout width="20%" class="left" horizontalAlignment="left">
@@ -52,7 +53,8 @@
                   <Label class="m-b-10" fontWeight="bold" text="Free 1-2 Day "></Label>
                   <Label class="" text="shipping"></Label>
                 </StackLayout>
-                <Button class="btn btn-primary btn-active" (tap)="addToCart()" borderWidth="1" id="button" text="Add To Cart"></Button>
+                <Button class="btn btn-primary btn-active" (tap)="addToCart(product.id)" borderWidth="1" id="button"
+                  text="Add To Cart"></Button>
               </StackLayout>
               <StackLayout row="1" class="hr-light m-t-5 m-b-5"></StackLayout>
               <StackLayout class="p-10">
@@ -63,7 +65,7 @@
               <StackLayout class="p-10 p-t-0">
                 <Label class="m-0 p-t-2 p-b-2" color="#000" fontSize="16px;" fontWeight="bold" text="Similar Products"></Label>
               </StackLayout>
-              <StackLayout class="p-10" *ngIf="products$ | async ; let products">
+              <!-- <StackLayout class="p-10" *ngIf="products$ | async ; let products">
                 <RadListView [items]="products.products">
                   <ListViewLinearLayout tkListViewLayout scrollDirection="Horizontal"></ListViewLinearLayout>
                   <ng-template let-product="item" let-i="index" let-odd="odd" let-even="even">
@@ -86,7 +88,7 @@
                     </StackLayout>
                   </ng-template>
                 </RadListView>
-              </StackLayout>
+              </StackLayout> -->
             </StackLayout>
           </ScrollView>
         </StackLayout>
