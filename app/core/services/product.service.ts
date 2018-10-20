@@ -50,7 +50,7 @@ export class ProductService {
   getProducts(pageNumber: number): Observable<Array<Product>> {
     return this.http
       .get<{ data: Array<CJsonApi> }>(
-        `api/v1/products?q[s]=avg_rating+desc&page=${pageNumber}&per_page=20&data_set=small`
+        `api/v1/products?q[s]=updated_at+desc&page=${pageNumber}&per_page=20&data_set=small`
       )
       .pipe(
         map(

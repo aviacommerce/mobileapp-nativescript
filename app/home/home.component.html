@@ -32,7 +32,7 @@
         <ng-template let-product="item" let-i="index" let-odd="odd" let-even="even">
           <StackLayout class="product-base" borderWidth="1" rows="*, *, *" columns="*, *" (tap)="productDetail(product.id)">
             <StackLayout row="1" class="product-img">
-              <Image [src]="product.master.images[0].product_url" stretch="none" class="m-r-20"></Image>
+              <Image [src]="product.product_url" stretch="none" class="m-r-20"></Image>
             </StackLayout>
             <StackLayout row="2" class="m-t-5 m-b-5"></StackLayout>
             <StackLayout row="3" class="product-name">

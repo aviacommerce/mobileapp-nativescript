@@ -20,7 +20,7 @@ export class LineItemListComponent implements OnInit {
   constructor(
     private store: Store<IappState>,
     private router: RouterExtensions
-  ) {
+  ) { 
     this.lineItems$ = this.store.select(getLineItems);
   }
 
