@@ -3,10 +3,11 @@ import { Store } from "@ngrx/store";
 import { RouterExtensions } from "nativescript-angular/router";
 import { Subscription } from "rxjs";
 import { tap } from "rxjs/operators";
-import { getOrderState } from "~/checkout/reducers/selectors";
+import { getOrderState, getShipAddress } from "~/checkout/reducers/selectors";
 import { AddressService } from "~/core/services/address.service";
 import { CheckoutService } from "~/core/services/checkout.service";
 import { IappState } from "~/reducers";
+import { Address } from '~/core/models/address';
 
 @Component({
   moduleId: module.id,
@@ -19,6 +20,7 @@ export class AddAddressComponent implements OnInit, OnDestroy {
 
   address: any;
   orderState: string;
+  shipAddress: Address;
   subscriptionList$: Array<Subscription> = [];
   constructor(
     private router: RouterExtensions,
@@ -44,8 +46,11 @@ export class AddAddressComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscriptionList$.push(
       this.store.select(getOrderState)
-        .subscribe((oState) => this.orderState = oState)
+        .subscribe((oState) => this.orderState = oState),
+
+      this.store.select(getShipAddress).subscribe((ship) => this.shipAddress = ship)
     );
+
   }
 
   onBack() {
@@ -53,7 +58,7 @@ export class AddAddressComponent implements OnInit, OnDestroy {
   }
 
   saveAddress() {
-    if (this.orderState === "payment") {
+    if (this.orderState === "payment" && this.shipAddress) {
       this.checkoutToPayment();
     } else {
       let addressAttributes;
