@@ -1,9 +1,14 @@
 @import '../../../../app-variables';
-
 img {
   width: 120px;
   height: 160px;
   object-fit: contain;
+}
+
+.product-base {
+  background-color: $white;
+  border-radius: 6;
+  border-color: $gray-10;
 }
 
 .product-name {
@@ -13,6 +18,10 @@ img {
   word-wrap: break-word;
 }
 
+.free-ship {
+  text-align: center
+}
+
 .product-price {
   white-space: normal;
   word-wrap: break-word;
@@ -20,4 +29,9 @@ img {
   text-align: left;
   font-size: 20em;
   color: $action-price-color;
+}
+
+.actionbtn {
+  border-radius: 25;
+  background-color: $action-color;
 }
