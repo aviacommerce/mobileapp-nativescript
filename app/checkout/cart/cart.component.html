@@ -1,14 +1,20 @@
 <ab-component></ab-component>
-<ScrollView sdkExampleTitle sdkToggleNavButton>
-  <FlexboxLayout flexDirection="column" backgroundColor="lightgray" class="container">
-    <StackLayout>
-      <line-item-list [itemTotal]="itemTotal$ | async"></line-item-list>
+<GridLayout rows="*,60">
+  <StackLayout row="0">
+    <StackLayout class="total">
+      <Label class="m-r-10 discount" text="Cart Subtotal   {{currency}} {{itemTotal$ | async}}"> </Label>
     </StackLayout>
-    <StackLayout class="p-t-0"> </StackLayout>
-    <StackLayout class='button-container' verticalAlignment="bottom">
-      <Label class="m-r-10 discount" text="Cart Subtotal {{currency}} {{itemTotal$ | async}}"> </Label>
-      <Button class="btn btn-primary btn-active" id="button" text="Proceed To checkout" (tap)="placeOrder()">
-      </Button>
-    </StackLayout>
-  </FlexboxLayout>
-</ScrollView>
+    <ScrollView sdkExampleTitle sdkToggleNavButton>
+      <FlexboxLayout flexDirection="column" backgroundColor="lightgray" class="container">
+        <StackLayout>
+          <line-item-list [itemTotal]="itemTotal$ | async"></line-item-list>
+        </StackLayout>
+        <StackLayout class="p-t-0"> </StackLayout>
+      </FlexboxLayout>
+    </ScrollView>
+  </StackLayout>
+  <StackLayout row="1" class='button-container'>
+    <Button class="btn btn-primary btn-active" id="button" text="Proceed To checkout" (tap)="placeOrder()">
+    </Button>
+  </StackLayout>
+</GridLayout>

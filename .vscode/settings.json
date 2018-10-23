@@ -1,6 +1,5 @@
 {
   "editor.tabSize": 2,
-  "files.insertFinalNewline": true,
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
@@ -8,5 +7,9 @@
     "**/CVS": true,
     "**/.DS_Store": true,
     "app/**/*.{js,css}": true,
-  }
+  },
+  "editor.autoClosingBrackets": "beforeWhitespace",
+  "editor.autoClosingQuotes": "beforeWhitespace",
+  "files.insertFinalNewline": true,
+  "editor.acceptSuggestionOnEnter": "smart"
 }

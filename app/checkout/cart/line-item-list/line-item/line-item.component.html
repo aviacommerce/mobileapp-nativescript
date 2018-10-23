@@ -1,16 +1,25 @@
-<GridLayout class="p-b-10" rows="*, *, *" columns="*, *">
-  <StackLayout col="0" class="imgcontainer" width="40%">
-    <Image [src]="image" stretch="aspectFit" height="120" class="img" class="m-r-20"></Image>
-  </StackLayout>
-  <StackLayout col="1" colSpan="2" width="90%">
-    <Label [text]="name" class="product-name"></Label>
-    <Label col="1" [text]="optionTxt" class="product-name p-y-10"> </Label>
-    <Label col="1" [text]="amount" class="product-price p-y-10"> </Label>
-    <Label class="free-ship m-b-5 m-t-5">
-      <FormattedString>
-        <Span class="m-r-20" text="QTY : "></Span>
-        <Span [text]="quantityCount"></Span>
-      </FormattedString>
-    </Label>
-  </StackLayout>
-</GridLayout>
+<StackLayout class="p-y-20 product-base" borderBottomWidth="1">
+  <GridLayout rows="*, *, *" columns="*, *">
+    <StackLayout col="0" class="imgcontainer" width="40%">
+      <Image [src]="image" stretch="aspectFit" height="120" class="img" class="m-r-20"></Image>
+    </StackLayout>
+    <StackLayout col="1" colSpan="2" width="90%">
+      <Label [text]="name" class="product-name"></Label>
+      <Label col="1" [text]="optionTxt" class="product-name p-y-10"> </Label>
+      <Label col="1" [text]="amount" class="product-price p-y-10"> </Label>
+      <StackLayout orientation="horizontal">
+        <Button width="35" height="35" class="actionbtn free-ship m-b-5 m-t-5 p-l-5 p-r-5 fa plus" text="&#xf067;">
+        </Button>
+        <Label class="free-ship m-b-5 p-y-5 p-x-10 m-t-5" text="40" width="40" horizontalAlignment="center"
+          verticalAlignment="center"></Label>
+        <Button width="35" height="35" class="free-ship actionbtn p-l-5 p-r-5 m-b-5 m-t-5 m-l-5 fa minus" text="&#xf068;">
+        </Button>
+      </StackLayout>
+    </StackLayout>
+  </GridLayout>
+  <GridLayout>
+    <StackLayout orientation="horizontal">
+      <Label class="m-r-20 fa times" text="&#xf00d;"></Label>
+    </StackLayout>
+  </GridLayout>
+</StackLayout>
