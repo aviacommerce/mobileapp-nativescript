@@ -9,12 +9,12 @@ import { JsonApiParserService } from "./json-api-parser.service";
 
 @Injectable()
 export class ProductService {
-	/**
-	 * Creates an instance of ProductService.
-	 * @param {HttpService} http
-	 *
-	 * @memberof ProductService
-	 */
+  /**
+ * Creates an instance of ProductService.
+ * @param {HttpService} http
+ *
+ * @memberof ProductService
+ */
   constructor(
     private http: HttpClient,
     private apiParser: JsonApiParserService
@@ -24,14 +24,14 @@ export class ProductService {
   success: any;
   // tslint:disable-next-line:member-ordering
   error: any;
-	/**
-	 *
-	 *
-	 * @param {string} id
-	 * @returns {Observable<Product>}
-	 *
-	 * @memberof ProductService
-	 */
+  /**
+   *
+   *
+   * @param {string} id
+   * @returns {Observable<Product>}
+   *
+   * @memberof ProductService
+   */
 
   getProduct(id: string): Observable<Product> {
     return this.http
@@ -50,7 +50,7 @@ export class ProductService {
   getProducts(pageNumber: number): Observable<Array<Product>> {
     return this.http
       .get<{ data: Array<CJsonApi> }>(
-        `api/v1/products?q[s]=updated_at+desc&page=${pageNumber}&per_page=20&data_set=small`
+        `api/v1/products?q[s]=updated_at+desc&page=${pageNumber}&per_page=40&data_set=small`
       )
       .pipe(
         map(

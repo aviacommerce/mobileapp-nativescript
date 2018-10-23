@@ -1,6 +1,6 @@
 <ActionBar title="Cart Items" class="actionbarbg">
-    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="onBack()"></NavigationButton>
-  </ActionBar>
+  <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="onBack()"></NavigationButton>
+</ActionBar>
 <FlexLayout class="lineitem prod-item">
   <StackLayout class="savetoday" orientation="horizontal">
     <Label class="m-r-10 discount" text="Save 30% Today"></Label>
@@ -8,10 +8,11 @@
   </StackLayout>
   <StackLayout class="p-t-0"> </StackLayout>
   <StackLayout *ngIf="lineItems$ | async; let lineItems">
-    <ListView [items]="lineItems">
-      <StackLayout *ngFor="let item of lineItems" class="p-t-10 p-b-10">
+    <RadListView [items]="lineItems">
+      <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" spanCount="1"></ListViewGridLayout>
+      <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
         <line-item [lineItem]="item"></line-item>
-      </StackLayout>
-    </ListView>
+      </ng-template>
+    </RadListView>
   </StackLayout>
 </FlexLayout>
