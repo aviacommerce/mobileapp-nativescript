@@ -2,24 +2,20 @@ import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptCommonModule } from "nativescript-angular/common";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { SharedModule } from "~/shared/shared.module";
-import { OrderResponeComponent } from "./order-respone.component";
+import { PaymentModesComponent } from "./payment-modes/payment-modes.component";
 
 @NgModule({
     imports: [
         NativeScriptCommonModule,
-        NativeScriptFormsModule,
-        SharedModule
+        SharedModule,
+        NativeScriptFormsModule
     ],
-    declarations: [
-        OrderResponeComponent
-    ],
+    declarations: [PaymentModesComponent],
 
-    providers: [
-
-    ]
+    providers: []
     ,
     schemas: [
-        NO_ERRORS_SCHEMA
+      NO_ERRORS_SCHEMA
     ]
 })
-export class OrderModule { }
+export class PaymentModule { }

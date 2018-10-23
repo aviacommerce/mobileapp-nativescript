@@ -1,34 +1,30 @@
-import { map, switchMap } from 'rxjs/operators';
-import { Product } from './../../core/models/product';
-import { ProductActions } from './../actions/product-actions';
-import { Observable } from 'rxjs';
-import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
-import { ProductService } from './../../core/services/product.service';
-import { Action } from '@ngrx/store';
+import { Injectable } from "@angular/core";
+import { Actions, Effect } from "@ngrx/effects";
+import { Action } from "@ngrx/store";
+import { Observable } from "rxjs";
+import { map, switchMap } from "rxjs/operators";
+import { Product } from "./../../core/models/product";
+import { ProductService } from "./../../core/services/product.service";
+import { ProductActions } from "./../actions/product-actions";
 
 @Injectable()
 export class ProductEffects {
-  constructor(
-    private actions$: Actions,
-    private productService: ProductService,
-    private productActions: ProductActions,
 
-  ) { }
-  // tslint:disable-next-line:member-ordering
   @Effect()
-  GetAllProducts$: Observable<Action> = this.actions$
+  getAllProducts$: Observable<Action> = this.actions$
     .ofType(ProductActions.GET_ALL_PRODUCTS)
     .pipe(
       switchMap((action: any) =>
         this.productService.getProducts(action.payload)
       ),
-      map((data: any) =>
-        this.productActions.getAllProductsSuccess({ products: data })
+      map((data: any) => {
+        return this.productActions.getAllProductsSuccess({ products: data });
+      }
       )
     );
+
   @Effect()
-  GetProductDetail$: Observable<Action> = this.actions$
+  getProductDetail$: Observable<Action> = this.actions$
     .ofType(ProductActions.GET_PRODUCT_DETAIL)
     .pipe(
       switchMap((action: any) =>
@@ -38,8 +34,9 @@ export class ProductEffects {
         this.productActions.getProductDetailSuccess({ product })
       )
     );
+
   @Effect()
-  GetReview$: Observable<Action> = this.actions$
+  getReview$: Observable<Action> = this.actions$
     .ofType(ProductActions.GET_REVIEWS)
     .pipe(
       switchMap((action: any) =>
@@ -49,4 +46,21 @@ export class ProductEffects {
         this.productActions.getProductReviewsSuccess({ reviews: data })
       )
     );
+
+  @Effect()
+  getAllTaxonomies$: Observable<Action> = this.actions$
+    .ofType(ProductActions.GET_ALL_TAXONOMIES)
+    .pipe(
+      switchMap((action: any) => this.productService.getTaxonomies()),
+      map((data: any) =>
+        this.productActions.getAllTaxonomiesSuccess({ taxonomies: data })
+      )
+    );
+
+  constructor(
+    private actions$: Actions,
+    private productService: ProductService,
+    private productActions: ProductActions
+
+  ) { }
 }

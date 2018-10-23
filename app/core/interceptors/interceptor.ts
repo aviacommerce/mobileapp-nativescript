@@ -5,15 +5,24 @@ import {
   HttpInterceptor,
   HttpRequest
 } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Injectable, Injector } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "../../environments/environment";
+import { AuthService } from "../services/auth.service";
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
+  constructor(private injector: Injector) { }
+
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const clonedRequest = request.clone({ url: this.fixUrl(request.url) });
+
+    const auth = this.injector.get(AuthService);
+
+    const clonedRequest = request.clone({
+      headers: auth.getTokenHeader(request),
+      url: this.fixUrl(request.url)
+    });
 
     return next.handle(clonedRequest);
   }

@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { getLineItems } from "~/checkout/reducers/selectors";
 import { LineItem } from "~/core/models/line_item";
 import { IappState } from "~/reducers";
+import { RouterExtensions } from "nativescript-angular/router";
 
 @Component({
   moduleId: module.id,
@@ -15,11 +16,19 @@ import { IappState } from "~/reducers";
 export class LineItemListComponent implements OnInit {
   @Input() itemTotal: number;
   lineItems$: Observable<Array<LineItem>>;
-  constructor(private store: Store<IappState>) {
+
+  constructor(
+    private store: Store<IappState>,
+    private router: RouterExtensions
+  ) { 
     this.lineItems$ = this.store.select(getLineItems);
   }
 
   ngOnInit() {
     //
-   }
+  }
+
+  onBack() {
+    this.router.backToPreviousPage();
+  }
 }

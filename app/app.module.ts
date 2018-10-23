@@ -1,5 +1,5 @@
 
-import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule, JsonpInterceptor } from "@angular/common/http";
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { EffectsModule } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
@@ -21,6 +21,8 @@ import { CheckoutEffects } from "./checkout/effects/checkout.effects";
 import { TokenInterceptor } from "./core/interceptors/interceptor";
 import { AuthService } from "./core/services/auth.service";
 import { CheckoutService } from "./core/services/checkout.service";
+import { JsonApiParserService } from "./core/services/json-api-parser.service";
+import { PaymentService } from "./core/services/payment.service";
 import { reducers } from "./reducers";
 
 @NgModule({
@@ -57,6 +59,8 @@ import { reducers } from "./reducers";
     CheckoutActions,
     AuthService,
     AuthActions,
+    PaymentService,
+    JsonApiParserService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ]
 })
