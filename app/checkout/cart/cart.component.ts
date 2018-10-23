@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import * as app from "application";
+import { RouterExtensions } from "nativescript-angular/router";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { Observable, Subscription } from "rxjs";
 import { tap } from "rxjs/operators";
@@ -28,9 +29,10 @@ export class CartComponent implements OnInit, OnDestroy {
   subscriptionList$: Array<Subscription> = [];
 
   constructor(
+    private router: RouterExtensions,
     private store: Store<IappState>,
     private checkoutService: CheckoutService,
-    private router: Router) {
+    private router1: Router) {
     this.totalCartValue$ = this.store.select(getTotalCartValue);
     this.totalCartItems$ = this.store.select(getTotalCartItems);
     this.itemTotal$ = this.store.select(getItemTotal);
@@ -53,7 +55,7 @@ export class CartComponent implements OnInit, OnDestroy {
     );
   }
 
-  proceedToCheckOut() {
+  placeOrder() {
     if (this.isAuthenticated) {
       if (this.orderState === "cart") {
         this.subscriptionList$.push(
@@ -62,19 +64,18 @@ export class CartComponent implements OnInit, OnDestroy {
               this.router.navigate(["/checkout", "address"]);
             })).subscribe());
       } else {
-        this.router.navigate(["/checkout", "address"]);
+        this.router1.navigate(["/checkout", "address"]);
       }
     } else {
-      this.router.navigate(["/auth", "login"]);
+      this.router1.navigate(["/auth", "login"]);
     }
   }
 
   ngOnDestroy() {
     this.subscriptionList$.map((sub$) => sub$.unsubscribe());
   }
-  orderlink() {
-    this.router.navigate(["/checkout/order"], {    
-    })
-  }
 
+  onBack() {
+    this.router.backToPreviousPage();
+  }
 }

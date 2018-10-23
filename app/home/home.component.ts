@@ -4,9 +4,9 @@ import { Store } from "@ngrx/store";
 import { registerElement } from "nativescript-angular/element-registry";
 import { Observable, Subscription } from "rxjs";
 import { Product } from "~/core/models/product";
-import { TaxonomyService } from "~/core/services/taxonomy.service";
+import { ProductService } from "~/core/services/product.service";
 import { ProductActions } from "~/product/actions/product-actions";
-import { showAllProducts } from "~/product/reducers/selectors";
+import { showAllProducts, getTaxonomies } from "~/product/reducers/selectors";
 import { IappState } from "~/reducers";
 import { Taxonomy } from "~/core/models/taxonomy";
 registerElement("StarRating", () => require("nativescript-star-ratings").StarRating);
@@ -19,9 +19,9 @@ registerElement("StarRating", () => require("nativescript-star-ratings").StarRat
 })
 
 export class HomeComponent implements OnInit, OnDestroy {
-  texonomies: Array<Taxonomy>;
-  products$: Observable<Product>;
-  products: object;
+  taxonomies$: Observable<any>;
+  products$: Observable<Array<Product>>;
+  product: Product;
   taxonImageLink;
   searchPhrase: string;
   searchBar;
@@ -31,25 +31,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   promoImg = "../assets/promo.png";
   subscriptionList$: Array<Subscription> = [];
   constructor(
-    private myService: TaxonomyService,
+    private productService: ProductService,
     private router: Router, private store: Store<IappState>,
-    private actions: ProductActions) {
-      this.extractData();
-  }
+    private actions: ProductActions) { }
+
 
   ngOnInit() {
-    
+    this.extractData();
   }
 
   extractData() {
     this.store.dispatch(this.actions.getAllProducts(1));
-    this.subscriptionList$.push(
-      this.myService.getTaxonomies()
-        .subscribe((result) => {
-          this.texonomies = (result);
-        })
-    );
+    this.store.dispatch(this.actions.getAllTaxonomies());
     this.products$ = this.store.select(showAllProducts);
+    this.taxonomies$ = this.store.select(getTaxonomies);
   }
 
   productDetail(productId) {
@@ -59,7 +54,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+ 
   ngOnDestroy() {
     this.subscriptionList$.map((sub$) => sub$.unsubscribe());
   }

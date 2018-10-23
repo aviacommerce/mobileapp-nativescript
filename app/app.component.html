@@ -19,7 +19,7 @@
           <Label col="1" text="Home" class="p-r-10"></Label>
         </GridLayout>
         <StackLayout class="hr-light"></StackLayout>      
-        <GridLayout columns="auto, *" class="sidedrawer-list-item"(tap)="logout()">
+        <GridLayout columns="auto, *" class="sidedrawer-list-item"(tap)="logout()" *ngIf="isAuthenticated">
           <Label col="0" text="&#xf08b;" class="fa"></Label>
           <Label col="1" text="Logout" class="p-r-10"></Label>
         </GridLayout>

@@ -30,7 +30,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   relatedProducts$: Observable<any>;
   similarProducts$: Observable<Array<Product>>;
   reviewProducts$: Observable<any>;
-  product;
+  product: Product;
   relatedProducts;
   similarProducts;
   subscriptionList$: Array<Subscription> = [];
@@ -44,6 +44,11 @@ export class ProductComponent implements OnInit, OnDestroy {
   rate: number;
   title: string;
   review: string;
+
+  description: any;
+  images: any;
+  variantId: any;
+  productID: any;
   constructor(
     private store: Store<IappState>,
     private actions: ProductActions,
@@ -57,8 +62,9 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.store.dispatch(this.actions.getAllProducts(1));
     const id = this.route.snapshot.queryParams.id;
     this.subscriptionList$.push(
-      this.productService.getProductDetail(id).subscribe((data) => {
+      this.productService.getProduct(id).subscribe((data) => {
         this.product = data;
+        this.initData();
       })
     );
     this.products$ = this.store.select(showAllProducts);
@@ -114,12 +120,31 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.router.navigate([prodId]);
   }
 
-  addToCart() {
+  addToCart(id: any) {
     // Todo: Get quantity from user input.
-    this.store.dispatch(this.checkoutActions.addToCart(this.product.id, 1));
+    this.store.dispatch(this.checkoutActions.addToCart(id, 1));
   }
 
   ngOnDestroy() {
     this.subscriptionList$.map((sub$) => sub$.unsubscribe());
+  }
+
+  initData() {
+    if (this.product.has_variants) {
+      const product = this.product.variants[0];
+      this.description = product.description;
+      this.images = product.images;
+      this.variantId = product.id;
+      this.productID = this.product.id;
+      this.product.display_price = product.display_price;
+      this.product.price = product.price;
+      this.product.master.is_orderable = product.is_orderable;
+      this.product.master.cost_price = product.cost_price;
+    } else {
+      this.description = this.product.description;
+      this.images = this.product.master.images;
+      this.variantId = this.product.master.id;
+      this.productID = this.product.id;
+    }
   }
 }
