@@ -6,7 +6,6 @@
     </StackLayout>
     <ScrollView sdkExampleTitle sdkToggleNavButton>
       <FlexboxLayout flexDirection="column" class="container">
-
         <StackLayout class="savetoday" orientation="horizontal">
           <Label class="m-r-10 discount" text="Save 30% Today"></Label>
           <Label class="autoship" text="On Your First Autoship"> </Label>
@@ -31,25 +30,30 @@
         <StackLayout class="promoimg">
           <Label class="typeofproduct" text="Popular products"></Label>
         </StackLayout>
-        <StackLayout *ngIf="products$ | async; let products">
+        <StackLayout *ngIf="products$ | async; let products" class="m-b-20">
           <RadListView [items]="products">
             <ListViewLinearLayout tkListViewLayout scrollDirection="Horizontal"></ListViewLinearLayout>
             <ng-template let-product="item" let-i="index" let-odd="odd" let-even="even">
               <StackLayout class="product-base" borderWidth="1" rows="*, *, *" columns="*, *" (tap)="productDetail(product.id)">
-                <StackLayout row="1" class="product-img">
-                  <Image [src]="product.product_url" stretch="none" class="m-r-20"></Image>
+                <StackLayout class="p-15">
+                  <StackLayout row="1" class="product-img">
+                    <Image [src]="product.product_url" stretch="none" height="80" class="m-r-20"></Image>
+                  </StackLayout>
+                  <StackLayout row="2" class="m-t-5 m-b-5"></StackLayout>
+                  <StackLayout row="3" class="product-name my-4">
+                    <Label class="name" [text]="product.name"></Label>
+                  </StackLayout>
+                  <StackLayout row="4" class="product-price my-4">
+                    <Label>
+                      <FormattedString>
+                        <Span text="&#8377;"></Span>
+                        <Span [text]="product.price"></Span>
+                      </FormattedString>
+                    </Label>
+                  </StackLayout>
                 </StackLayout>
-                <StackLayout row="2" class="m-t-5 m-b-5"></StackLayout>
-                <StackLayout row="3" class="product-name my-4">
-                  <Label class="name" [text]="product.name"></Label>
-                </StackLayout>
-                <StackLayout row="4" class="product-price my-4">
-                  <Label>
-                    <FormattedString>
-                      <Span text="&#8377;"></Span>
-                      <Span [text]="product.price"></Span>
-                    </FormattedString>
-                  </Label>
+                <StackLayout row="5" borderTopWidth="1" class="add-to">
+                  <Label text="Add to cart"></Label>
                 </StackLayout>
               </StackLayout>
             </ng-template>
