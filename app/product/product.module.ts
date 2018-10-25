@@ -16,13 +16,15 @@ import { ProductComponent } from "~/product/product.component";
 import { ProductActions } from "~/product/actions/product-actions";
 
 //Effects
-import { EffectsModule } from '@ngrx/effects';
+import { EffectsModule } from "@ngrx/effects";
 import { ProductEffects } from "~/product/effects/product.effects";
 
 //Share Module
+import { KeysPipe } from "~/shared/pipes/keys.pipe";
 import { SharedModule } from "~/shared/shared.module";
 import { CheckoutActions } from "../checkout/actions/checkout.actions";
-import { CheckoutEffects } from '../checkout/effects/checkout.effects';
+import { CheckoutEffects } from "../checkout/effects/checkout.effects";
+import { ProductVariantsComponent } from "./product-variants/product-variants.component";
 @NgModule({
   imports: [
     NativeScriptCommonModule,
@@ -35,8 +37,14 @@ import { CheckoutEffects } from '../checkout/effects/checkout.effects';
     SharedModule
   ],
   declarations: [
-    ProductComponent
+    ProductComponent,
+    ProductVariantsComponent,
+
   ],
+  exports: [
+
+  ],
+
   schemas: [
     NO_ERRORS_SCHEMA
   ],

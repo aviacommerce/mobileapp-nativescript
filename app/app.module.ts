@@ -23,6 +23,8 @@ import { AuthService } from "./core/services/auth.service";
 import { CheckoutService } from "./core/services/checkout.service";
 import { JsonApiParserService } from "./core/services/json-api-parser.service";
 import { PaymentService } from "./core/services/payment.service";
+import { VariantParserService } from "./core/services/variant-parser.service";
+import { VariantRetriverService } from "./core/services/variant-retriver.service";
 import { reducers } from "./reducers";
 
 @NgModule({
@@ -48,9 +50,13 @@ import { reducers } from "./reducers";
   ],
   declarations: [
     AppComponent
+
   ],
   schemas: [
     NO_ERRORS_SCHEMA
+  ],
+  exports: [
+
   ],
   providers: [
     TaxonomyService,
@@ -61,6 +67,8 @@ import { reducers } from "./reducers";
     AuthActions,
     PaymentService,
     JsonApiParserService,
+    VariantParserService,
+    VariantRetriverService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ]
 })
