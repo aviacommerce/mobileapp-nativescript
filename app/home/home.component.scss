@@ -59,10 +59,10 @@
 }
 
 .product-base {
-  width: 350px;
+  width: 450px;
   border-radius: 5dpi;
   border-color: $gray-10;
-  padding: 10dpi;
+  background-color: $white;
   margin: 3dpi;
   height: auto;
   .product-img {
@@ -81,6 +81,12 @@
   .product-price {
     font-size: 20dpi;
     color: $action-price-color
+  }
+  .add-to {
+    border-color: $gray-10;
+    padding: 10;
+    text-align: center;
+    color: $action-color;
   }
 }
 

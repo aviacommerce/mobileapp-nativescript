@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
@@ -8,7 +8,11 @@ import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { Observable, Subscription } from "rxjs";
 import { switchMap } from "rxjs/operators";
 import { TextField } from "tns-core-modules/ui/text-field";
+import { Variant } from "~/core/models/variant";
 import { ProductService } from "~/core/services/product.service";
+// tslint:disable-next-line:ordered-imports
+import { VariantParserService } from "~/core/services/variant-parser.service";
+import { VariantRetriverService } from "~/core/services/variant-retriver.service";
 import { SearchActions } from "~/search/action/search.actions";
 import { getProductsByKeyword } from "~/search/reducers/selectors";
 import { CheckoutActions } from "../checkout/actions/checkout.actions";
@@ -25,6 +29,8 @@ import { ProductActions } from "./../product/actions/product-actions";
 })
 
 export class ProductComponent implements OnInit, OnDestroy {
+  @Output() selectedVariant = new EventEmitter<object>();
+
   products$: Observable<Product>;
   products: Product;
   relatedProducts$: Observable<any>;
@@ -44,18 +50,24 @@ export class ProductComponent implements OnInit, OnDestroy {
   rate: number;
   title: string;
   review: string;
-
   description: any;
   images: any;
   variantId: any;
   productID: any;
+  customOptionTypesHash: any;
+  currentSelectedOptions = {};
+  mainOptions: any;
+  correspondingOptions: any;
+  selectedVariantPrice: any;
+  isOrderable: boolean;
   constructor(
     private store: Store<IappState>,
     private actions: ProductActions,
     private productService: ProductService,
     private route: ActivatedRoute,
     private router: Router,
-    private checkoutActions: CheckoutActions) {
+    private checkoutActions: CheckoutActions,
+    private variantParser: VariantParserService) {
   }
 
   ngOnInit(): void {
@@ -64,15 +76,24 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.subscriptionList$.push(
       this.productService.getProduct(id).subscribe((data) => {
         this.product = data;
-        this.initData();
+        console.log(this.product);
+        this.getvariansInfo(this.product);
+        //  this.initData();
       })
     );
+
     this.products$ = this.store.select(showAllProducts);
     this.store.dispatch(this.actions.getProductReviews(id));
     this.reviewProducts$ = this.store.select(productReviews);
-
   }
 
+  getvariansInfo(product) {
+    this.variantId = this.product.master.id;
+    this.customOptionTypesHash = this.variantParser
+      .getOptionsToDisplay(this.product.variants, this.product.option_types);
+    this.mainOptions = this.makeGlobalOptinTypesHash(this.customOptionTypesHash);
+    this.correspondingOptions = this.mainOptions;
+  }
   onDrawerButtonTap(): void {
     const sideDrawer = <RadSideDrawer>app.getRootView();
     sideDrawer.showDrawer();
@@ -145,6 +166,52 @@ export class ProductComponent implements OnInit, OnDestroy {
       this.images = this.product.master.images;
       this.variantId = this.product.master.id;
       this.productID = this.product.id;
+    }
+  }
+  getSelectedVariant(variant) {
+    this.selectedVariant.emit(variant)
+  }
+  onOptionClick(option) {
+    const result = new VariantRetriverService().getVariant(
+      this.currentSelectedOptions,
+      this.customOptionTypesHash,
+      option,
+      this.product
+    );
+
+    this.createNewCorrespondingOptions(
+      result.newCorrespondingOptions,
+      option.value.optionValue.option_type_name
+    );
+
+    this.currentSelectedOptions = result.newSelectedoptions;
+    const newVariant: Variant = result.variant;
+    this.variantId = newVariant.id;
+    this.description = newVariant.description;
+    this.images = newVariant.images;
+    this.product.display_price = result.variant.display_price;
+    this.getSelectedVariant(result.variant);
+    this.isOrderable = newVariant.is_orderable;
+    this.product.master.cost_price = newVariant.cost_price;
+    this.product.price = newVariant.price;
+  }
+
+  makeGlobalOptinTypesHash(customOptionTypes) {
+    const temp = {};
+    for (const key in customOptionTypes) {
+      if (customOptionTypes.hasOwnProperty(key)) {
+        temp[key] = Object.keys(customOptionTypes[key]);
+      }
+    }
+
+    return temp;
+  }
+
+  createNewCorrespondingOptions(newOptions, optionKey) {
+    for (const key in this.correspondingOptions) {
+      if (this.correspondingOptions.hasOwnProperty(key) && key !== optionKey) {
+        this.correspondingOptions[key] = newOptions[key];
+      }
     }
   }
 }
