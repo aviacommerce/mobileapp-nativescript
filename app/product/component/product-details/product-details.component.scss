@@ -100,7 +100,9 @@
 .product-detail {
   .price {
     font-size: 20dpi;
-    color: $action-price-color
+    color: $action-price-color;
+    text-emphasis: none;
+    white-space: normal;
   }
   .btn-primary {
     background-color: transparent;
@@ -114,5 +116,5 @@
 
 .line-through {
   text-decoration: line-through;
-  color: black;
+  color: $black !important;
 }

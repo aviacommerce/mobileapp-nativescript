@@ -2,23 +2,35 @@
 .container {
   padding: 0 0dpi;
   background-color: $white - 10;
-
   .thankyou {
     margin: 10px 0px;
-    padding:10px;
+    padding: 10px;
     border-color: $gray-10;
-    background-color:$white;
+    background-color: $white;
     .thank-text {
-      font-size:25px;
-      color:$secondary;
+      font-size: 25px;
+      color: $secondary;
       margin-bottom: 10px;
     }
-
     .sub-text {
       font-size: 14px;
-      color:$accent-dark;
+      color: $accent-dark;
       text-emphasis: none;
       white-space: normal;
     }
   }
+}
+
+.name {
+  white-space: normal;
+  text-emphasis: none;
+}
+
+.price {
+  white-space: normal;
+  word-wrap: break-word;
+  margin-top: 0.4em;
+  text-align: left;
+  font-size: 20em;
+  color: $action-price-color;
 }
