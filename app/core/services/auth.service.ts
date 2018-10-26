@@ -57,6 +57,20 @@ export class AuthService {
     );
   }
 
+  register(data: User): Observable<User> {
+    const params = { spree_user: data };
+
+    return this.http.post<User>("auth/accounts", params).pipe(
+      map((user) => {
+        this.setTokenInLocalStorage(user);
+        this.store.dispatch(this.actions.loginSuccess());
+
+        return user;
+      }, (error) => error
+      )
+    );
+  }
+
   getTokenHeader(request: HttpRequest<any>): HttpHeaders {
     const userJson = isPlatformBrowser(this.platformId) ? localStorage.getItem("user") : "{}";
 

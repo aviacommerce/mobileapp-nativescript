@@ -1,5 +1,5 @@
 
-import { HTTP_INTERCEPTORS, HttpClientModule, JsonpInterceptor } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { EffectsModule } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
@@ -43,9 +43,7 @@ import { reducers } from "./reducers";
     NgShadowModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument(),
-    EffectsModule.forRoot([
-      CheckoutEffects
-    ]),
+    EffectsModule.forRoot([CheckoutEffects]),
     StoreDevtoolsModule.instrument()
   ],
   declarations: [

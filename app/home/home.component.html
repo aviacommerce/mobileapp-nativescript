@@ -34,7 +34,7 @@
           <RadListView [items]="products">
             <ListViewLinearLayout tkListViewLayout scrollDirection="Horizontal"></ListViewLinearLayout>
             <ng-template let-product="item" let-i="index" let-odd="odd" let-even="even">
-              <StackLayout class="product-base" borderWidth="1" rows="*, *, *" columns="*, *" (tap)="productDetail(product.id)">
+              <StackLayout class="product-base" borderWidth="1" rows="*, *, *" columns="*, *" (tap)="productDetail(product.slug)">
                 <StackLayout class="p-15">
                   <StackLayout row="1" class="product-img">
                     <Image [src]="product.product_url" stretch="aspectFit" height="80" class="m-r-20"></Image>
@@ -62,8 +62,8 @@
       </FlexboxLayout>
     </ScrollView>
   </StackLayout>
-  <StackLayout row="1" orientation="horizontal">
-    <Label textWrap="true" class="login-label" text="Sign in" width="50%"> </Label>
-    <Label textWrap="true" class="login-label" text="Create Account" width="50%"></Label>
+  <StackLayout row="1" orientation="horizontal" *ngIf="!(isAuthenticated$ | async)">
+    <Label textWrap="true" class="login-label" (tap)="goToLogin()" text="Sign in" width="50%"> </Label>
+    <Label textWrap="true" class="login-label" (tap)="goToSignup()" text="Create Account" width="50%"></Label>
   </StackLayout>
 </GridLayout>

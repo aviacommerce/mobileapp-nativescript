@@ -1,4 +1,6 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { RouterExtensions } from "nativescript-angular/router";
 import { Subscription } from "rxjs";
 import { Page } from "tns-core-modules/ui/page/page";
 import { User } from "~/core/models/user";
@@ -18,14 +20,13 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
   @ViewChild("password") password: ElementRef;
   @ViewChild("confirmPassword") confirmPassword: ElementRef;
 
-  constructor(private page: Page, private authService: AuthService) {
+  constructor(
+    private page: Page,
+    private authService: AuthService,
+    private activatedRouter: ActivatedRoute,
+    private router: RouterExtensions) {
+    this.user = new User();
     this.page.actionBarHidden = false;
-    // this.user = new User();
-    this.user = {
-      email: "jaypal@aviabird.com",
-      password: "flip@412",
-      confirmPassword: "flip@412"
-    };
   }
 
   toggleForm() {
@@ -33,7 +34,12 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Init your component properties here.
+    this.subscriptionList$.push(
+      this.activatedRouter.queryParams.subscribe((params) => {
+        const { signUpFlag } = params;
+        this.isLoggingIn = !signUpFlag;
+      })
+    );
   }
 
   submit() {
@@ -52,7 +58,11 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
 
   login() {
     this.subscriptionList$.push(
-      this.authService.login(this.user).subscribe()
+      this.authService.login(this.user).subscribe((_) => {
+        this.alert("Login Success!.");
+      }, (_) => {
+        this.alert("Something went worng.Try again!");
+      })
     );
   }
 
@@ -61,8 +71,22 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
       this.alert("Your passwords do not match.");
 
       return;
+    } else {
+      this.subscriptionList$.push(
+        this.authService.register(this.user).subscribe(
+          (_) => {
+            this.alert("Register Success!.");
+            this.toggleForm();
+          }, (_) => {
+            this.alert("Something went worng.Try again!");
+          }
+        )
+      );
     }
+  }
 
+  onBack() {
+    this.router.backToPreviousPage();
   }
 
   forgotPassword() {
@@ -81,7 +105,6 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
 
   alert(msg: string) {
     return alert({
-      title: "APP NAME",
       okButtonText: "OK",
       message: msg
     });
