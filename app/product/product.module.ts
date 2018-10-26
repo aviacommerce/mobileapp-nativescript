@@ -1,56 +1,39 @@
 
-//Module
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
-import { NativeScriptCommonModule } from "nativescript-angular/common";
-import { NativeScriptFormsModule } from "nativescript-angular/forms";
-import { NativeScriptRouterModule } from "nativescript-angular/router";
-import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
-
-//Routes
-import { ProductRoutingModule } from "~/product/product-routing.module";
-
-//Component
-import { ProductComponent } from "~/product/product.component";
-
-//Actions
-import { ProductActions } from "~/product/actions/product-actions";
-
-//Effects
 import { EffectsModule } from "@ngrx/effects";
+import { NativeScriptCommonModule } from "nativescript-angular/common";
+import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
+import { ProductActions } from "~/product/actions/product-actions";
 import { ProductEffects } from "~/product/effects/product.effects";
-
-//Share Module
-import { KeysPipe } from "~/shared/pipes/keys.pipe";
+import { ProductRoutingModule } from "~/product/product-routing.module";
+import { ProductComponent } from "~/product/product.component";
+import { SearchActions } from "~/search/action/search.actions";
 import { SharedModule } from "~/shared/shared.module";
 import { CheckoutActions } from "../checkout/actions/checkout.actions";
-import { CheckoutEffects } from "../checkout/effects/checkout.effects";
-import { ProductVariantsComponent } from "./product-variants/product-variants.component";
+import { ProductDetailsComponent } from "./component/product-details/product-details.component";
+import { ProductVariantsComponent } from "./component/product-variants/product-variants.component";
 @NgModule({
   imports: [
     NativeScriptCommonModule,
     ProductRoutingModule,
     EffectsModule.forRoot([ProductEffects]),
-    EffectsModule.forRoot([
-      CheckoutEffects
-    ]),
     NativeScriptUIListViewModule,
     SharedModule
   ],
   declarations: [
     ProductComponent,
-    ProductVariantsComponent,
-
+    ProductDetailsComponent,
+    ProductVariantsComponent
   ],
-  exports: [
-
-  ],
+  exports: [],
 
   schemas: [
     NO_ERRORS_SCHEMA
   ],
   providers: [
     ProductActions,
-    CheckoutActions
+    CheckoutActions,
+    SearchActions
   ]
 })
 

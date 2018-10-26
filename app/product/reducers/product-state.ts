@@ -14,7 +14,7 @@ export interface ProductState extends Map<string, any> {
   productIds: List<number>;
   productEntities: Map<number, Product>;
   selectedProductId: number;
-  selectedProduct: Product;
+  selectedProduct: any;
   taxonomies: List<Taxonomy>;
   showAllProducts: List<Product>;
   relatedProducts: List<Product>;
