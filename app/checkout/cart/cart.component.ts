@@ -78,4 +78,7 @@ export class CartComponent implements OnInit, OnDestroy {
   onBack() {
     this.router.backToPreviousPage();
   }
+  gotoodersuccess() {
+    this.router.navigate(["/checkout/order"]);
+  }
 }

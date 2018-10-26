@@ -22,9 +22,9 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
     this.page.actionBarHidden = false;
     // this.user = new User();
     this.user = {
-      email: "gopal@aviabird.com",
-      password: "gopal123",
-      confirmPassword: "123"
+      email: "jaypal@aviabird.com",
+      password: "flip@412",
+      confirmPassword: "flip@412"
     };
   }
 
