@@ -19,7 +19,7 @@
           <Label class="h3" horizontalAlignment="left" text="Order ID:"></Label>
         </StackLayout>
         <StackLayout width="60%" class="right" horizontalAlignment="right">
-          <Label class="price" horizontalAlignment="left" text="{{orderDetails?.number}}({{orderDetails?.total_quantity}} Item(s))"></Label>
+          <Label horizontalAlignment="left" text="{{orderDetails?.number}}({{orderDetails?.total_quantity}} Item(s))"></Label>
         </StackLayout>
       </StackLayout>
 
@@ -28,7 +28,7 @@
           <Label class="h3" horizontalAlignment="left" text="Order Date:"></Label>
         </StackLayout>
         <StackLayout width="60%" class="right" horizontalAlignment="right">
-          <Label class="price" horizontalAlignment="left" text="{{orderDetails.created_at}}"></Label>
+          <Label horizontalAlignment="left" text="{{orderDetails.created_at}}"></Label>
         </StackLayout>
       </StackLayout>
       <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
@@ -36,7 +36,7 @@
           <Label class="h3" horizontalAlignment="left" text="Total Amount:"></Label>
         </StackLayout>
         <StackLayout width="60%" class="right" horizontalAlignment="right">
-          <Label class="price" horizontalAlignment="left" text="{{orderDetails.display_total}} through {{orderDetails.payments[0].payment_method.name}}"></Label>
+          <Label horizontalAlignment="left" text="{{orderDetails.display_total}} through {{orderDetails.payments[0].payment_method.name}}"></Label>
         </StackLayout>
       </StackLayout>
       <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
@@ -44,7 +44,7 @@
           <Label class="h3" horizontalAlignment="left" text="Total Amount:"></Label>
         </StackLayout>
         <StackLayout width="60%" class="right" horizontalAlignment="right">
-          <Label class="price" horizontalAlignment="left" text="{{orderDetails.payment_state | uppercase}}"></Label>
+          <Label horizontalAlignment="left" text="{{orderDetails.payment_state | uppercase}}"></Label>
         </StackLayout>
       </StackLayout>
     </StackLayout>
@@ -55,7 +55,7 @@
           <Label class="h3" horizontalAlignment="left" text="Name:"></Label>
         </StackLayout>
         <StackLayout width="60%" class="right" horizontalAlignment="right">
-          <Label class="price" horizontalAlignment="left" text="{{orderDetails.ship_address.full_name}}"></Label>
+          <Label horizontalAlignment="left" text="{{orderDetails.ship_address.full_name}}"></Label>
         </StackLayout>
       </StackLayout>
       <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
@@ -63,7 +63,7 @@
           <Label class="h3" horizontalAlignment="left" text="Address:"></Label>
         </StackLayout>
         <StackLayout width="60%" class="right" horizontalAlignment="right">
-          <Label class="price" horizontalAlignment="left" text="{{orderDetails.ship_address.address1}}, {{orderDetails.ship_address.address2}}, {{orderDetails.ship_address.city}}"></Label>
+          <Label horizontalAlignment="left" text="{{orderDetails.ship_address.address1}}, {{orderDetails.ship_address.address2}}, {{orderDetails.ship_address.city}}"></Label>
         </StackLayout>
       </StackLayout>
       <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
@@ -71,7 +71,7 @@
           <Label class="h3" horizontalAlignment="left" text="Pincode:"></Label>
         </StackLayout>
         <StackLayout width="60%" class="right" horizontalAlignment="right">
-          <Label class="price" horizontalAlignment="left" text="{{orderDetails.ship_address.zipcode}}"></Label>
+          <Label horizontalAlignment="left" text="{{orderDetails.ship_address.zipcode}}"></Label>
         </StackLayout>
       </StackLayout>
       <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
@@ -79,7 +79,7 @@
           <Label class="h3" horizontalAlignment="left" text="Phone:"></Label>
         </StackLayout>
         <StackLayout width="60%" class="right" horizontalAlignment="right">
-          <Label class="price" horizontalAlignment="left" text="{{orderDetails.ship_address.phone}}"></Label>
+          <Label horizontalAlignment="left" text="{{orderDetails.ship_address.phone}}"></Label>
         </StackLayout>
       </StackLayout>
       <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
@@ -87,7 +87,7 @@
           <Label class="h3" horizontalAlignment="left" text="Name:"></Label>
         </StackLayout>
         <StackLayout width="60%" class="right" horizontalAlignment="right">
-          <Label class="price" horizontalAlignment="left" text="abc"></Label>
+          <Label horizontalAlignment="left" text="abc"></Label>
         </StackLayout>
       </StackLayout>
       <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
@@ -95,7 +95,7 @@
           <Label class="h3" horizontalAlignment="left" text="Email:"></Label>
         </StackLayout>
         <StackLayout width="60%" class="right" horizontalAlignment="right">
-          <Label class="price" horizontalAlignment="left" text="{{orderDetails.email}}"></Label>
+          <Label horizontalAlignment="left" text="{{orderDetails.email}}"></Label>
         </StackLayout>
       </StackLayout>
     </StackLayout>
@@ -106,39 +106,25 @@
           <Label class="h3 " horizontalAlignment="left" text="Shipping Status:"></Label>
         </StackLayout>
         <StackLayout width="60%" class="right" horizontalAlignment="right">
-          <Label class="price" horizontalAlignment="left" text="{{orderDetails.shipment_state | uppercase}}"></Label>
+          <Label horizontalAlignment="left" text="{{orderDetails.shipment_state | uppercase}}"></Label>
         </StackLayout>
       </StackLayout>
     </StackLayout>
     <StackLayout class='thankyou m-t-10 p-x-15'>
       <Label class="thank-text p-l-10 m-b-25" text="Items"> </Label>
-
       <StackLayout *ngFor="let item of orderDetails.line_items" class="p-y-15" borderBottomWidth="1" borderBottomColor="#ccc">
-        <StackLayout class="m-b-15">
-          <Image [src]="getProductImageUrl(item)" [routerLink]="['/', item.variant.slug]" stretch="aspectFit" height="120"
-            class="img" class="m-r-20"></Image>
-        </StackLayout>
-        <StackLayout class="" [routerLink]="['/', item.variant.slug]">
-          <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
-            <StackLayout width="70%" class="left" horizontalAlignment="left">
-              <Label class="h3" horizontalAlignment="left" text="{{item.variant.name}}"></Label>
-            </StackLayout>
-            <StackLayout width="30%" class="right" horizontalAlignment="right">
-              <Label class="price" horizontalAlignment="left" text="QTY : {{item.quantity}}"></Label>
-              <Label class="price" horizontalAlignment="left" text="{{item.display_amount}}"></Label>
-            </StackLayout>
+        <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
+          <StackLayout width="30%" class="left" horizontalAlignment="left">
+            <Image [src]="getProductImageUrl(item)" [routerLink]="['/', item.variant.slug]" stretch="aspectFit" height="120"
+              class="img" class="m-r-20"></Image>
           </StackLayout>
-          <StackLayout class="
-                p-l-20 m-b-10" orientation="horizontal">
-            <StackLayout width="40%" class="left" horizontalAlignment="left">
-              <Label class="h3" horizontalAlignment="left" text="{{item.variant.options_text}}"></Label>
-            </StackLayout>
-            <StackLayout width="60%" class="right" horizontalAlignment="right">
-              <Label class="price" horizontalAlignment="left" text=""></Label>
-            </StackLayout>
+          <StackLayout width="70%" class="right" horizontalAlignment="right" class="" [routerLink]="['/', item.variant.slug]">
+            <Label class="h3 name" horizontalAlignment="left" text="{{item.variant.name}}"></Label>
+            <Label class="h3 price" horizontalAlignment="left" text="{{item.display_amount}}"></Label>
+            <Label class="h3" horizontalAlignment="left" text="QTY : {{item.quantity}}"></Label>
+            <Label class="h3" horizontalAlignment="left" text="{{item.variant.options_text}}"></Label>
           </StackLayout>
         </StackLayout>
-
       </StackLayout>
     </StackLayout>
   </FlexboxLayout>
