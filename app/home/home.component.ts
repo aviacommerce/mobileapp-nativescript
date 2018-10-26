@@ -3,12 +3,11 @@ import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { registerElement } from "nativescript-angular/element-registry";
 import { Observable, Subscription } from "rxjs";
+import { getAuthStatus } from "~/auth/reducers/selectors";
 import { Product } from "~/core/models/product";
-import { ProductService } from "~/core/services/product.service";
 import { ProductActions } from "~/product/actions/product-actions";
-import { showAllProducts, getTaxonomies } from "~/product/reducers/selectors";
+import { getTaxonomies, showAllProducts } from "~/product/reducers/selectors";
 import { IappState } from "~/reducers";
-import { Taxonomy } from "~/core/models/taxonomy";
 registerElement("StarRating", () => require("nativescript-star-ratings").StarRating);
 @Component({
   selector: "Home",
@@ -30,11 +29,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   productID;
   promoImg = "../assets/promo.png";
   subscriptionList$: Array<Subscription> = [];
-  constructor(
-    private productService: ProductService,
-    private router: Router, private store: Store<IappState>,
-    private actions: ProductActions) { }
+  isAuthenticated$: Observable<boolean>;
 
+  constructor(
+    private router: Router,
+    private store: Store<IappState>,
+    private actions: ProductActions) { }
 
   ngOnInit() {
     this.extractData();
@@ -45,16 +45,22 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.store.dispatch(this.actions.getAllTaxonomies());
     this.products$ = this.store.select(showAllProducts);
     this.taxonomies$ = this.store.select(getTaxonomies);
+    this.isAuthenticated$ = this.store.select(getAuthStatus);
   }
 
-  productDetail(productId) {
-    this.router.navigate(["/product"], {
-      queryParams: {
-        id: productId
-      }
-    });
+  productDetail(slug: string) {
+    this.router.navigate(["/", slug]);
   }
- 
+
+  goToLogin() {
+    this.router.navigate(["auth", "login"]);
+  }
+
+  goToSignup() {
+    this.router.navigate(["auth", "login"],
+      { queryParams: { signUpFlag: true } });
+  }
+
   ngOnDestroy() {
     this.subscriptionList$.map((sub$) => sub$.unsubscribe());
   }

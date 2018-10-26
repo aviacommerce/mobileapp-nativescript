@@ -11,7 +11,8 @@ export class CheckoutEffects {
   @Effect()
   addToCart$ = this.actions$
     .ofType(CheckoutActions.ADD_TO_CART).pipe(
-      switchMap<Action & {payload: {variant_id: number, quantity: number}}, LineItem>((action) => {
+      switchMap<Action & { payload: { variant_id: number, quantity: number } }, LineItem>((action) => {
+
         return this.checkoutService.createNewLineItem(
           action.payload.variant_id,
           action.payload.quantity
@@ -21,10 +22,10 @@ export class CheckoutEffects {
     );
 
   @Effect()
-    removeLineItem$ = this.actions$
+  removeLineItem$ = this.actions$
     .ofType(CheckoutActions.REMOVE_LINE_ITEM)
     .pipe(
-      switchMap<Action & {payload: LineItem}, LineItem>((action) => {
+      switchMap<Action & { payload: LineItem }, LineItem>((action) => {
         return this.checkoutService.deleteLineItem(action.payload);
       }),
       map((lineItem) => this.actions.removeLineItemSuccess(lineItem))
@@ -36,14 +37,3 @@ export class CheckoutEffects {
     private actions: CheckoutActions
   ) { }
 }
-// @Effect()
-// FetchCurrentOrder$ = this.actions$
-// .ofType(CartActions.FETCH_CURRENT_ORDER)
-// .switchMap(action => {
-//   return this.cartService.fetchCurrentOrder();
-// })
-// .map((order: Order) => {
-//   return this.cartActions.fetchCurrentOrderSuccess(order);
-// });
-
-// Use this effect once angular releases RC4

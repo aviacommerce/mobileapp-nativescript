@@ -3,6 +3,7 @@ import { Actions, Effect } from "@ngrx/effects";
 import { Action } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { map, switchMap } from "rxjs/operators";
+import { SearchActions } from "~/search/action/search.actions";
 import { Product } from "./../../core/models/product";
 import { ProductService } from "./../../core/services/product.service";
 import { ProductActions } from "./../actions/product-actions";
@@ -36,18 +37,6 @@ export class ProductEffects {
     );
 
   @Effect()
-  getReview$: Observable<Action> = this.actions$
-    .ofType(ProductActions.GET_REVIEWS)
-    .pipe(
-      switchMap((action: any) =>
-        this.productService.getProductReviews(action.payload)
-      ),
-      map((data: any) =>
-        this.productActions.getProductReviewsSuccess({ reviews: data })
-      )
-    );
-
-  @Effect()
   getAllTaxonomies$: Observable<Action> = this.actions$
     .ofType(ProductActions.GET_ALL_TAXONOMIES)
     .pipe(
@@ -57,10 +46,23 @@ export class ProductEffects {
       )
     );
 
+  @Effect()
+    getProductsByTaxons$: Observable<Action> = this.actions$
+      .ofType(SearchActions.GET_PRODUCTS_BY_TAXON)
+      .pipe(
+        switchMap((action: any) =>
+          this.productService.getProductsByTaxon(action.payload)
+        ),
+        map(({ products, pagination }) =>
+          this.searchActions.getProductsByKeywordSuccess({ products, pagination })
+        )
+      );
+
   constructor(
     private actions$: Actions,
     private productService: ProductService,
-    private productActions: ProductActions
+    private productActions: ProductActions,
+    private searchActions: SearchActions
 
   ) { }
 }

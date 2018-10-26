@@ -1,11 +1,12 @@
 <StackLayout class="variant" *ngIf="(customOptionTypesHash | keys);let custopt" [ngClass]="[custopt?.length === 0  ? 'notvariant' : '']">
   <StackLayout *ngFor="let variant of (customOptionTypesHash | keys)" orientation="horizontal" class="p-x-10">
     <StackLayout class="size-buttons-size-header d-none d-sm-block">
-      <h6>{{ variant.key }}</h6>
+      <Label [text]="variant.key"></Label>
     </StackLayout>
-    <Button width="100" class="option-buttons" *ngFor="let options of (variant.value | keys)" (click)="onOptionClick(options)"
+    <Button width="100" class="option-buttons" *ngFor="let options of (variant.value | keys)" (tap)="onOptionClick(options)"
       [class.selected]="options.key === currentSelectedOptions[variant.key]" [ngClass]="{'disabled': isDisabled(correspondingOptions[variant.key], options.value['optionValue'].name)}">
       <FormattedString>
+          <Label [text]="options.value['optionValue'].presentation"></Label>
         <Span text="{{options.value['optionValue'].presentation }}"></Span>
         <Span class="strike"></Span>
       </FormattedString>
