@@ -21,10 +21,6 @@ export class ProductVariantsComponent implements OnInit {
   // tslint:disable-next-line:no-empty
   ngOnInit() {
 
-    console.log(this.customOptionTypesHash);
-    console.log(this.currentSelectedOptions);
-    console.log(this.correspondingOptions);
-    console.log(this.mainOptions);
   }
 
   onOptionClick(option) {

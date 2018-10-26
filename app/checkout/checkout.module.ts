@@ -8,7 +8,7 @@ import { AddressModule } from "./address/address.module";
 import { CartModule } from "./cart/cart.module";
 import { routes } from "./checkout.routes";
 import { CheckoutEffects } from "./effects/checkout.effects";
-import { OrderModule } from "./order-success/order-respone.module"
+import { OrderModule } from "./order-success/order-response.module";
 import { PaymentModule } from "./payment/payment.module";
 
 @NgModule({

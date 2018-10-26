@@ -1,0 +1,145 @@
+<ab-component></ab-component>
+<ScrollView sdkExampleTitle sdkToggleNavButton *ngIf="orderDetails">
+  <FlexboxLayout flexDirection="column" backgroundColor="lightgray" class="container">
+    <StackLayout class='thankyou'>
+      <Label class="thank-text p-15 m-15 m-b-0 " text="Thanks You!"> </Label>
+      <Label class="h3 p-15 m-15 text-left">
+        <FormattedString>
+          <Span class="fa cart p-r-10" text="&#xf058;"></Span>
+          <Span text="Your order has been placed." class="p-l-10"></Span>
+        </FormattedString>
+      </Label>
+      <Button text="Continue Shopping" class="btn btn-primary m-t-20" (tap)="backToHome()"></Button>
+    </StackLayout>
+
+    <StackLayout class='thankyou m-t-10 p-15'>
+      <Label class="thank-text p-l-10 m-b-25" text="Order Details"> </Label>
+      <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
+        <StackLayout width="40%" class="left" horizontalAlignment="left">
+          <Label class="h3" horizontalAlignment="left" text="Order ID:"></Label>
+        </StackLayout>
+        <StackLayout width="60%" class="right" horizontalAlignment="right">
+          <Label class="price" horizontalAlignment="left" text="{{orderDetails?.number}}({{orderDetails?.total_quantity}} Item(s))"></Label>
+        </StackLayout>
+      </StackLayout>
+
+      <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
+        <StackLayout width="40%" class="left" horizontalAlignment="left">
+          <Label class="h3" horizontalAlignment="left" text="Order Date:"></Label>
+        </StackLayout>
+        <StackLayout width="60%" class="right" horizontalAlignment="right">
+          <Label class="price" horizontalAlignment="left" text="{{orderDetails.created_at}}"></Label>
+        </StackLayout>
+      </StackLayout>
+      <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
+        <StackLayout width="40%" class="left" horizontalAlignment="left">
+          <Label class="h3" horizontalAlignment="left" text="Total Amount:"></Label>
+        </StackLayout>
+        <StackLayout width="60%" class="right" horizontalAlignment="right">
+          <Label class="price" horizontalAlignment="left" text="{{orderDetails.display_total}} through {{orderDetails.payments[0].payment_method.name}}"></Label>
+        </StackLayout>
+      </StackLayout>
+      <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
+        <StackLayout width="40%" class="left" horizontalAlignment="left">
+          <Label class="h3" horizontalAlignment="left" text="Total Amount:"></Label>
+        </StackLayout>
+        <StackLayout width="60%" class="right" horizontalAlignment="right">
+          <Label class="price" horizontalAlignment="left" text="{{orderDetails.payment_state | uppercase}}"></Label>
+        </StackLayout>
+      </StackLayout>
+    </StackLayout>
+    <StackLayout class='thankyou m-t-10 p-x-15'>
+      <Label class="thank-text p-l-10 m-b-25" text="Delivery Address"> </Label>
+      <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
+        <StackLayout width="40%" class="left" horizontalAlignment="left">
+          <Label class="h3" horizontalAlignment="left" text="Name:"></Label>
+        </StackLayout>
+        <StackLayout width="60%" class="right" horizontalAlignment="right">
+          <Label class="price" horizontalAlignment="left" text="{{orderDetails.ship_address.full_name}}"></Label>
+        </StackLayout>
+      </StackLayout>
+      <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
+        <StackLayout width="40%" class="left" horizontalAlignment="left">
+          <Label class="h3" horizontalAlignment="left" text="Address:"></Label>
+        </StackLayout>
+        <StackLayout width="60%" class="right" horizontalAlignment="right">
+          <Label class="price" horizontalAlignment="left" text="{{orderDetails.ship_address.address1}}, {{orderDetails.ship_address.address2}}, {{orderDetails.ship_address.city}}"></Label>
+        </StackLayout>
+      </StackLayout>
+      <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
+        <StackLayout width="40%" class="left" horizontalAlignment="left">
+          <Label class="h3" horizontalAlignment="left" text="Pincode:"></Label>
+        </StackLayout>
+        <StackLayout width="60%" class="right" horizontalAlignment="right">
+          <Label class="price" horizontalAlignment="left" text="{{orderDetails.ship_address.zipcode}}"></Label>
+        </StackLayout>
+      </StackLayout>
+      <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
+        <StackLayout width="40%" class="left" horizontalAlignment="left">
+          <Label class="h3" horizontalAlignment="left" text="Phone:"></Label>
+        </StackLayout>
+        <StackLayout width="60%" class="right" horizontalAlignment="right">
+          <Label class="price" horizontalAlignment="left" text="{{orderDetails.ship_address.phone}}"></Label>
+        </StackLayout>
+      </StackLayout>
+      <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
+        <StackLayout width="40%" class="left" horizontalAlignment="left">
+          <Label class="h3" horizontalAlignment="left" text="Name:"></Label>
+        </StackLayout>
+        <StackLayout width="60%" class="right" horizontalAlignment="right">
+          <Label class="price" horizontalAlignment="left" text="abc"></Label>
+        </StackLayout>
+      </StackLayout>
+      <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
+        <StackLayout width="40%" class="left" horizontalAlignment="left">
+          <Label class="h3" horizontalAlignment="left" text="Email:"></Label>
+        </StackLayout>
+        <StackLayout width="60%" class="right" horizontalAlignment="right">
+          <Label class="price" horizontalAlignment="left" text="{{orderDetails.email}}"></Label>
+        </StackLayout>
+      </StackLayout>
+    </StackLayout>
+    <StackLayout class='thankyou m-t-10 p-x-15'>
+      <Label class="thank-text p-l-10 m-b-25" text="Shipping"> </Label>
+      <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
+        <StackLayout width="40%" class="left" horizontalAlignment="left">
+          <Label class="h3 " horizontalAlignment="left" text="Shipping Status:"></Label>
+        </StackLayout>
+        <StackLayout width="60%" class="right" horizontalAlignment="right">
+          <Label class="price" horizontalAlignment="left" text="{{orderDetails.shipment_state | uppercase}}"></Label>
+        </StackLayout>
+      </StackLayout>
+    </StackLayout>
+    <StackLayout class='thankyou m-t-10 p-x-15'>
+      <Label class="thank-text p-l-10 m-b-25" text="Items"> </Label>
+
+      <StackLayout *ngFor="let item of orderDetails.line_items" class="p-y-15" borderBottomWidth="1" borderBottomColor="#ccc">
+        <StackLayout class="m-b-15">
+          <Image [src]="getProductImageUrl(item)" [routerLink]="['/', item.variant.slug]" stretch="aspectFit" height="120"
+            class="img" class="m-r-20"></Image>
+        </StackLayout>
+        <StackLayout class="" [routerLink]="['/', item.variant.slug]">
+          <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
+            <StackLayout width="70%" class="left" horizontalAlignment="left">
+              <Label class="h3" horizontalAlignment="left" text="{{item.variant.name}}"></Label>
+            </StackLayout>
+            <StackLayout width="30%" class="right" horizontalAlignment="right">
+              <Label class="price" horizontalAlignment="left" text="QTY : {{item.quantity}}"></Label>
+              <Label class="price" horizontalAlignment="left" text="{{item.display_amount}}"></Label>
+            </StackLayout>
+          </StackLayout>
+          <StackLayout class="
+                p-l-20 m-b-10" orientation="horizontal">
+            <StackLayout width="40%" class="left" horizontalAlignment="left">
+              <Label class="h3" horizontalAlignment="left" text="{{item.variant.options_text}}"></Label>
+            </StackLayout>
+            <StackLayout width="60%" class="right" horizontalAlignment="right">
+              <Label class="price" horizontalAlignment="left" text=""></Label>
+            </StackLayout>
+          </StackLayout>
+        </StackLayout>
+
+      </StackLayout>
+    </StackLayout>
+  </FlexboxLayout>
+</ScrollView>
