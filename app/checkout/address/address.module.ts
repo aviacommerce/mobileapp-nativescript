@@ -1,10 +1,11 @@
-import { NgModule, NO_ERRORS_SCHEMA} from "@angular/core";
+import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptCommonModule } from "nativescript-angular/common";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { AddressService } from "~/core/services/address.service";
 import { SharedModule } from "~/shared/shared.module";
 import { AddAddressComponent } from "./add-address/add-address.component";
 import { AddressComponent } from "./address.component";
+import { DeliveryAddressComponent } from "./delivery-address/delivery-address.component";
 
 @NgModule({
     imports: [
@@ -14,7 +15,8 @@ import { AddressComponent } from "./address.component";
     ],
     declarations: [
         AddAddressComponent,
-        AddressComponent
+        AddressComponent,
+        DeliveryAddressComponent
     ],
 
     providers: [
@@ -22,7 +24,7 @@ import { AddressComponent } from "./address.component";
     ]
     ,
     schemas: [
-      NO_ERRORS_SCHEMA
+        NO_ERRORS_SCHEMA
     ]
 })
 export class AddressModule { }

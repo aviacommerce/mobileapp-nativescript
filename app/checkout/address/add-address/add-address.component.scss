@@ -2,6 +2,7 @@
   align-items: center;
   flex-direction: column;
 }
+
 .form {
   margin-left: 30;
   margin-right: 30;
@@ -14,6 +15,7 @@
   height: 90;
   font-weight: bold;
 }
+
 .header {
   horizontal-align: center;
   font-size: 25;
@@ -26,31 +28,33 @@
 .input-field {
   margin-bottom: 25;
 }
+
 .input {
   font-size: 18;
   placeholder-color: #A8A8A8;
 }
 
 .btn-primary {
-  height: 50;
-  margin: 30 5 15 5;
-  background-color: #a3d032;
   border-radius: 5;
-  font-size: 20;
-  font-weight: 600;
+  font-size: 16;
+  font-weight: 400;
 }
+
 .login-label {
   horizontal-align: center;
   color: #A8A8A8;
   font-size: 16;
 }
+
 .sign-up-label {
   margin-bottom: 20;
 }
+
 .bold {
-  color: #000000; 
+  color: #000000;
 }
-.error{
+
+.error {
   color: red;
   font-size: x-small;
 }
