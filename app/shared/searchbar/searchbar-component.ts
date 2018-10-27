@@ -1,5 +1,5 @@
+import { HttpParams } from "@angular/common/http";
 import { Component } from "@angular/core";
-import { URLSearchParams } from "@angular/http";
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import * as app from "application";
@@ -18,9 +18,8 @@ import { SearchActions } from "../../search/action/search.actions";
 
 export class SearchBarComponent {
   searchPhrase: string;
-  searchBar;
-  routernomal: any;
-  queryParams: any;
+  searchBar: any;
+
   constructor(
     private router: Router, private store: Store<IappState>,
     private searchActions: SearchActions) {
@@ -46,14 +45,13 @@ export class SearchBarComponent {
 
   onSubmit(args) {
     this.searchBar = <SearchBar>args.object;
-    const search = new URLSearchParams();
-    search.set("q[name_cont_any]", this.searchBar.text);
-    this.store.dispatch(
-      this.searchActions.getproductsByKeyword(search.toString())
-    );
+    let searchParams = new HttpParams();
+    searchParams = searchParams.set("q[name_cont_any]", this.searchBar.text);
+    this.store.dispatch(this.searchActions.getProductsByKeyword(searchParams));
+
     this.router.navigate(["/search"], {
       queryParams: {
-        "q[name_cont_any]": search.toString()
+        "q[name_cont_any]": searchParams.toString()
       }
     });
     this.searchBar.dismissSoftInput();

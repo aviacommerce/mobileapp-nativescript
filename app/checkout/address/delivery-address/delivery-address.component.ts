@@ -6,6 +6,7 @@ import { getAdjustmentTotal, getItemTotal, getShipTotal, getTotalCartItems, getT
 import { Address } from "~/core/models/address";
 import { environment } from "~/environments/environment";
 import { IappState } from "~/home/reducers";
+import { Router } from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -23,15 +24,20 @@ export class DeliveryAddressComponent implements OnInit {
   adjustmentTotal$: Observable<number>;
   currency = environment.currency_symbol;
   freeShippingAmount = environment.freeShippingAmount;
-  // tslint:disable-next-line:no-empty
-  constructor(private store: Store<IappState>) { }
 
-  // tslint:disable-next-line:no-empty
+  constructor(
+    private store: Store<IappState>,
+    private router: Router) { }
+
   ngOnInit() {
     this.totalCartValue$ = this.store.select(getTotalCartValue);
     this.totalCartItems$ = this.store.select(getTotalCartItems);
     this.shipTotal$ = this.store.select(getShipTotal);
     this.itemTotal$ = this.store.select(getItemTotal);
     this.adjustmentTotal$ = this.store.select(getAdjustmentTotal);
+  }
+
+  continueToPayment() {
+    this.router.navigate(["checkout", "payment"]);
   }
 }

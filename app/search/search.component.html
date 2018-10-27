@@ -3,12 +3,12 @@
   <StackLayout>
     <sb-component></sb-component>
   </StackLayout>
-  <StackLayout class="list">
-    <ListView [items]="products" class="list-group" (loadMoreItems)="loadMoreItems()">
+  <StackLayout class="list" *ngIf="products">
+    <ListView [items]="products" class="list-group" (loadMoreItems)="loadItems()">
       <ng-template let-product="item" let-i="index" let-odd="odd" let-even="even">
-        <GridLayout borderBottomWidth="1" class="product-base" rows="*, *, *" columns="*, *">
+        <GridLayout borderBottomWidth="1" class="product-base" rows="*, *, *" columns="*, *" (tap)="viewProduct(product.slug)">
           <StackLayout col="0" class="imgcontainer" width="40%">
-            <Image [src]="product.master.images[0].product_url" stretch="aspectFit" height="120" class="m-r-20"></Image>
+            <Image [src]="product.product_url" stretch="aspectFit" height="120" class="m-r-20"></Image>
             <Label text="More Choices Avialable" class="more"></Label>
           </StackLayout>
           <StackLayout col="1" colSpan="2" width="90%">

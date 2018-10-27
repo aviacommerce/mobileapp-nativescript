@@ -26,6 +26,8 @@ import { PaymentService } from "./core/services/payment.service";
 import { VariantParserService } from "./core/services/variant-parser.service";
 import { VariantRetriverService } from "./core/services/variant-retriver.service";
 import { reducers } from "./reducers";
+import { SearchEffects } from './search/effects/search.effects';
+import { SearchActions } from './search/action/search.actions';
 
 @NgModule({
   bootstrap: [
@@ -43,7 +45,7 @@ import { reducers } from "./reducers";
     NgShadowModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument(),
-    EffectsModule.forRoot([CheckoutEffects]),
+    EffectsModule.forRoot([CheckoutEffects, SearchEffects]),
     StoreDevtoolsModule.instrument()
   ],
   declarations: [
@@ -67,6 +69,7 @@ import { reducers } from "./reducers";
     JsonApiParserService,
     VariantParserService,
     VariantRetriverService,
+    SearchActions,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ]
 })

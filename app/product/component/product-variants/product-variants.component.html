@@ -1,7 +1,7 @@
 <StackLayout class="variant" *ngIf="(customOptionTypesHash | keys);let custopt" [ngClass]="[custopt?.length === 0  ? 'notvariant' : '']">
   <StackLayout *ngFor="let variant of (customOptionTypesHash | keys)" class="p-x-10">
     <StackLayout class="size-buttons-size-header d-none d-sm-block">
-      <Label [text]="variant.key"></Label>
+      <Label class="h3" [text]="variant.key"></Label>
     </StackLayout>
     <StackLayout orientation="horizontal">
       <Button width="100" class="option-buttons" *ngFor="let options of (variant.value | keys)" (tap)="onOptionClick(options)"

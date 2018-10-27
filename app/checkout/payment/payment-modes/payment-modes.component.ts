@@ -1,15 +1,15 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Store } from "@ngrx/store";
 import { RouterExtensions } from "nativescript-angular/router";
 import { Subscription } from "rxjs";
 import { concatMap, map } from "rxjs/operators";
+import { getAuthStatus } from "~/auth/reducers/selectors";
+import { CheckoutActions } from "~/checkout/actions/checkout.actions";
+import { getOrderNumber, getTotalCartValue } from "~/checkout/reducers/selectors";
 import { PaymentMode } from "~/core/models/payment_mode";
 import { CheckoutService } from "~/core/services/checkout.service";
 import { PaymentService } from "~/core/services/payment.service";
 import { IappState } from "~/reducers";
-import { Store } from "@ngrx/store";
-import { getOrderNumber, getTotalCartValue } from "~/checkout/reducers/selectors";
-import { CheckoutActions } from "~/checkout/actions/checkout.actions";
-import { getAuthStatus } from "~/auth/reducers/selectors";
 
 @Component({
   moduleId: module.id,
