@@ -11,6 +11,16 @@
   text-transform: uppercase;
 }
 
+.price {
+  text-align: center;
+  text-emphasis: none;
+  white-space: nowrap;
+  text-transform: uppercase;
+  color: $gray-900;
+  font-weight: bold;
+  font-size: 16;
+}
+
 .paytext {
   color: $gray-900;
   text-emphasis: none;

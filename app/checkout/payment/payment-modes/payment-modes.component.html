@@ -3,18 +3,11 @@
 </ActionBar>
 <GridLayout>
   <StackLayout height="600">
-    <StackLayout class="p-l-10 p-r-10 p-t-5 p-b-5" orientation="horizontal" backgroundColor="white">
-      <StackLayout width="70%" class="left" horizontalAlignment="left">
-        <Label class="h3" horizontalAlignment="left" text="Choose Payment Mode"></Label>
-      </StackLayout>
-      <StackLayout width="30%" class="right" horizontalAlignment="right">
-        <Label class="price" horizontalAlignment="right">
-          <FormattedString>
-            <Span text="You pay " class="p-r-15"></Span>
-            <Span text="  {{totalCartValue$ | async}}"></Span>
-          </FormattedString>
-        </Label>
-      </StackLayout>
+    <StackLayout width="100%" class="p-l-10 price p-r-10 p-t-5 p-b-5" horizontalAlignment="center" orientation="horizontal"
+      backgroundColor="white">
+      <Label class="" width="100%" text="You pay {{currency}} {{totalCartValue$ | async | number:'1.2-2'}} ">
+
+      </Label>
     </StackLayout>
     <ScrollView sdkExampleTitle sdkToggleNavButton height="600">
       <FlexboxLayout height="500">
