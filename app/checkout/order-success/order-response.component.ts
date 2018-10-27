@@ -1,21 +1,20 @@
 
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
-import { switchMap, tap } from "rxjs/operators";
 import { LineItem } from "~/core/models/line_item";
 import { Order } from "~/core/models/order";
 import { CheckoutService } from "~/core/services/checkout.service";
 import { IappState } from "~/reducers";
 
 @Component({
-  selector: "Address",
+  selector: "order-response",
   moduleId: module.id,
   templateUrl: "./order-response.component.html",
   styleUrls: ["./order-response.component.scss"]
 })
-export class OrderResponseComponent implements OnInit {
+export class OrderResponseComponent implements OnInit, OnDestroy {
   queryParams: Params;
   orderDetails: Order;
   retryCount = 0;
@@ -26,34 +25,28 @@ export class OrderResponseComponent implements OnInit {
     private checkoutService: CheckoutService,
     private activatedRouter: ActivatedRoute,
     private route: Router
-    // tslint:disable-next-line:ban-types
   ) { }
-  // //R099786036
-  ngOnInit() {
 
+  // Todo: Dummy Order for now.
+  ngOnInit() {
     this.subscriptionList$.push(
       this.checkoutService.getOrderDetail("R099786036").subscribe((data) => {
         this.orderDetails = data;
-        console.log(this.orderDetails);
       })
     );
   }
 
-  // tslint:disable-next-line:use-life-cycle-interface
-  ngOnDestroy() {
-    this.subscriptionList$.map((sub$) => sub$.unsubscribe());
-  }
+  getProductImageUrl(lineItem: LineItem) {
+    const imageUrl = lineItem.variant.images[0].small_url;
 
-  // tslint:disable-next-line:variable-name
-  getProductImageUrl(line_item: LineItem) {
-    // tslint:disable-next-line:variable-name
-    const image_url = line_item.variant.images[0].small_url;
-    // tslint:disable-next-line:newline-before-return
-
-    return image_url;
+    return imageUrl;
   }
 
   backToHome() {
     this.route.navigate(["/"]);
+  }
+
+  ngOnDestroy() {
+    this.subscriptionList$.map((sub$) => sub$.unsubscribe());
   }
 }

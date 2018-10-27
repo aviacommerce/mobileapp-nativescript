@@ -1,20 +1,26 @@
 <ab-component></ab-component>
 <GridLayout rows="*,60">
-  <StackLayout row="0">
+  <StackLayout row="0" *ngIf="(totalCartItems$ | async) > 0">
     <StackLayout class="total">
-      <Label class="m-r-10 discount" text="Cart Subtotal   {{currency}} {{itemTotal$ | async}}"> </Label>
+      <Label class="m-r-10 discount" text="Cart Subtotal {{currency}}{{itemTotal}}"> </Label>
     </StackLayout>
     <ScrollView sdkExampleTitle sdkToggleNavButton>
       <FlexboxLayout flexDirection="column" backgroundColor="lightgray" class="container">
         <StackLayout>
-          <line-item-list [itemTotal]="itemTotal$ | async"></line-item-list>
+          <line-item-list [itemTotal]="itemTotal"></line-item-list>
         </StackLayout>
         <StackLayout class="p-t-0"> </StackLayout>
       </FlexboxLayout>
     </ScrollView>
   </StackLayout>
-  <StackLayout row="1" class='button-container'>
+  <StackLayout row="1" class='button-container' *ngIf="itemTotal > 0">
     <Button class="btn btn-primary btn-active" id="button" text="Proceed To checkout" (tap)="placeOrder()">
     </Button>
   </StackLayout>
+  <FlexboxLayout class="page" *ngIf="(totalCartItems$ | async) === 0">
+    <StackLayout class="form">
+      <Image class="logo" src="~/assets/empty-cart.png"></Image>
+      <Button text="Continue Shopping" class="btn btn-primary" (tap)="goToHome()"></Button>
+    </StackLayout>
+  </FlexboxLayout>
 </GridLayout>

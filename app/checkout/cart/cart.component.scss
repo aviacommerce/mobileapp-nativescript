@@ -5,8 +5,8 @@
   padding: 2px 10px;
   .btn-primary {
     border-radius: 5;
-    font-size: 16;
-    font-weight: 400;
+    font-size: 18;
+    font-weight: 500;
   }
 }
 
@@ -17,3 +17,23 @@
   font-weight: 500;
   font-size: 18;
 }
+
+.page {
+  align-items: center;
+  flex-direction: column;
+}
+
+.form {
+  margin-left: 30;
+  margin-right: 30;
+  flex-grow: 2;
+  vertical-align: middle;
+}
+
+.logo {
+  margin-bottom: 12;
+  height: 90;
+  font-weight: bold;
+  margin-top: 100;
+}
+

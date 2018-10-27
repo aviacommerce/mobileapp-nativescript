@@ -22,8 +22,8 @@ import { KeysPipe } from "./pipes/keys.pipe";
     KeysPipe
   ],
   providers: [
-    SearchActions,
-    CheckoutActions
+    // SearchActions,
+    // CheckoutActions
   ]
 })
 

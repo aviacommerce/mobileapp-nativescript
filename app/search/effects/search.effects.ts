@@ -14,7 +14,7 @@ export class SearchEffects {
     .ofType(SearchActions.GET_PRODUCTS_BY_KEYWORD)
     .pipe(
       switchMap((action: any) =>
-        this.productService.getproductsByKeyword(action.payload)
+        this.productService.getProductsByKeyword(action.payload)
       ),
       map(({ products, pagination }) =>
         this.searchActions.getProductsByKeywordSuccess({ products, pagination })
