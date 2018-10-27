@@ -1,53 +1,96 @@
+@import '../../../app-variables';
 .page {
   align-items: center;
   flex-direction: column;
 }
 
-.form {
-  margin-left: 30;
-  margin-right: 30;
-  flex-grow: 2;
-  vertical-align: middle;
+.payhead {
+  color: $gray-900;
+  text-emphasis: none;
+  white-space: nowrap;
+  text-transform: uppercase;
 }
 
-.logo {
-  margin-bottom: 12;
-  height: 90;
-  font-weight: bold;
-}
-.header {
-  horizontal-align: center;
-  font-size: 25;
-  font-weight: 600;
-  margin-bottom: 70;
-  text-align: center;
-  color: #a3d032;
-}
-
-.input-field {
-  margin-bottom: 25;
-}
-.input {
-  font-size: 18;
-  placeholder-color: #A8A8A8;
+.paytext {
+  color: $gray-900;
+  text-emphasis: none;
+  white-space: nowrap;
 }
 
 .btn-primary {
-  height: 50;
-  margin: 30 5 15 5;
-  background-color: #a3d032;
   border-radius: 5;
-  font-size: 20;
-  font-weight: 600;
+  font-size: 18;
+  font-weight: 500;
 }
-.login-label {
-  horizontal-align: center;
-  color: #A8A8A8;
-  font-size: 16;
+
+.mini-bag-summary {
+  position: relative;
+  padding: 20;
+  margin: 10;
+  margin-top: 25px;
+  background-color: $white;
 }
-.sign-up-label {
-  margin-bottom: 20;
+
+.free {
+  color: $action-price-color
 }
-.bold {
-  color: #000000; 
+
+.items {
+  .address-row {
+    background: $white;
+    border: 1px solid $gray-10;
+    box-shadow: 0 0 4px rgba(40, 44, 63, .08);
+    padding: 25px;
+    display: inline-block;
+    margin-right: 25px;
+    border-radius: 4px;
+    margin: 10;
+    position: relative;
+    cursor: pointer;
+    .name {
+      font-weight: 600;
+      font-size: 15px;
+      color: $gray-800;
+    }
+    .address {
+      padding-top: 10px;
+      width: 90%;
+      .address-content {
+        .address-field {
+          margin-bottom: 10;
+        }
+        color: $gray-800;
+        line-height: 1.4;
+        word-break: break-word;
+        font-size: 13px;
+        .mob {
+          padding: 8px 0;
+          .mob-no {
+            font-weight: 600;
+          }
+        }
+      }
+    }
+    .serviceability {
+      font-size: 13px;
+      padding: 10px;
+      color: $black;
+      margin: 10px;
+    }
+    .select {
+      cursor: pointer;
+      position: absolute;
+      left: 14px;
+      top: 23px;
+      width: 20px;
+      height: 20px;
+      border: none;
+      background-position: -551px 0;
+      display: inline-block;
+      overflow: hidden;
+      background-repeat: no-repeat;
+      background-size: 4250px 153px;
+      vertical-align: middle; // background-image: url(/assets/checkout_sprite.png);
+    }
+  }
 }

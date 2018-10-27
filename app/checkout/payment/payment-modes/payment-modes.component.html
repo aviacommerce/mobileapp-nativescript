@@ -1,8 +1,101 @@
 <ActionBar title="Make Payment" class="actionbarbg">
   <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="onBack()"></NavigationButton>
 </ActionBar>
-<FlexboxLayout class="page">
-  <StackLayout class="form">
-    <Button text="Pay on Delivery" class="btn btn-primary m-t-20" (tap)="makeCodPayment()"></Button>
+<GridLayout>
+  <StackLayout height="600">
+    <StackLayout class="p-l-10 p-r-10 p-t-5 p-b-5" orientation="horizontal" backgroundColor="white">
+      <StackLayout width="70%" class="left" horizontalAlignment="left">
+        <Label class="h3" horizontalAlignment="left" text="Choose Payment Mode"></Label>
+      </StackLayout>
+      <StackLayout width="30%" class="right" horizontalAlignment="right">
+        <Label class="price" horizontalAlignment="right">
+          <FormattedString>
+            <Span text="You pay " class="p-r-15"></Span>
+            <Span text="  {{totalCartValue$ | async}}"></Span>
+          </FormattedString>
+        </Label>
+      </StackLayout>
+    </StackLayout>
+    <ScrollView sdkExampleTitle sdkToggleNavButton height="600">
+      <FlexboxLayout height="500">
+        <StackLayout orientation="vertical" backgroundColor="lightgray">
+          <StackLayout>
+            <!-- <StackLayout *ngIf="shipAddress$ | async; let address">
+              <StackLayout class="items">
+                <StackLayout class="address-row">
+                  <AbsoluteLayout horizontalAlignment="right">
+                    <Button class="m-r-5 fa times p-0" width="35" height="35">
+                      <FormattedString>
+                        <Span class="edit" text="&#xf044;"></Span>
+                      </FormattedString>
+                    </Button>
+                  </AbsoluteLayout>
+                  <Label class="name m-b-10 p-l-10" text="{{address.full_name}}"></Label>
+                  <StackLayout class="address">
+                    <StackLayout class="address-content">
+                      <Label class="address-field" text="{{address.address1}}"></Label>
+                      <Label class="address-field" text="{{address.address2}}"></Label>
+                      <Label class="address-field" text="{{address.city}}-{{address.zipcode}}"></Label>
+                      <Label class="address-field" text="{{address.state?.name}}"></Label>
+                      <Label class="mob">
+                        <FormattedString>
+                          <Span class="mob-lbl" text="Mobile:"> </Span>
+                          <Span class="mob-no" text="{{address.phone}}"></Span>
+                        </FormattedString>
+                      </Label>
+                    </StackLayout>
+                  </StackLayout>
+                </StackLayout>
+              </StackLayout>
+            </StackLayout> -->
+          </StackLayout>
+          <StackLayout class="mini-bag-summary" *ngIf="itemTotal$ | async;let itemTotal">
+            <Label class="items h3 m-b-20 p-b-10" text="{{totalCartItems$ | async}} ITEMS" borderBottomWidth="1"
+              borderBottomColor="#ccc"></Label>
+            <StackLayout class="order-total">
+              <StackLayout class="m-b-10" orientation="horizontal">
+                <StackLayout width="70%" class="left" horizontalAlignment="left">
+                  <Label class="h3" horizontalAlignment="left" text="Sub Total"></Label>
+                </StackLayout>
+                <StackLayout width="30%" class="right" horizontalAlignment="right">
+                  <Label horizontalAlignment="left" fontSize="18" text="{{currency}}{{itemTotal | number:'1.2-2'}}"></Label>
+                </StackLayout>
+              </StackLayout>
+            </StackLayout>
+            <StackLayout class="shipping" *ngIf="(shipTotal$ | async);let shipTotal">
+              <StackLayout orientation="horizontal" *ngIf="shipTotal ==='0.0' && itemTotal >= freeShippingAmount ">
+                <StackLayout width="70%" class="left" horizontalAlignment="left">
+                  <Label class="h3" horizontalAlignment="left" text="Delivery"></Label>
+                </StackLayout>
+                <StackLayout width="30%" class="right" horizontalAlignment="right">
+                  <Label horizontalAlignment="left" fontSize="13" text="Free" class="free"></Label>
+                </StackLayout>
+              </StackLayout>
+              <Label class="m-t-10" *ngIf="shipTotal ==='0.0' && itemTotal < freeShippingAmount " text=" Only {{currency}}
+                {{(freeShippingAmount - itemTotal)| number:'1.2-2'}} to go for free shipping.">
+              </Label>
+            </StackLayout>
+          </StackLayout>
+          <StackLayout backgroundColor="White">
+            <TabView id="tabViewContainer" androidSelectedTabHighlightColor="green">
+              <StackLayout *tabItem="{title: 'PAYUBIZ'}">
+                <ScrollView>
+                  <StackLayout>
+                    <payubiz-hosted></payubiz-hosted>
+                  </StackLayout>
+                </ScrollView>
+              </StackLayout>
+              <StackLayout *tabItem="{title: 'COD'}">
+                <ScrollView>
+                  <StackLayout>
+                    <cash-on-delivery></cash-on-delivery>
+                  </StackLayout>
+                </ScrollView>
+              </StackLayout>
+            </TabView>
+          </StackLayout>
+        </StackLayout>
+      </FlexboxLayout>
+    </ScrollView>
   </StackLayout>
-</FlexboxLayout>
+</GridLayout>

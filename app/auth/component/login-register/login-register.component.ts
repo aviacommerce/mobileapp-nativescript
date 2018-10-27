@@ -28,9 +28,9 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
     // this.user = new User();
     this.page.actionBarHidden = false;
     this.user = {
-      email: "gopal@aviabird.com",
-      password: "gopal123",
-      confirmPassword: "gopal123"
+      email: "jaypal@aviabird.com",
+      password: "flip@412",
+      confirmPassword: "flip@412"
     };
   }
 

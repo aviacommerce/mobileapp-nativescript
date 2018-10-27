@@ -14,7 +14,7 @@
     </ScrollView>
   </StackLayout>
   <StackLayout row="1" class='button-container' *ngIf="itemTotal > 0">
-    <Button class="btn btn-primary btn-active" id="button" text="Proceed To checkout" (tap)="placeOrder()">
+    <Button class="btn btn-primary" id="button" text="Proceed To checkout" (tap)="placeOrder()">
     </Button>
   </StackLayout>
   <FlexboxLayout class="page" *ngIf="(totalCartItems$ | async) === 0">
