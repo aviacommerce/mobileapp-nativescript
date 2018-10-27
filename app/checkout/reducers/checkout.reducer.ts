@@ -1,11 +1,12 @@
-import { LineItem } from './../../core/models/line_item';
-import { CheckoutActions } from './../actions/checkout.actions';
-import { CheckoutState, CheckoutStateRecord } from './checkout.state';
+import { LineItem } from "./../../core/models/line_item";
+import { CheckoutActions } from "./../actions/checkout.actions";
+import { CheckoutState, CheckoutStateRecord } from "./checkout.state";
 
 export const initialState: CheckoutState = new CheckoutStateRecord() as CheckoutState;
 
 export function reducer(state = initialState, { type, payload }: any): CheckoutState {
 
+  // tslint:disable-next-line:one-variable-per-declaration
   let _lineItems, _lineItemEntities, _lineItemIds,
     _lineItem, _lineItemEntity, _lineItemId,
     _totalCartItems = 0, _totalCartValue,
@@ -17,7 +18,7 @@ export function reducer(state = initialState, { type, payload }: any): CheckoutS
     case CheckoutActions.FETCH_CURRENT_ORDER_SUCCESS:
       const _orderNumber = payload.number;
       _lineItems = payload.line_items;
-      _lineItemIds = _lineItems.map(lineItem => lineItem.id);
+      _lineItemIds = _lineItems.map((lineItem) => lineItem.id);
       _totalCartItems = payload.total_quantity;
       _totalCartValue = parseFloat(payload.total);
       _ship_address = payload.ship_address;
@@ -28,10 +29,7 @@ export function reducer(state = initialState, { type, payload }: any): CheckoutS
       _adjustmentTotal = payload.display_adjustment_total;
 
       _lineItemEntities = _lineItems.reduce((lineItems: { [id: number]: LineItem }, lineItem: LineItem) => {
-        return Object.assign(lineItems, {
-          [lineItem.id]: lineItem
-        });
-      }, {});
+        return {...lineItems, [lineItem.id]: lineItem}; }, {});
 
       return state.merge({
         orderNumber: _orderNumber,
@@ -58,7 +56,7 @@ export function reducer(state = initialState, { type, payload }: any): CheckoutS
         _totalCartValue = state.totalCartValue + parseFloat(_lineItem.total) - state.lineItemEntities.toJS()[_lineItemId].total;
         _itemTotal = state.itemTotal + parseFloat(_lineItem.total) - state.lineItemEntities.toJS()[_lineItemId].total;
         _lineItemEntity = { [_lineItemId]: _lineItem };
-        _shipTotal = state.shipTotal
+        _shipTotal = state.shipTotal;
 
         return state.merge({
           lineItemEntities: state.lineItemEntities.merge(_lineItemEntity),
@@ -74,7 +72,7 @@ export function reducer(state = initialState, { type, payload }: any): CheckoutS
       _itemTotal = state.itemTotal + parseFloat(_lineItem.total);
       _lineItemEntity = { [_lineItemId]: _lineItem };
       _lineItemIds = state.lineItemIds.push(_lineItemId);
-      _shipTotal = state.shipTotal
+      _shipTotal = state.shipTotal;
 
       return state.merge({
         lineItemIds: _lineItemIds,
@@ -95,7 +93,7 @@ export function reducer(state = initialState, { type, payload }: any): CheckoutS
         _totalCartItems = state.totalCartItems - _lineItem.quantity;
         _totalCartValue = state.totalCartValue - parseFloat(_lineItem.total);
         _itemTotal = state.itemTotal - parseFloat(_lineItem.total);
-        _shipTotal = state.shipTotal
+        _shipTotal = state.shipTotal;
       }
 
       return state.merge({
@@ -106,18 +104,6 @@ export function reducer(state = initialState, { type, payload }: any): CheckoutS
         itemTotal: _itemTotal,
         shipTotal: _shipTotal
       }) as CheckoutState;
-
-    // case CheckoutActions.CHANGE_LINE_ITEM_QUANTITY:
-    //   const quantity = payload.quantity;
-    //   lineItemId = payload.lineItemId;
-    //   _lineItemEntities = state.lineItemEntities;
-    //   _lineItemEntities[lineItemId][quantity] = quantity;
-
-    //   return state.merge({
-    //     lineItemEntities: _lineItemEntities
-    //   }) as CheckoutState;
-
-    // case CheckoutActions.CHANGE_ORDER_STATE:
 
     case CheckoutActions.CHANGE_ORDER_STATE_SUCCESS:
       _orderState = payload.state;
@@ -142,12 +128,10 @@ export function reducer(state = initialState, { type, payload }: any): CheckoutS
       _itemTotal = parseFloat(payload.item_total);
       _adjustmentTotal = payload.display_adjustment_total;
       _lineItems = payload.line_items;
-      _lineItemIds = _lineItems.map(lineItem => lineItem.id);
+      _lineItemIds = _lineItems.map((lineItem) => lineItem.id);
 
       _lineItemEntities = _lineItems.reduce((lineItems: { [id: number]: LineItem }, lineItem: LineItem) => {
-        return Object.assign(lineItems, {
-          [lineItem.id]: lineItem
-        });
+        return {...lineItems,  [lineItem.id]: lineItem};
       }, {});
 
       return state.merge({
@@ -169,6 +153,4 @@ export function reducer(state = initialState, { type, payload }: any): CheckoutS
     default:
       return state;
   }
-};
-
-
+}

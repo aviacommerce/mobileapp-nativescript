@@ -25,8 +25,13 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private activatedRouter: ActivatedRoute,
     private router: RouterExtensions) {
-    this.user = new User();
+    // this.user = new User();
     this.page.actionBarHidden = false;
+    this.user = {
+      email: "gopal@aviabird.com",
+      password: "gopal123",
+      confirmPassword: "gopal123"
+    };
   }
 
   toggleForm() {

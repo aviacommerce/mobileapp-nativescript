@@ -1,15 +1,15 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
+import { EffectsModule } from "@ngrx/effects";
 import { NativeScriptCommonModule } from "nativescript-angular/common";
-import { SharedModule } from "~/shared/shared.module";
-import { SearchRoutingModule } from "./search-routing.module";
-import { SearchComponent } from "./search.component";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 import { ProductActions } from "~/product/actions/product-actions";
-import { EffectsModule } from "@ngrx/effects";
-import { SearchActions } from "./action/search.actions";
 import { SearchEffects } from "~/search/effects/search.effects";
+import { SharedModule } from "~/shared/shared.module";
+import { SearchActions } from "./action/search.actions";
+import { SearchRoutingModule } from "./search-routing.module";
+import { SearchComponent } from "./search.component";
 
 @NgModule({
   imports: [
@@ -29,7 +29,7 @@ import { SearchEffects } from "~/search/effects/search.effects";
   ],
   providers: [
     ProductActions,
-    SearchActions
+    // SearchActions
   ]
 })
 

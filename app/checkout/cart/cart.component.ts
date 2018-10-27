@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import * as app from "application";
 import { RouterExtensions } from "nativescript-angular/router";
@@ -22,7 +21,7 @@ export class CartComponent implements OnInit, OnDestroy {
   totalCartValue$: Observable<number>;
   totalCartItems$: Observable<number>;
   shipTotal$: Observable<number>;
-  itemTotal$: Observable<number>;
+  itemTotal: number;
   currency = environment.currency_symbol;
   isAuthenticated: boolean;
   orderState: string;
@@ -31,11 +30,8 @@ export class CartComponent implements OnInit, OnDestroy {
   constructor(
     private router: RouterExtensions,
     private store: Store<IappState>,
-    private checkoutService: CheckoutService,
-    private router1: Router) {
-    this.totalCartValue$ = this.store.select(getTotalCartValue);
-    this.totalCartItems$ = this.store.select(getTotalCartItems);
-    this.itemTotal$ = this.store.select(getItemTotal);
+    private checkoutService: CheckoutService) {
+
   }
 
   onDrawerButtonTap(): void {
@@ -44,7 +40,13 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.totalCartValue$ = this.store.select(getTotalCartValue);
+    this.totalCartItems$ = this.store.select(getTotalCartItems);
+
     this.subscriptionList$.push(
+      this.store.select(getItemTotal)
+        .subscribe((itemsTotal) => this.itemTotal = itemsTotal),
+
       this.store.select(getOrderState)
         .subscribe((state) => this.orderState = state),
 
@@ -64,21 +66,22 @@ export class CartComponent implements OnInit, OnDestroy {
               this.router.navigate(["/checkout", "address"]);
             })).subscribe());
       } else {
-        this.router1.navigate(["/checkout", "address"]);
+        this.router.navigate(["/checkout", "address"]);
       }
     } else {
-      this.router1.navigate(["/auth", "login"]);
+      this.router.navigate(["/auth", "login"]);
     }
-  }
-
-  ngOnDestroy() {
-    this.subscriptionList$.map((sub$) => sub$.unsubscribe());
   }
 
   onBack() {
     this.router.backToPreviousPage();
   }
-  // gotoodersuccess() {
-  //   this.router.navigate(["/checkout/order"]);
-  // }
+
+  goToHome() {
+    this.router.navigate(["/"]);
+  }
+
+  ngOnDestroy() {
+    this.subscriptionList$.map((sub$) => sub$.unsubscribe());
+  }
 }

@@ -1,10 +1,8 @@
 <GridLayout rows="*,60">
   <StackLayout row="0">
-    <StackLayout>
-      <sb-component></sb-component>
-    </StackLayout>
     <ScrollView sdkExampleTitle sdkToggleNavButton>
       <FlexboxLayout flexDirection="column" class="container">
+        <!-- existing-address -->
         <StackLayout>
           <StackLayout class="items">
             <StackLayout class="address-row">
@@ -33,6 +31,7 @@
             </StackLayout>
           </StackLayout>
         </StackLayout>
+        <!-- order-summery -->
         <StackLayout class="mini-bag-summary" *ngIf="itemTotal$ | async;let itemTotal">
           <Label class="items h3 m-b-20 p-b-10" text="{{totalCartItems$ | async}} ITEMS" borderBottomWidth="1"
             borderBottomColor="#ccc"></Label>
@@ -47,7 +46,6 @@
             </StackLayout>
           </StackLayout>
           <StackLayout class="shipping" *ngIf="(shipTotal$ | async);let shipTotal">
-
             <StackLayout class="m-b-10" orientation="horizontal" *ngIf="shipTotal ==='0.0' && itemTotal >= freeShippingAmount ">
               <StackLayout width="70%" class="left" horizontalAlignment="left">
                 <Label class="h3" horizontalAlignment="left" text="Delivery"></Label>
@@ -56,7 +54,6 @@
                 <Label horizontalAlignment="left" fontSize="13" text="Free" class="free"></Label>
               </StackLayout>
             </StackLayout>
-
             <Label class="m-t-10">
               <FormattedString>
                 <Span class="shipping-fee c-green" text="  "></Span>
@@ -65,11 +62,15 @@
             </Label>
           </StackLayout>
         </StackLayout>
+        <StackLayout class="p-20"></StackLayout>
+        <StackLayout class="p-20"></StackLayout>
+        <StackLayout class="p-20"></StackLayout>
+        <StackLayout class="p-20"></StackLayout>
       </FlexboxLayout>
     </ScrollView>
   </StackLayout>
   <StackLayout row="1" orientation="horizontal" class="button-container">
-    <Button class="btn btn-primary btn-active" id="button" text="Continue To Payment">
+    <Button class="btn btn-primary btn-active" id="button" (tap)="continueToPayment()" text="Continue To Payment">
     </Button>
   </StackLayout>
 </GridLayout>
