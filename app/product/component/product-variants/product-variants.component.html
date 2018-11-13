@@ -4,14 +4,16 @@
       <Label class="h3" [text]="variant.key"></Label>
     </StackLayout>
     <StackLayout orientation="horizontal">
-      <Button width="100" class="option-buttons" *ngFor="let options of (variant.value | keys)" (tap)="onOptionClick(options)"
-        [class.selected]="options.key === currentSelectedOptions[variant.key]" [ngClass]="{'disabled': isDisabled(correspondingOptions[variant.key], options.value['optionValue'].name)}">
-        <FormattedString>
-          <Label class="label" [text]="options.value['optionValue'].presentation"></Label>
-          <Span class="value" text="{{options.value['optionValue'].presentation }}"></Span>
-          <Span class="strike"></Span>
-        </FormattedString>
-      </Button>
+      <ScrollView orientation="horizontal">
+        <Button width="100" class="option-buttons" *ngFor="let options of (variant.value | keys)" (tap)="onOptionClick(options)"
+          [class.selected]="options.key === currentSelectedOptions[variant.key]" [ngClass]="{'disabled': isDisabled(correspondingOptions[variant.key], options.value['optionValue'].name)}">
+          <FormattedString>
+            <Label class="label" [text]="options.value['optionValue'].presentation"></Label>
+            <Span class="value" text="{{options.value['optionValue'].presentation }}"></Span>
+            <Span class="strike"></Span>
+          </FormattedString>
+        </Button>
+      </ScrollView>
     </StackLayout>
   </StackLayout>
 </StackLayout>

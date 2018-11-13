@@ -1,0 +1,24 @@
+@import '../../../../app-variables';
+.btn-primary {
+  border-radius: 5;
+  font-size: 18;
+  font-weight: 600;
+}
+
+.payhead {
+  color: $gray-900;
+  text-emphasis: none;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+.label {
+  text-emphasis: none;
+  white-space: normal;
+}
+
+.paytext {
+  color: $gray-900;
+  text-emphasis: none;
+  white-space: nowrap;
+}
