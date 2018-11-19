@@ -8,6 +8,8 @@ import { Product } from "~/core/models/product";
 import { ProductActions } from "~/product/actions/product-actions";
 import { getTaxonomies, showAllProducts } from "~/product/reducers/selectors";
 import { IappState } from "~/reducers";
+import { ProductService } from '~/core/services/product.service';
+import { switchMap } from 'rxjs/operators';
 registerElement("StarRating", () => require("nativescript-star-ratings").StarRating);
 @Component({
   selector: "Home",
@@ -34,16 +36,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private store: Store<IappState>,
-    private actions: ProductActions) { }
+    private actions: ProductActions,
+    private productService: ProductService) { }
 
   ngOnInit() {
     this.extractData();
+    this.todaysDealsProduct();
   }
 
   extractData() {
-    this.store.dispatch(this.actions.getAllProducts(1));
     this.store.dispatch(this.actions.getAllTaxonomies());
-    this.products$ = this.store.select(showAllProducts);
     this.taxonomies$ = this.store.select(getTaxonomies);
     this.isAuthenticated$ = this.store.select(getAuthStatus);
   }
@@ -64,4 +66,26 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscriptionList$.map((sub$) => sub$.unsubscribe());
   }
+
+  showHideLoginSignup(isAuthenticated) {
+    if (isAuthenticated) {
+      return "*,0";
+    } else {
+      return "*,40";
+    }
+  }
+
+  todaysDealsProduct() {
+    let taxonomiesResponse: any;
+    this.products$ = this.productService.getTaxonByName("Today's Deals").pipe(
+      switchMap((response) => {
+        taxonomiesResponse = response;
+        if (taxonomiesResponse.count > 0 && taxonomiesResponse.taxonomies[0].root.id) {
+          return this.productService.getProductsByTaxonNP(taxonomiesResponse.taxonomies[0].root.id);
+        } else {
+          return [];
+        }
+      }));
+  }
+
 }

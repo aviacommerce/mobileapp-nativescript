@@ -76,12 +76,15 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
 
       return;
     } else {
+      this.isProcessing = true;
       this.subscriptionList$.push(
         this.authService.register(this.user).subscribe(
           (_) => {
+            this.isProcessing = false;
             this.alert("Register Success!.");
             this.toggleForm();
           }, (_) => {
+            this.isProcessing = false;
             this.alert("Something went worng.Try again!");
           }
         )
@@ -94,7 +97,7 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
   }
 
   forgotPassword() {
-    this.alert("Forget Passwrd");
+    this.alert("Forget Password");
   }
 
   focusPassword() {

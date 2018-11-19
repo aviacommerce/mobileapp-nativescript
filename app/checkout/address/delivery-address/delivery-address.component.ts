@@ -1,14 +1,17 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
-// tslint:disable-next-line:max-line-length
-import { getAdjustmentTotal, getItemTotal, getShipTotal, getTotalCartItems, getTotalCartValue, getOrderState } from '~/checkout/reducers/selectors';
+import { tap } from "rxjs/operators";
+import {
+  getAdjustmentTotal, getItemTotal,
+  getOrderState, getShipTotal,
+  getTotalCartItems, getTotalCartValue
+} from "~/checkout/reducers/selectors";
 import { Address } from "~/core/models/address";
+import { CheckoutService } from "~/core/services/checkout.service";
 import { environment } from "~/environments/environment";
 import { IappState } from "~/home/reducers";
-import { Router } from '@angular/router';
-import { CheckoutService } from '~/core/services/checkout.service';
-import { tap } from 'rxjs/operators';
 
 @Component({
   moduleId: module.id,

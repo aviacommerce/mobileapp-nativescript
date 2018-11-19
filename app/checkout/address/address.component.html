@@ -1,3 +1,3 @@
 <ab-component></ab-component>
-<add-address *ngIf="!shipAddress$"></add-address>
-<delivery-address *ngIf="shipAddress$ | async; let shipAddress" [address]="shipAddress"></delivery-address>
+<add-address *ngIf="shipAddress===null"></add-address>
+<delivery-address *ngIf="shipAddress" [address]="shipAddress"></delivery-address>

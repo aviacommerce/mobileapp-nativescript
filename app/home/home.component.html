@@ -1,10 +1,10 @@
 <ab-component class="actionBar"></ab-component>
-<GridLayout rows="*,60">
+<GridLayout [rows]="showHideLoginSignup(isAuthenticated$ | async)">
   <StackLayout row="0">
     <StackLayout>
       <sb-component></sb-component>
     </StackLayout>
-    <ScrollView sdkExampleTitle sdkToggleNavButton>
+    <ScrollView sdkExampleTitle sdkToggleNavButton orientation="vertical" class="page">
       <FlexboxLayout flexDirection="column" class="container">
         <StackLayout class="savetoday" orientation="horizontal">
           <Label class="m-r-10 discount" text="Save 30% Today"></Label>
@@ -27,8 +27,9 @@
         <StackLayout class="promoimg">
           <Image src="~/assets/promo.png" stretch="aspectFill"></Image>
         </StackLayout>
-        <StackLayout class="promoimg">
-          <Label class="typeofproduct" text="Today's Deals"></Label>
+        <StackLayout class="promoimg" orientation="horizontal">
+          <Label class="typeofproduct fa" text="&#xf02b;"></Label>
+          <Label text=" Today's Deals"></Label>
         </StackLayout>
         <StackLayout *ngIf="products$ | async; let products" class="m-b-20">
           <RadListView [items]="products">

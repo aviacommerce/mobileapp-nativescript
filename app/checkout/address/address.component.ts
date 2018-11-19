@@ -20,21 +20,21 @@ export class AddressComponent implements OnInit, OnDestroy {
   stateSub$: Subscription;
   orderState: string;
   orderNumber$: Observable<number>;
-  shipAddress$: Observable<Address>;
+  shipAddress: Address;
   editAddress: boolean;
   addressData: Address;
+  temp: Address;
 
   constructor(
     private store: Store<IappState>,
     private checkoutService: CheckoutService,
-    private router: Router) {
+    private router: Router) { }
+
+  ngOnInit() {
     this.orderNumber$ = this.store.select(getOrderNumber);
-    this.shipAddress$ = this.store.select(getShipAddress);
+    this.store.select(getShipAddress).subscribe((address: Address) => this.shipAddress = address);
     this.stateSub$ = this.store.select(getOrderState)
       .subscribe((state) => this.orderState = state);
-  }
-
-  ngOnInit() {//
   }
 
   checkoutToPayment() {
