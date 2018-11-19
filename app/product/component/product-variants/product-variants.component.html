@@ -3,8 +3,8 @@
     <StackLayout class="size-buttons-size-header d-none d-sm-block">
       <Label class="h3" [text]="variant.key"></Label>
     </StackLayout>
-    <StackLayout orientation="horizontal">
-      <ScrollView orientation="horizontal">
+    <ScrollView orientation="horizontal">
+      <StackLayout orientation="horizontal">
         <Button width="100" class="option-buttons" *ngFor="let options of (variant.value | keys)" (tap)="onOptionClick(options)"
           [class.selected]="options.key === currentSelectedOptions[variant.key]" [ngClass]="{'disabled': isDisabled(correspondingOptions[variant.key], options.value['optionValue'].name)}">
           <FormattedString>
@@ -13,7 +13,7 @@
             <Span class="strike"></Span>
           </FormattedString>
         </Button>
-      </ScrollView>
-    </StackLayout>
+      </StackLayout>
+    </ScrollView>
   </StackLayout>
 </StackLayout>

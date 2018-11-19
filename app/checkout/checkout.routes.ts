@@ -7,6 +7,6 @@ export const routes = [
   { path: "", redirectTo: "cart", pathMatch: "full" },
   { path: "cart", component: CartComponent },
   { path: "address", component: AddressComponent },
-  { path: "order", component: OrderResponseComponent },
+  { path: "order/:id", component: OrderResponseComponent },
   { path: "payment", component: PaymentModesComponent }
 ];

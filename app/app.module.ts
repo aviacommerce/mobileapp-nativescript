@@ -26,8 +26,8 @@ import { PaymentService } from "./core/services/payment.service";
 import { VariantParserService } from "./core/services/variant-parser.service";
 import { VariantRetriverService } from "./core/services/variant-retriver.service";
 import { reducers } from "./reducers";
-import { SearchEffects } from './search/effects/search.effects';
-import { SearchActions } from './search/action/search.actions';
+import { SearchActions } from "./search/action/search.actions";
+import { SearchEffects } from "./search/effects/search.effects";
 
 @NgModule({
   bootstrap: [
