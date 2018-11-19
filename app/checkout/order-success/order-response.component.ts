@@ -1,12 +1,10 @@
 
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute, Params, Router } from "@angular/router";
-import { Store } from "@ngrx/store";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { LineItem } from "~/core/models/line_item";
 import { Order } from "~/core/models/order";
 import { CheckoutService } from "~/core/services/checkout.service";
-import { IappState } from "~/reducers";
 
 @Component({
   selector: "order-response",
@@ -15,22 +13,20 @@ import { IappState } from "~/reducers";
   styleUrls: ["./order-response.component.scss"]
 })
 export class OrderResponseComponent implements OnInit, OnDestroy {
-  queryParams: Params;
   orderDetails: Order;
-  retryCount = 0;
   subscriptionList$: Array<Subscription> = [];
+  orderReferance: string;
 
   constructor(
-    private ostore: Store<IappState>,
     private checkoutService: CheckoutService,
     private activatedRouter: ActivatedRoute,
     private route: Router
   ) { }
 
-  // Todo: Dummy Order for now.
   ngOnInit() {
+    this.orderReferance = this.activatedRouter.snapshot.params.id;
     this.subscriptionList$.push(
-      this.checkoutService.getOrderDetail("R099786036").subscribe((data) => {
+      this.checkoutService.getOrderDetail(this.orderReferance).subscribe((data) => {
         this.orderDetails = data;
       })
     );

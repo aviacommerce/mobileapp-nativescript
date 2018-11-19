@@ -28,7 +28,7 @@
           <Image src="~/assets/promo.png" stretch="aspectFill"></Image>
         </StackLayout>
         <StackLayout class="promoimg">
-          <Label class="typeofproduct" text="Popular products"></Label>
+          <Label class="typeofproduct" text="Today's Deals"></Label>
         </StackLayout>
         <StackLayout *ngIf="products$ | async; let products" class="m-b-20">
           <RadListView [items]="products">

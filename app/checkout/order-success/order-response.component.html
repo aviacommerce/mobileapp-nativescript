@@ -2,16 +2,15 @@
 <ScrollView sdkExampleTitle sdkToggleNavButton *ngIf="orderDetails">
   <FlexboxLayout flexDirection="column" backgroundColor="lightgray" class="container">
     <StackLayout class='thankyou'>
-      <Label class="thank-text p-15 m-15 m-b-0 " text="Thanks You!"> </Label>
+      <Label class="thank-text p-15 m-b-0 " text="Thank you!"> </Label>
       <Label class="h3 p-15 m-15 text-left">
         <FormattedString>
           <Span class="fa cart p-r-10" text="&#xf058;"></Span>
-          <Span text="Your order has been placed." class="p-l-10"></Span>
+          <Span text=" Your order has been placed." class="p-l-10"></Span>
         </FormattedString>
       </Label>
       <Button text="Continue Shopping" class="btn btn-primary m-t-20" (tap)="backToHome()"></Button>
     </StackLayout>
-
     <StackLayout class='thankyou m-t-10 p-15'>
       <Label class="thank-text p-l-10 m-b-25" text="Order Details"> </Label>
       <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
@@ -37,14 +36,6 @@
         </StackLayout>
         <StackLayout width="60%" class="right" horizontalAlignment="right">
           <Label horizontalAlignment="left" text="{{orderDetails.display_total}} through {{orderDetails.payments[0].payment_method.name}}"></Label>
-        </StackLayout>
-      </StackLayout>
-      <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
-        <StackLayout width="40%" class="left" horizontalAlignment="left">
-          <Label class="h3" horizontalAlignment="left" text="Total Amount:"></Label>
-        </StackLayout>
-        <StackLayout width="60%" class="right" horizontalAlignment="right">
-          <Label horizontalAlignment="left" text="{{orderDetails.payment_state | uppercase}}"></Label>
         </StackLayout>
       </StackLayout>
     </StackLayout>
@@ -84,14 +75,6 @@
       </StackLayout>
       <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
         <StackLayout width="40%" class="left" horizontalAlignment="left">
-          <Label class="h3" horizontalAlignment="left" text="Name:"></Label>
-        </StackLayout>
-        <StackLayout width="60%" class="right" horizontalAlignment="right">
-          <Label horizontalAlignment="left" text="abc"></Label>
-        </StackLayout>
-      </StackLayout>
-      <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
-        <StackLayout width="40%" class="left" horizontalAlignment="left">
           <Label class="h3" horizontalAlignment="left" text="Email:"></Label>
         </StackLayout>
         <StackLayout width="60%" class="right" horizontalAlignment="right">
@@ -99,7 +82,7 @@
         </StackLayout>
       </StackLayout>
     </StackLayout>
-    <StackLayout class='thankyou m-t-10 p-x-15'>
+    <StackLayout class='thankyou m-t-10 p-x-15' *ngIf="orderDetails?.shipment_state">
       <Label class="thank-text p-l-10 m-b-25" text="Shipping"> </Label>
       <StackLayout class="p-l-20 m-b-10" orientation="horizontal">
         <StackLayout width="40%" class="left" horizontalAlignment="left">

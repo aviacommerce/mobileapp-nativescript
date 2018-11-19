@@ -16,6 +16,7 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
   isLoggingIn = true;
   user: any;
   subscriptionList$: Array<Subscription> = [];
+  isProcessing: boolean;
 
   @ViewChild("password") password: ElementRef;
   @ViewChild("confirmPassword") confirmPassword: ElementRef;
@@ -25,13 +26,8 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private activatedRouter: ActivatedRoute,
     private router: RouterExtensions) {
-    // this.user = new User();
+    this.user = new User();
     this.page.actionBarHidden = false;
-    this.user = {
-      email: "jaypal@aviabird.com",
-      password: "flip@412",
-      confirmPassword: "flip@412"
-    };
   }
 
   toggleForm() {
@@ -62,10 +58,13 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
   }
 
   login() {
+    this.isProcessing = true;
     this.subscriptionList$.push(
       this.authService.login(this.user).subscribe((_) => {
+        this.isProcessing = false;
         this.alert("Login Success!.");
-      }, (_) => {
+      }, (error) => {
+        this.isProcessing = false;
         this.alert("Something went worng.Try again!");
       })
     );

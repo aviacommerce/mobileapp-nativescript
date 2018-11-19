@@ -58,16 +58,12 @@ export class AddAddressComponent implements OnInit, OnDestroy {
   }
 
   saveAddress() {
-    if (this.orderState === "payment" && this.shipAddress) {
-      this.checkoutToPayment();
-    } else {
       let addressAttributes;
       addressAttributes = this.addressService.createAddresAttributes(this.address);
       this.subscriptionList$.push(
         this.checkoutService.updateOrder(addressAttributes)
-          .subscribe(_ => this.checkoutToPayment())
+          .subscribe((_) => this.checkoutToPayment())
       );
-    }
   }
 
   checkoutToPayment() {

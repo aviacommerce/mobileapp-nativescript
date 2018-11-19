@@ -50,10 +50,6 @@ export class AddressComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.orderState === "delivery") {
-      this.checkoutService.changeOrderState()
-        .subscribe();
-    }
     this.stateSub$.unsubscribe();
   }
 }
