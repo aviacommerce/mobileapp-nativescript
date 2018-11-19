@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 
 @Component({
   moduleId: module.id,
@@ -7,11 +7,11 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./cash-on-delivery.component.scss"]
 })
 
-export class CashOnDeliveryComponent implements OnInit {
+export class CashOnDeliveryComponent {
 
-  // tslint:disable-next-line:no-empty
-  constructor() { }
+  @Output() payOnDelivery: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  // tslint:disable-next-line:no-empty
-  ngOnInit() { }
+  onPay() {
+    this.payOnDelivery.emit(true);
+  }
 }

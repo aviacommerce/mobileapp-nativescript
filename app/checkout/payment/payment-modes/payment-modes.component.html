@@ -6,42 +6,11 @@
     <StackLayout width="100%" class="p-l-10 price p-r-10 p-t-5 p-b-5" horizontalAlignment="center" orientation="horizontal"
       backgroundColor="white">
       <Label class="" width="100%" text="You pay {{currency}} {{totalCartValue$ | async | number:'1.2-2'}} ">
-
       </Label>
     </StackLayout>
     <ScrollView sdkExampleTitle sdkToggleNavButton height="600">
       <FlexboxLayout height="500">
         <StackLayout orientation="vertical" backgroundColor="lightgray">
-          <StackLayout>
-            <!-- <StackLayout *ngIf="shipAddress$ | async; let address">
-              <StackLayout class="items">
-                <StackLayout class="address-row">
-                  <AbsoluteLayout horizontalAlignment="right">
-                    <Button class="m-r-5 fa times p-0" width="35" height="35">
-                      <FormattedString>
-                        <Span class="edit" text="&#xf044;"></Span>
-                      </FormattedString>
-                    </Button>
-                  </AbsoluteLayout>
-                  <Label class="name m-b-10 p-l-10" text="{{address.full_name}}"></Label>
-                  <StackLayout class="address">
-                    <StackLayout class="address-content">
-                      <Label class="address-field" text="{{address.address1}}"></Label>
-                      <Label class="address-field" text="{{address.address2}}"></Label>
-                      <Label class="address-field" text="{{address.city}}-{{address.zipcode}}"></Label>
-                      <Label class="address-field" text="{{address.state?.name}}"></Label>
-                      <Label class="mob">
-                        <FormattedString>
-                          <Span class="mob-lbl" text="Mobile:"> </Span>
-                          <Span class="mob-no" text="{{address.phone}}"></Span>
-                        </FormattedString>
-                      </Label>
-                    </StackLayout>
-                  </StackLayout>
-                </StackLayout>
-              </StackLayout>
-            </StackLayout> -->
-          </StackLayout>
           <StackLayout class="mini-bag-summary" *ngIf="itemTotal$ | async;let itemTotal">
             <Label class="items h3 m-b-20 p-b-10" text="{{totalCartItems$ | async}} ITEMS" borderBottomWidth="1"
               borderBottomColor="#ccc"></Label>
@@ -71,17 +40,17 @@
           </StackLayout>
           <StackLayout backgroundColor="White">
             <TabView id="tabViewContainer" androidSelectedTabHighlightColor="green">
-              <StackLayout *tabItem="{title: 'PAYUBIZ'}">
+              <!-- <StackLayout *tabItem="{title: 'PAYUBIZ'}">
                 <ScrollView>
                   <StackLayout>
                     <payubiz-hosted></payubiz-hosted>
                   </StackLayout>
                 </ScrollView>
-              </StackLayout>
+              </StackLayout> -->
               <StackLayout *tabItem="{title: 'COD'}">
                 <ScrollView>
                   <StackLayout>
-                    <cash-on-delivery></cash-on-delivery>
+                    <cash-on-delivery (payOnDelivery)="makeCodPayment()"></cash-on-delivery>
                   </StackLayout>
                 </ScrollView>
               </StackLayout>

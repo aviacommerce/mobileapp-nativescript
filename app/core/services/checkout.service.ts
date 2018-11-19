@@ -133,6 +133,7 @@ export class CheckoutService {
    * @memberof CheckoutService
    */
   changeOrderState() {
+    console.log("call to change state");
     const url = `api/v1/checkouts/${
       this.orderNumber()
       }/next.json?order_token=${this.getOrderToken()}`;
