@@ -3,6 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { RouterExtensions } from "nativescript-angular/router";
 import { Observable, Subscription } from "rxjs";
+import { CheckoutActions } from "~/checkout/actions/checkout.actions";
 import { Product } from "~/core/models/product";
 import { Variant } from "~/core/models/variant";
 import { ProductService } from "~/core/services/product.service";
@@ -11,7 +12,6 @@ import { VariantRetriverService } from "~/core/services/variant-retriver.service
 import { IappState } from "~/home/reducers";
 import { SearchActions } from "~/search/action/search.actions";
 import { getProductsByKeyword } from "~/search/reducers/selectors";
-import { CheckoutActions } from '~/checkout/actions/checkout.actions';
 
 @Component({
   moduleId: module.id,

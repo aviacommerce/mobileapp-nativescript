@@ -70,8 +70,9 @@
                 <HtmlView html={{discription}} class="m-t-40"></HtmlView>
               </StackLayout>
               <!-- similiar product -->
-              <StackLayout class="p-10 p-t-0">
-                <Label class="m-0 p-t-2 p-b-2" color="#000" fontSize="16px;" fontWeight="bold" text="Similar Products"></Label>
+              <StackLayout class="p-10 p-t-0" orientation="horizontal">
+                <Label class="m-0 p-t-2 p-b-2 fa icon" text="&#xf02b;" fontSize="16px;" fontWeight="bold"></Label>
+                <Label text=" Similar Products"></Label>
               </StackLayout>
               <StackLayout class="p-10" *ngIf="similarProducts$ | async ; let productsList">
                 <RadListView [items]="productsList">

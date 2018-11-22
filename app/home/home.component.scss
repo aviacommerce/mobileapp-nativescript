@@ -7,8 +7,9 @@
   padding: 0 10dpi;
   background-color: $white - 10;
   .typeofproduct {
-    font-size: 16px;
-    color: $secondary
+    color: orange;
+    margin-top: 2dpi;
+    font-size: 28em;
   }
   .savetoday {
     padding: 7dpi 20dpi;
@@ -103,4 +104,17 @@
 .actionBar .action-bar {
   border-color: transparent !important;
   border-width: 1 !important;
+}
+
+.searchbox {
+  border-color: $accent-dark;
+  border-radius: 10;
+  border-width: 1 1 1 1;
+  background-color: white;
+}
+
+.searchbox-back {
+  background-color: $accent-dark;
+  border-color: $accent-dark;
+  border-width: 5 5 5 5;
 }
