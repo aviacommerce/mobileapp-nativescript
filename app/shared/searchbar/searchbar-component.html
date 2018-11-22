@@ -1,6 +1,12 @@
-<SearchBar hint="Search hint" 
-  (loaded)="sBLoaded($event)" 
+<SearchBar 
+  hint="Find the best for your pets..." 
+  class="search" 
+  textFieldBackgroundColor="white" 
+  
+  (loaded)="sBLoaded($event)"
   [text]="searchPhrase" 
   (textChange)="onTextChanged($event)"
-  (submit)="onSubmit($event)" class="search" textFieldBackgroundColor="white" textFieldHintColor="white">
+  (submit)="onSubmit($event)"
+  >
 </SearchBar>
+

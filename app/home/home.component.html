@@ -1,8 +1,8 @@
 <ab-component class="actionBar"></ab-component>
 <GridLayout [rows]="showHideLoginSignup(isAuthenticated$ | async)">
   <StackLayout row="0">
-    <StackLayout>
-      <sb-component></sb-component>
+    <StackLayout class="searchbox-back">
+      <TextField (tap)="onSearchTapped()" hint="Find the best for your pets.." class="searchbox"></TextField>
     </StackLayout>
     <ScrollView sdkExampleTitle sdkToggleNavButton orientation="vertical" class="page">
       <FlexboxLayout flexDirection="column" class="container">

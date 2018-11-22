@@ -88,4 +88,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       }));
   }
 
+  onSearchTapped() {
+    this.router.navigate(["/search"]);
+  }
+
 }

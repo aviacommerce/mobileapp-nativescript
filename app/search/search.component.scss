@@ -8,8 +8,9 @@
 }
 
 .list {
-  padding-top: 40dpi;
-
+  padding-top: 50dpi;
+  box-shadow: 10;
+  
   .product-base {
     border-bottom-width: 1px;
     border-bottom-color: $gray-10;
