@@ -10,9 +10,6 @@ import { JsonApiParserService } from "./json-api-parser.service";
 @Injectable()
 export class ProductService {
 
-  success: any;
-  error: any;
-
   constructor(
     private http: HttpClient,
     private apiParser: JsonApiParserService) { }
@@ -75,5 +72,21 @@ export class ProductService {
           };
         })
       );
+  }
+
+  getProductsByTaxonNP(id: string): Observable<Array<Product>> {
+    return this.http
+      .get<{ data: Array<CJsonApi> }>(
+        `api/v1/taxons/products?id=${id}&per_page=20&data_set=small`
+      )
+      .pipe(
+        map((resp) => this.apiParser.parseArrayofObject(resp.data) as Array<Product>)
+      );
+  }
+
+  getTaxonByName(name: string): Observable<Array<Taxonomy>> {
+    return this.http.get<Array<Taxonomy>>(
+      `api/v1/taxonomies?q[name_cont]=${name}&set=nested&per_page=2`
+    );
   }
 }

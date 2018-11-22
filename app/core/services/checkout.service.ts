@@ -29,7 +29,7 @@ export class CheckoutService {
    * @memberof CheckoutService
    */
   createNewLineItem(variant_id: number, quantity: number): Observable<LineItem> {
-    
+
     if (!this.getOrderToken()) {
       const orderParams = { order: { line_items: { 0: { variant_id, quantity } } } };
 
@@ -88,6 +88,7 @@ export class CheckoutService {
       map((order) => {
         if (!order) {
           localStorage.removeItem("order");
+
           return;
         }
         const { token, number } = order;
@@ -122,6 +123,7 @@ export class CheckoutService {
     const url = `api/v1/orders/${this.orderNumber()}/line_items/${
       lineItem.id
       }?order_token=${this.getOrderToken()}`;
+
     return this.http.delete(url).pipe(map((_) => lineItem));
   }
 
@@ -133,10 +135,10 @@ export class CheckoutService {
    * @memberof CheckoutService
    */
   changeOrderState() {
-    console.log("call to change state");
     const url = `api/v1/checkouts/${
       this.orderNumber()
       }/next.json?order_token=${this.getOrderToken()}`;
+
     return this.http
       .put<Order>(url, {})
       .pipe(

@@ -19,7 +19,7 @@
   </StackLayout>
   <FlexboxLayout class="page" *ngIf="(totalCartItems$ | async) === 0">
     <StackLayout class="form">
-      <Label class="h3" fontSize="14" horizontalAlignment="left" fontWeight="bold" text="Your cart is empty"></Label>
+      <Label class="h2" fontSize="18" horizontalAlignment="center" fontWeight="bold" text="Your cart is empty"></Label>
       <Image class="logo" src="~/assets/empty-cart.png"></Image>
       <Button text="Continue Shopping" class="btn btn-primary" (tap)="goToHome()"></Button>
     </StackLayout>
