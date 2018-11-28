@@ -5,6 +5,7 @@ import { Subscription } from "rxjs";
 import { Page } from "tns-core-modules/ui/page/page";
 import { User } from "~/core/models/user";
 import { AuthService } from "~/core/services/auth.service";
+import { environment } from "~/environments/environment";
 @Component({
   moduleId: module.id,
   selector: "login-register",
@@ -14,9 +15,10 @@ import { AuthService } from "~/core/services/auth.service";
 
 export class LoginRegisterComponent implements OnInit, OnDestroy {
   isLoggingIn = true;
-  user: any;
+  user: User;
   subscriptionList$: Array<Subscription> = [];
   isProcessing: boolean;
+  logoUrl = environment.config.logoUrl;
 
   @ViewChild("password") password: ElementRef;
   @ViewChild("confirmPassword") confirmPassword: ElementRef;

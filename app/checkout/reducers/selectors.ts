@@ -1,5 +1,5 @@
 import { createSelector } from "reselect";
-import { IappState } from "../../reducers";
+import { IappState } from "~/app.reducers";
 import { CheckoutState } from "./checkout.state";
 
 // Base Cart State function

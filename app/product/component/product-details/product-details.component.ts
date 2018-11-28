@@ -3,15 +3,15 @@ import { ActivatedRoute } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { RouterExtensions } from "nativescript-angular/router";
 import { Observable, Subscription } from "rxjs";
+import { IappState } from "~/app.reducers";
 import { CheckoutActions } from "~/checkout/actions/checkout.actions";
 import { Product } from "~/core/models/product";
 import { Variant } from "~/core/models/variant";
 import { ProductService } from "~/core/services/product.service";
 import { VariantParserService } from "~/core/services/variant-parser.service";
 import { VariantRetriverService } from "~/core/services/variant-retriver.service";
-import { IappState } from "~/home/reducers";
 import { SearchActions } from "~/search/action/search.actions";
-import { getProductsByKeyword } from "~/search/reducers/selectors";
+import { getSearchedProducts } from "~/search/reducers/selectors";
 
 @Component({
   moduleId: module.id,
@@ -79,6 +79,8 @@ export class ProductDetailsComponent implements OnInit {
       this.productMRP = this.product.master.cost_price;
       this.productPrice = this.product.display_price;
       this.isProductOderable = this.product.master.is_orderable;
+      this.productDiscount = this.calculateDiscount(this.productMRP, this.product.price);
+      this.discountPercent = `${Math.ceil(this.productDiscount / +this.productMRP * 100)}%`;
     }
   }
 
@@ -88,7 +90,7 @@ export class ProductDetailsComponent implements OnInit {
     this.productMRP = selectedVariant.cost_price;
     this.productPrice = selectedVariant.display_price;
     this.productDiscount = this.calculateDiscount(this.productMRP, selectedVariant.price);
-    this.discountPercent = `${Math.ceil(this.productDiscount / +selectedVariant.cost_price * 100)}%`;
+    this.discountPercent = `${Math.ceil(this.productDiscount / +this.productMRP * 100)}%`;
     this.isProductOderable = selectedVariant.is_orderable;
   }
 
@@ -96,12 +98,12 @@ export class ProductDetailsComponent implements OnInit {
     return Math.ceil(mrp - price);
   }
 
-  similarProductsList(product: Product) {
+  similarProductsList(selectedProduct: Product) {
     if (this.product.taxon_ids[0]) {
       this.store.dispatch(
-        this.searchActions.getProductsByTaxon(this.product.taxon_ids[0])
+        this.searchActions.getProductsByTaxon(selectedProduct.taxon_ids[0])
       );
-      this.similarProducts$ = this.store.select(getProductsByKeyword);
+      this.similarProducts$ = this.store.select(getSearchedProducts);
     }
   }
 

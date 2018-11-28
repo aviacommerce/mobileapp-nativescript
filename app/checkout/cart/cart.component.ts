@@ -9,7 +9,7 @@ import { getAuthStatus } from "~/auth/reducers/selectors";
 import { getItemTotal, getOrderState, getTotalCartItems, getTotalCartValue } from "~/checkout/reducers/selectors";
 import { CheckoutService } from "~/core/services/checkout.service";
 import { environment } from "~/environments/environment";
-import { IappState } from "~/reducers";
+import { IappState } from '~/app.reducers';
 @Component({
   selector: "Cart",
   moduleId: module.id,
@@ -22,7 +22,7 @@ export class CartComponent implements OnInit, OnDestroy {
   totalCartItems$: Observable<number>;
   shipTotal$: Observable<number>;
   itemTotal: number;
-  currency = environment.currency_symbol;
+  currency = environment.config.currency_symbol;
   isAuthenticated: boolean;
   orderState: string;
   subscriptionList$: Array<Subscription> = [];

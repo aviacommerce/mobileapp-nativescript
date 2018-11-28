@@ -5,7 +5,7 @@ import * as app from "application";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { Observable } from "rxjs";
 import { SearchBar } from "ui/search-bar";
-import { IappState } from "../../reducers/index";
+import { IappState } from "~/app.reducers";
 import { getTotalCartItems } from "./../../checkout/reducers/selectors";
 @Component({
   selector: "ab-component",

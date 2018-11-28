@@ -35,6 +35,7 @@ export class ProductActions {
   }
 
   getProductDetailSuccess(data: { product }) {
+
     return {
       type: ProductActions.GET_PRODUCT_DETAIL_SUCCESS,
       payload: data
