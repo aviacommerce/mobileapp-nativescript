@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { CheckoutActions } from "~/checkout/actions/checkout.actions";
 import { LineItem } from "~/core/models/line_item";
-import { IappState } from "~/reducers";
+import { IappState } from "~/app.reducers";
 
 @Component({
   moduleId: module.id,

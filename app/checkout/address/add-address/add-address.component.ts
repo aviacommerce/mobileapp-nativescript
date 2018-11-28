@@ -7,7 +7,7 @@ import { getOrderState, getShipAddress } from "~/checkout/reducers/selectors";
 import { Address } from "~/core/models/address";
 import { AddressService } from "~/core/services/address.service";
 import { CheckoutService } from "~/core/services/checkout.service";
-import { IappState } from "~/reducers";
+import { IappState } from "~/app.reducers";
 
 @Component({
   moduleId: module.id,

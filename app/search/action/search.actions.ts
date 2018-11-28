@@ -1,43 +1,13 @@
 
 export class SearchActions {
-  static GET_ALL_FILTERS = "GET_ALL_FILTERS";
-  static ADD_FILTER = "ADD_FILTER";
-  static REMOVE_FILTER = "REMOVE_FILTER";
   static GET_PRODUCTS_BY_KEYWORD = "GET_PRODUCTS_BY_KEYWORD";
-  static GET_PRODUCTS_BY_KEYWORD_SUCCESS = "GET_PRODUCTS_BY_KEYWORD_SUCCESS";
-  static GET_PRODUCTS_BY_TAXON = "GET_PRODUCTS_BY_TAXON"
-  static GET_CHILD_TAXONS = "GET_CHILD_TAXONS"
-  static GET_CHILD_TAXONS_SUCCESS = "GET_CHILD_TAXONS_SUCCESS"
-  static CLEAR_SELECTED_CATAGEORY = "CLEAR_SELECTED_CATAGEORY"
-  static GET_TAXONOMIES_BY_NAME = "GET_TAXONOMIES_BY_NAME"
-  static GET_TAXONOMIES_BY_NAME_SUCCESS = "GET_TAXONOMIES_BY_NAME_SUCCESS"
-  static SET_SEARCH_FILTER_ON = "SET_SEARCH_FILTER_ON"
-  static SET_SEARCH_FILTER_OFF = "SET_SEARCH_FILTER_OFF"
+  static GET_PRODUCTS_BY_TAXON = "GET_PRODUCTS_BY_TAXON";
+  static GET_TAXONOMIES_BY_NAME = "GET_TAXONOMIES_BY_NAME";
+  static GET_TAXONOMIES_BY_NAME_SUCCESS = "GET_TAXONOMIES_BY_NAME_SUCCESS";
+  static CLEAR_PRODUCTS = "CLEAR_PRODUCTS";
+  static GET_SEARCHED_PRODUCTS = "GET_SEARCHED_PRODUCTS";
 
-  category: any;
-
-  getAllFiltes() {
-    return { type: SearchActions.GET_ALL_FILTERS };
-  }
-
-  /**
-   * @method addFilter
-   * @param taxon Class Taxon
-   * Get's triggered on checking the checkboxes in TaxonsComponent.
-   */
-  addFilter(taxon: any) {
-    return {
-      type: SearchActions.ADD_FILTER,
-      payload: taxon
-    };
-  }
-
-  removeFilter(taxon: any) {
-    return {
-      type: SearchActions.REMOVE_FILTER,
-      payload: taxon
-    };
-  }
+  category: string;
 
   getProductsByKeyword(keyword: object) {
     return {
@@ -46,38 +16,17 @@ export class SearchActions {
     };
   }
 
-  getProductsByKeywordSuccess(products: any) {
-
+  getSearchedProducts(products) {
     return {
-      type: SearchActions.GET_PRODUCTS_BY_KEYWORD_SUCCESS,
+      type: SearchActions.GET_SEARCHED_PRODUCTS,
       payload: products
     };
   }
 
-  getProductsByTaxon(taxonId: any) {
+  getProductsByTaxon(taxonId: number) {
     return {
       type: SearchActions.GET_PRODUCTS_BY_TAXON,
       payload: taxonId
-    };
-  }
-
-  getChildTaxons(taxonomiesId: any, taxonId: any) {
-    return {
-      type: SearchActions.GET_CHILD_TAXONS,
-      payload: { taxonomiesId, taxonId }
-    };
-  }
-
-  getChildTaxonsSuccess(taxonList: any) {
-    return {
-      type: SearchActions.GET_CHILD_TAXONS_SUCCESS,
-      payload: taxonList
-    };
-  }
-
-  clearCategeoryLevel() {
-    return {
-      type: SearchActions.CLEAR_SELECTED_CATAGEORY
     };
   }
 
@@ -87,7 +36,7 @@ export class SearchActions {
     return {
       type: SearchActions.GET_TAXONOMIES_BY_NAME,
       payload: taxonomyName
-    }
+    };
   }
 
   getTaxonomiesByNameSuccess(taxonomiList: any) {
@@ -99,15 +48,9 @@ export class SearchActions {
     };
   }
 
-  setSearchFilterOn() {
+  clearProducts() {
     return {
-      type: SearchActions.SET_SEARCH_FILTER_ON
-    };
-  }
-
-  setSearchFilterOff() {
-    return {
-      type: SearchActions.SET_SEARCH_FILTER_OFF
+      type: SearchActions.CLEAR_PRODUCTS
     };
   }
 }

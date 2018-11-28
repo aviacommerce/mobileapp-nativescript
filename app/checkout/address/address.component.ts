@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
 import { tap } from "rxjs/operators";
-import { IappState } from "~/reducers";
+import { IappState } from "~/app.reducers";
 import { Address } from "./../../core/models/address";
 import { CheckoutService } from "./../../core/services/checkout.service";
 import { getOrderNumber, getOrderState, getShipAddress } from "./../reducers/selectors";

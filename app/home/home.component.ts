@@ -3,13 +3,15 @@ import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { registerElement } from "nativescript-angular/element-registry";
 import { Observable, Subscription } from "rxjs";
+import { switchMap } from "rxjs/operators";
+import { IappState } from "~/app.reducers";
 import { getAuthStatus } from "~/auth/reducers/selectors";
 import { Product } from "~/core/models/product";
+import { ProductService } from "~/core/services/product.service";
+import { environment } from "~/environments/environment";
 import { ProductActions } from "~/product/actions/product-actions";
-import { getTaxonomies, showAllProducts } from "~/product/reducers/selectors";
-import { IappState } from "~/reducers";
-import { ProductService } from '~/core/services/product.service';
-import { switchMap } from 'rxjs/operators';
+import { getTaxonomies } from "~/product/reducers/selectors";
+import { SearchActions } from "~/search/action/search.actions";
 registerElement("StarRating", () => require("nativescript-star-ratings").StarRating);
 @Component({
   selector: "Home",
@@ -23,20 +25,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   taxonomies$: Observable<any>;
   products$: Observable<Array<Product>>;
   product: Product;
-  taxonImageLink;
-  searchPhrase: string;
-  searchBar;
   isAndroid: boolean;
   isIos: boolean;
-  productID;
-  promoImg = "../assets/promo.png";
   subscriptionList$: Array<Subscription> = [];
   isAuthenticated$: Observable<boolean>;
+  searchBoxplaceHolder = environment.config.searchBoxPlaceholder;
+  promoImageUrl = environment.config.promoImageUrl;
+  categories = environment.config.categories;
 
   constructor(
     private router: Router,
     private store: Store<IappState>,
     private actions: ProductActions,
+    private searchActions: SearchActions,
     private productService: ProductService) { }
 
   ngOnInit() {
@@ -50,6 +51,24 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.isAuthenticated$ = this.store.select(getAuthStatus);
   }
 
+  onSearchTapped() {
+    this.router.navigate(["/search"]);
+  }
+
+  onSelectedCategory(categoryId: number) {
+    this.router.navigate(["/search"], { queryParams: { id: categoryId } });
+    this.store.dispatch(this.searchActions.clearProducts());
+    this.store.dispatch(this.searchActions.getProductsByTaxon(categoryId));
+  }
+
+  showHideLoginSignup(isAuthenticated) {
+    if (isAuthenticated) {
+      return "*,0";
+    } else {
+      return "*,40";
+    }
+  }
+
   productDetail(slug: string) {
     this.router.navigate(["/", slug]);
   }
@@ -59,20 +78,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   goToSignup() {
-    this.router.navigate(["auth", "login"],
-      { queryParams: { signUpFlag: true } });
-  }
-
-  ngOnDestroy() {
-    this.subscriptionList$.map((sub$) => sub$.unsubscribe());
-  }
-
-  showHideLoginSignup(isAuthenticated) {
-    if (isAuthenticated) {
-      return "*,0";
-    } else {
-      return "*,40";
-    }
+    this.router.navigate(["auth", "login"], { queryParams: { signUpFlag: true } });
   }
 
   todaysDealsProduct() {
@@ -88,8 +94,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       }));
   }
 
-  onSearchTapped() {
-    this.router.navigate(["/search"]);
+  ngOnDestroy() {
+    this.subscriptionList$.map((sub$) => sub$.unsubscribe());
   }
-
 }

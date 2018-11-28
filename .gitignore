@@ -32,3 +32,17 @@ typings/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# .keystore
+*.jks
+*.jks.old
+
+npm-debug.log
+.DS_Store
+
+app/**/*.js
+e2e/**/*.js
+e2e/reports/
+lib/
+report/
+test-results.xml

@@ -1,10 +1,4 @@
-import { Variant } from './variant';
-/*
- * LineItem model
- * Detailed info http://guides.spreecommerce.org/developer/orders.html#line-items
- * Public API's http://guides.spreecommerce.org/api/line_items.html
- */
-
+import { Variant } from "./variant";
 export class LineItem {
 	id: number;
 	quantity: number;

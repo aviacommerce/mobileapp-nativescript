@@ -17,7 +17,7 @@ import { PaymentMode } from "~/core/models/payment_mode";
 import { CheckoutService } from "~/core/services/checkout.service";
 import { PaymentService } from "~/core/services/payment.service";
 import { environment } from "~/environments/environment";
-import { IappState } from "~/reducers";
+import { IappState } from "~/app.reducers";
 
 @Component({
   moduleId: module.id,
@@ -39,10 +39,10 @@ export class PaymentModesComponent implements OnInit, OnDestroy {
   shipTotal$: Observable<number>;
   itemTotal$: Observable<number>;
   adjustmentTotal$: Observable<number>;
-  currency = environment.currency_symbol;
+  currency = environment.config.currency_symbol;
   orderSub$: Subscription;
   shipAddress$: Observable<Address>;
-  freeShippingAmount = environment.freeShippingAmount;
+  freeShippingAmount = environment.config.freeShippingAmount;
 
   constructor(
     private router: RouterExtensions,

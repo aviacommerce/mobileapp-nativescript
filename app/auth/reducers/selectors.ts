@@ -1,5 +1,5 @@
 import { createSelector } from "reselect";
-import { IappState } from "~/reducers";
+import { IappState } from "~/app.reducers";
 import { AuthState } from "./auth.state";
 
 // Base state function

@@ -1,52 +1,32 @@
 
 import { createSelector } from "@ngrx/store";
-import { IappState } from "../../reducers";
-import { SearchState } from "./search.state";
+import { IappState } from "~/app.reducers";
+import { IsearchState } from "./search.state";
 
 /******************* Base Search State ******************/
-
-export function getSearchState(state: IappState): SearchState {
+export function getSearchState(state: IappState): IsearchState {
   return state.search;
 }
 /******************* Individual selectors ******************/
-function fetchSelectedFilters(state: SearchState) {
-  return state.selectedFilters.toJS();
-};
 
-function fetchSelectedTaxonIds(state: SearchState) {
-  return state.selectedTaxonIds.toJS();
+function fetchSearchedProducts(state: IsearchState) {
+  return state.searchedProducts.toJS();
 }
 
-function fetchProductsByKeyword(state: SearchState) {
-  return state.productsByKeyword.toJS();
-}
-
-function fetchChildTaxons(state: SearchState) {
-  return state.getChildTaxons.toJS();
-}
-
-function fetchCategeoryLevel(state: SearchState) {
-  return state.categeoryLevel.toJS();
-}
-
-function fetchTaxonomiByName(state: SearchState) {
+function fetchTaxonomiByName(state: IsearchState) {
   return state.taxonomiByName.toJS();
 }
 
-function fetchPaginationData(state: SearchState) {
+function fetchPaginationData(state: IsearchState) {
   return state.paginationData.toJS();
 }
 
-function fetchSearchFliterStatus(state: SearchState) {
-  return state.searchFilter;
+function fetchProductsLoader(state: IsearchState) {
+  return state.productsLoader;
 }
-/******************* Public Selector API's ******************/
-export const getFilters = createSelector(getSearchState, fetchSelectedFilters);
-export const getSelectedTaxonIds = createSelector(getSearchState, fetchSelectedTaxonIds);
-export const getProductsByKeyword = createSelector(getSearchState, fetchProductsByKeyword);
-export const getPaginationData = createSelector(getSearchState, fetchPaginationData);
-export const getChildTaxons = createSelector(getSearchState, fetchChildTaxons);
-export const categeoryLevel = createSelector(getSearchState, fetchCategeoryLevel);
-export const taxonomiByName = createSelector(getSearchState, fetchTaxonomiByName);
-export const searchFilterStatus = createSelector(getSearchState, fetchSearchFliterStatus);
 
+/******************* Public Selector API's ******************/
+export const getSearchedProducts = createSelector(getSearchState, fetchSearchedProducts);
+export const getPaginationData = createSelector(getSearchState, fetchPaginationData);
+export const taxonomiByName = createSelector(getSearchState, fetchTaxonomiByName);
+export const getProductsLoader = createSelector(getSearchState, fetchProductsLoader);

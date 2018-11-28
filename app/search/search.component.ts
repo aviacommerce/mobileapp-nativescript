@@ -3,11 +3,10 @@ import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import * as app from "application";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
-import { Observable, Subscription } from "rxjs";
+import { Subscription } from "rxjs";
+import { IappState } from "~/app.reducers";
 import { Product } from "../core/models/product";
-import { IappState } from "../reducers";
-import { SearchActions } from "./action/search.actions";
-import { getProductsByKeyword } from "./reducers/selectors";
+import { getSearchedProducts, getProductsLoader } from "./reducers/selectors";
 
 @Component({
   selector: "Search",
@@ -18,31 +17,35 @@ import { getProductsByKeyword } from "./reducers/selectors";
 
 export class SearchComponent implements OnInit, OnDestroy {
   products: Array<Product>;
-  products1: object;
   page: number;
   upadatedstring: string;
   queryParams: Params;
   productCount: number;
-  myItems: Array<string> = [];
   counter = 1;
-  products$: Observable<Product>;
   subscriptionList$: Array<Subscription> = [];
+  isProcessing: boolean;
 
   constructor(
     private routernomal: Router,
     private activeRoute: ActivatedRoute,
-    private store: Store<IappState>,
-    private searchActions: SearchActions) { }
+    private store: Store<IappState>) { }
 
   ngOnInit() {
-    this.store.select(getProductsByKeyword).subscribe((productdata) => {
+    // this.isProcessing = false;
+    this.store.select(getSearchedProducts).subscribe((productdata) => {
       this.products = productdata;
+      if (this.products.length) {
+        // this.isProcessing = true;
+      }
     });
 
     this.activeRoute.queryParams.subscribe((params) => {
       this.queryParams = params;
     });
 
+    this.store.select(getProductsLoader).subscribe((loader) => {
+      this.isProcessing = loader;
+    });
   }
 
   onDrawerButtonTap(): void {
@@ -58,10 +61,6 @@ export class SearchComponent implements OnInit, OnDestroy {
       preserveFragment: true
     });
     // this.routernomal.navigateByUrl(urlTree);
-  }
-
-  routeChange() {
-    // this.store.dispatch(this.searchActions.getProductsByKeyword());
   }
 
   viewProduct(slug: string) {
