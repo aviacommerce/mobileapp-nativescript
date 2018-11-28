@@ -1,0 +1,14 @@
+<ActionBar class="action-bar">
+  <NavigationButton *ngIf="!showBackArrow" ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()">
+  </NavigationButton>
+  <NavigationButton *ngIf="showBackArrow" text="Go Back" android.systemIcon="ic_menu_back" (tap)="navigateBack()">
+  </NavigationButton>
+  <ActionItem ios.position="right" class="fa cart">
+    <AbsoluteLayout [nsRouterLink]="['/checkout/cart']" (tap)="navigateToCart()">
+      <Label class="fa" text="&#xf07a;"></Label>
+      <Label [text]="totalCartItems" left="25" top="9" class="cart-items"></Label>
+    </AbsoluteLayout>
+  </ActionItem>
+  <Label class="action-bar-title" text="{{showName}}" *ngIf="showName"></Label>
+  <Image class="img-logo" src="~/assets/logo.png" *ngIf="!showName"></Image>
+</ActionBar>

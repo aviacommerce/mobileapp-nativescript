@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
-import * as app from "application";
-import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { Subscription } from "rxjs";
 import { IappState } from "~/app.reducers";
 import { Product } from "../core/models/product";
-import { getSearchedProducts, getProductsLoader } from "./reducers/selectors";
+import { SearchActions } from "./action/search.actions";
+import { getPaginationData, getProductsLoader, getSearchedProducts } from "./reducers/selectors";
 
 @Component({
   selector: "Search",
@@ -18,39 +17,40 @@ import { getSearchedProducts, getProductsLoader } from "./reducers/selectors";
 export class SearchComponent implements OnInit, OnDestroy {
   products: Array<Product>;
   page: number;
-  upadatedstring: string;
   queryParams: Params;
-  productCount: number;
   counter = 1;
   subscriptionList$: Array<Subscription> = [];
   isProcessing: boolean;
+  clearFocus: boolean = true;
+  paginationData: any;
 
   constructor(
     private routernomal: Router,
     private activeRoute: ActivatedRoute,
-    private store: Store<IappState>) { }
+    private store: Store<IappState>,
+    private searchActions: SearchActions) { }
 
   ngOnInit() {
-    // this.isProcessing = false;
-    this.store.select(getSearchedProducts).subscribe((productdata) => {
-      this.products = productdata;
-      if (this.products.length) {
-        // this.isProcessing = true;
-      }
-    });
+    this.subscriptionList$.push(
+      this.store.select(getSearchedProducts).subscribe((productdata) => {
+        this.products = productdata;
+      }),
 
-    this.activeRoute.queryParams.subscribe((params) => {
-      this.queryParams = params;
-    });
+      this.store.select(getPaginationData).subscribe((pagination) => {
+        this.paginationData = pagination;
+      }),
 
-    this.store.select(getProductsLoader).subscribe((loader) => {
-      this.isProcessing = loader;
-    });
-  }
+      this.activeRoute.queryParams.subscribe((params) => {
+        this.queryParams = params;
+        if (!this.queryParams.clearFocus) {
+          this.clearFocus = false;
+        }
+      }),
 
-  onDrawerButtonTap(): void {
-    const sideDrawer = <RadSideDrawer>app.getRootView();
-    sideDrawer.showDrawer();
+      this.store.select(getProductsLoader).subscribe((loader) => {
+        this.isProcessing = loader;
+      })
+    );
   }
 
   loadItems() {
@@ -65,6 +65,10 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   viewProduct(slug: string) {
     this.routernomal.navigate(["/", slug]);
+  }
+
+  searchAgain() {
+    this.store.dispatch(this.searchActions.clearSearchedProducts(false));
   }
 
   ngOnDestroy() {
