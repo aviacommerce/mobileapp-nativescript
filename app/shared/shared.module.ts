@@ -1,9 +1,7 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptCommonModule } from "nativescript-angular/common";
-import { CheckoutActions } from "~/checkout/actions/checkout.actions";
-import { SearchActions } from "~/search/action/search.actions";
-import { ActionBarComponent } from "~/shared/header/actionbar-component";
-import { SearchBarComponent } from "~/shared/searchbar/searchbar-component";
+import { ActionBarComponent } from "./component/header/actionbar-component";
+import { SearchBarComponent } from "./component/searchbar/searchbar-component";
 import { KeysPipe } from "./pipes/keys.pipe";
 @NgModule({
   imports: [
@@ -21,10 +19,7 @@ import { KeysPipe } from "./pipes/keys.pipe";
     SearchBarComponent,
     KeysPipe
   ],
-  providers: [
-    // SearchActions,
-    // CheckoutActions
-  ]
+  providers: []
 })
 
 export class SharedModule { }

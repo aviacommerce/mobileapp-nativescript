@@ -69,3 +69,23 @@
     }
   }
 }
+
+.form {
+  margin-left: 30;
+  margin-right: 30;
+  flex-grow: 2;
+  vertical-align: middle;
+}
+
+.logo {
+  margin-bottom: 12;
+  height: 90;
+  font-weight: bold;
+  margin-top: 50;
+}
+
+.page {
+  align-items: center;
+  flex-direction: column;
+}
+

@@ -6,6 +6,7 @@ export class SearchActions {
   static GET_TAXONOMIES_BY_NAME_SUCCESS = "GET_TAXONOMIES_BY_NAME_SUCCESS";
   static CLEAR_PRODUCTS = "CLEAR_PRODUCTS";
   static GET_SEARCHED_PRODUCTS = "GET_SEARCHED_PRODUCTS";
+  static SEARCH_LOADER = "SEARCH_LOADER";
 
   category: string;
 
@@ -16,10 +17,10 @@ export class SearchActions {
     };
   }
 
-  getSearchedProducts(products) {
+  getSearchedProducts(result: {products, pagination}) {
     return {
       type: SearchActions.GET_SEARCHED_PRODUCTS,
-      payload: products
+      payload: result
     };
   }
 
@@ -48,9 +49,10 @@ export class SearchActions {
     };
   }
 
-  clearProducts() {
+  clearSearchedProducts(showLoader: boolean) {
     return {
-      type: SearchActions.CLEAR_PRODUCTS
+      type: SearchActions.CLEAR_PRODUCTS,
+      payload: showLoader
     };
   }
 }

@@ -52,12 +52,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   onSearchTapped() {
-    this.router.navigate(["/search"]);
+    this.store.dispatch(this.searchActions.clearSearchedProducts(false));
+    this.router.navigate(["/search"], { queryParams: { clearFocus: false } });
   }
 
   onSelectedCategory(categoryId: number) {
     this.router.navigate(["/search"], { queryParams: { id: categoryId } });
-    this.store.dispatch(this.searchActions.clearProducts());
+    this.store.dispatch(this.searchActions.clearSearchedProducts(true));
     this.store.dispatch(this.searchActions.getProductsByTaxon(categoryId));
   }
 
