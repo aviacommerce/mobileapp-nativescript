@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
+import { IappState } from "~/app.reducers";
 import {
   getAdjustmentTotal, getItemTotal,
   getOrderState, getShipTotal,
@@ -11,7 +12,6 @@ import {
 import { Address } from "~/core/models/address";
 import { CheckoutService } from "~/core/services/checkout.service";
 import { environment } from "~/environments/environment";
-import { IappState } from "~/home/reducers";
 
 @Component({
   moduleId: module.id,
@@ -27,8 +27,8 @@ export class DeliveryAddressComponent implements OnInit {
   itemTotal$: Observable<number>;
   shipTotal$: Observable<number>;
   adjustmentTotal$: Observable<number>;
-  currency = environment.currency_symbol;
-  freeShippingAmount = environment.freeShippingAmount;
+  currency = environment.config.currency_symbol;
+  freeShippingAmount = environment.config.freeShippingAmount;
   orderState: string;
 
   constructor(

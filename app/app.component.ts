@@ -6,10 +6,10 @@ import { RouterExtensions } from "nativescript-angular/router";
 import { DrawerTransitionBase, RadSideDrawer, SlideInOnTopTransition } from "nativescript-ui-sidedrawer";
 import { Subscription } from "rxjs";
 import { filter } from "rxjs/operators";
+import { IappState } from "./app.reducers";
 import { getAuthStatus } from "./auth/reducers/selectors";
 import { User } from "./core/models/user";
 import { AuthService } from "./core/services/auth.service";
-import { IappState } from "./reducers";
 require("nativescript-localstorage");
 
 @Component({

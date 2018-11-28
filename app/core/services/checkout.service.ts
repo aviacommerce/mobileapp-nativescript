@@ -4,7 +4,7 @@ import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Observable, of } from "rxjs";
 import { map, switchMap, tap } from "rxjs/operators";
-import { IappState } from "../../reducers/index";
+import { IappState } from "~/app.reducers";
 import { Order } from "../models/order";
 import { CheckoutActions } from "./../../checkout/actions/checkout.actions";
 import { LineItem } from "./../models/line_item";
@@ -246,6 +246,6 @@ export class CheckoutService {
 
   }
   getOrderDetail(orderNumber: string): Observable<Order> {
-    return this.http.get<Order>(`api/v1/orders/${orderNumber}`)
+    return this.http.get<Order>(`api/v1/orders/${orderNumber}`);
   }
 }

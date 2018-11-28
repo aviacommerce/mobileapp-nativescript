@@ -17,14 +17,22 @@ export class SearchEffects {
         this.productService.getProductsByKeyword(action.payload)
       ),
       map(({ products, pagination }) =>
-        this.searchActions.getProductsByKeywordSuccess({ products, pagination })
+        this.searchActions.getSearchedProducts({ products, pagination })
       )
+    );
+
+  @Effect()
+  getProductsByTaxons$: Observable<Action> = this.actions$
+    .ofType(SearchActions.GET_PRODUCTS_BY_TAXON)
+    .pipe(
+      switchMap((action: any) =>
+        this.productService.getProductsByTaxon(action.payload)
+      ),
+      map(({ products, pagination }) => this.searchActions.getSearchedProducts({ products, pagination }))
     );
 
   constructor(
     private actions$: Actions,
     private productService: ProductService,
-    private searchActions: SearchActions
-
-  ) { }
+    private searchActions: SearchActions) { }
 }

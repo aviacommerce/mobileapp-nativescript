@@ -1,26 +1,18 @@
 
-import { List, Record, Map } from 'immutable';
-import { Product } from '~/core/models/product';
-import { Taxonomy } from '~/core/models/taxonomy';
+import { List, Map, Record } from "immutable";
+import { Product } from "~/core/models/product";
 
-export interface SearchState extends Map<string, any> {
-  selectedFilters: List<Map<string, any>>;
-  selectedTaxonIds: List<number>;
-  productsByKeyword: List<Product>;
-  getChildTaxons: List<Taxonomy>;
-  categeoryLevel: List<any>;
+export interface IsearchState extends Map<string, any> {
+  searchedProducts: List<Product>;
   taxonomiByName: List<any>;
   paginationData: Map<string, any>;
-  searchFilter: boolean;
+  productsLoader: boolean;
+
 }
 
-export const SearchStateRecord = Record({
-  selectedFilters: List([]),
-  selectedTaxonIds: List([]),
-  productsByKeyword: List([]),
-  getChildTaxons: List([]),
-  categeoryLevel: List([]),
+export const searchStateRecord = Record({
+  searchedProducts: List([]),
   taxonomiByName: List([]),
   paginationData: Map({}),
-  searchFilter: false
+  productsLoader: false
 });

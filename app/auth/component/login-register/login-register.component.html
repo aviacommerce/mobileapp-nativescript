@@ -3,7 +3,7 @@
 </ActionBar>
 <FlexboxLayout class="page">
   <StackLayout class="form">
-    <Image class="logo" src="~/assets/logo.png"></Image>
+    <Image class="logo" src={{logoUrl}}></Image>
     <StackLayout class="input-field">
       <TextField class="input" hint="Email" keyboardType="email" autocorrect="false" autocapitalizationType="none"
         [(ngModel)]="user.email" returnKeyType="next" (returnPress)="focusPassword()" [editable]="!isProcessing"></TextField>

@@ -7,9 +7,10 @@ import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 import { ProductActions } from "~/product/actions/product-actions";
 import { SearchEffects } from "~/search/effects/search.effects";
 import { SharedModule } from "~/shared/shared.module";
-import { SearchActions } from "./action/search.actions";
 import { SearchRoutingModule } from "./search-routing.module";
 import { SearchComponent } from "./search.component";
+import { SearchActions } from './action/search.actions';
+import { ProductEffects } from '~/product/effects/product.effects';
 
 @NgModule({
   imports: [
@@ -18,7 +19,7 @@ import { SearchComponent } from "./search.component";
     NativeScriptUIListViewModule,
     NativeScriptFormsModule,
     NativeScriptRouterModule,
-    EffectsModule.forRoot([SearchEffects]),
+    // EffectsModule.forRoot([SearchEffects, ProductEffects]),
     SharedModule
   ],
   declarations: [
@@ -28,8 +29,7 @@ import { SearchComponent } from "./search.component";
     NO_ERRORS_SCHEMA
   ],
   providers: [
-    ProductActions,
-    // SearchActions
+    // ProductActions, SearchActions
   ]
 })
 

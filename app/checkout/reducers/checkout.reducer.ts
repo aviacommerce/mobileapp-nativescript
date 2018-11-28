@@ -10,6 +10,7 @@ export function reducer(state = initialState, { type, payload }: any): CheckoutS
   let _lineItems, _lineItemEntities, _lineItemIds,
     _lineItem, _lineItemEntity, _lineItemId,
     _totalCartItems = 0, _totalCartValue,
+    // tslint:disable-next-line:variable-name
     _ship_address, _bill_address,
     _orderState, _shipTotal = 0, _itemTotal, _adjustmentTotal;
 
@@ -52,7 +53,9 @@ export function reducer(state = initialState, { type, payload }: any): CheckoutS
       // TODO : @Refactor this code later
       // return the same state if the item is already included.
       if (state.lineItemIds.includes(_lineItemId)) {
+        // tslint:disable-next-line:max-line-length
         _totalCartItems = state.totalCartItems + _lineItem.quantity - state.lineItemEntities.toJS()[_lineItemId].quantity;
+        // tslint:disable-next-line:max-line-length
         _totalCartValue = state.totalCartValue + parseFloat(_lineItem.total) - state.lineItemEntities.toJS()[_lineItemId].total;
         _itemTotal = state.itemTotal + parseFloat(_lineItem.total) - state.lineItemEntities.toJS()[_lineItemId].total;
         _lineItemEntity = { [_lineItemId]: _lineItem };

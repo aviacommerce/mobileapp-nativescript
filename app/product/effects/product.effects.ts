@@ -3,10 +3,10 @@ import { Actions, Effect } from "@ngrx/effects";
 import { Action } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { map, switchMap } from "rxjs/operators";
-import { SearchActions } from "~/search/action/search.actions";
 import { Product } from "./../../core/models/product";
 import { ProductService } from "./../../core/services/product.service";
 import { ProductActions } from "./../actions/product-actions";
+import { SearchActions } from '~/search/action/search.actions';
 
 @Injectable()
 export class ProductEffects {
@@ -46,23 +46,9 @@ export class ProductEffects {
       )
     );
 
-  @Effect()
-    getProductsByTaxons$: Observable<Action> = this.actions$
-      .ofType(SearchActions.GET_PRODUCTS_BY_TAXON)
-      .pipe(
-        switchMap((action: any) =>
-          this.productService.getProductsByTaxon(action.payload)
-        ),
-        map(({ products, pagination }) =>
-          this.searchActions.getProductsByKeywordSuccess({ products, pagination })
-        )
-      );
-
   constructor(
     private actions$: Actions,
     private productService: ProductService,
     private productActions: ProductActions,
-    private searchActions: SearchActions
-
   ) { }
 }

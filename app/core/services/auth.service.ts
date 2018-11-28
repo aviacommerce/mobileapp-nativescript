@@ -5,8 +5,8 @@ import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Observable, of } from "rxjs";
 import { catchError, map, tap } from "rxjs/operators";
+import { IappState } from "~/app.reducers";
 import { AuthActions } from "~/auth/actions/auth.actions";
-import { IappState } from "~/reducers";
 import { Authenticate, User } from "../models/user";
 import { CheckoutService } from "./checkout.service";
 
