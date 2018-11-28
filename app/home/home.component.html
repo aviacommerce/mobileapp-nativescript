@@ -46,9 +46,9 @@
               <ListViewLinearLayout tkListViewLayout scrollDirection="Horizontal"></ListViewLinearLayout>
               <ng-template let-product="item" let-i="index" let-odd="odd" let-even="even">
                 <StackLayout class="product-base" borderWidth="1" rows="*, *, *" columns="*, *" (tap)="productDetail(product.slug)">
-                  <StackLayout class="p-15">
+                  <StackLayout class="p-10">
                     <StackLayout row="1" class="product-img">
-                      <Image [src]="product.product_url" stretch="aspectFit" height="200" width="250" class="m-r-20"></Image>
+                      <Image [src]="product.product_url" stretch="aspectFit" height="200" width="250" class="m-r-0"></Image>
                     </StackLayout>
                     <StackLayout row="2" class="m-t-5 m-b-5"></StackLayout>
                     <StackLayout row="3" class="product-name my-4">
