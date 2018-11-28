@@ -1,8 +1,8 @@
-<ab-component></ab-component>
+<ab-component [showBackArrow]=true></ab-component>
+<StackLayout>
+  <sb-component [clearFocus]="clearFocus"></sb-component>
+</StackLayout>
 <FlexLayout>
-  <StackLayout>
-    <sb-component></sb-component>
-  </StackLayout>
   <StackLayout class="list" *ngIf="products">
     <ListView [items]="products" class="list-group" (loadMoreItems)="loadItems()">
       <ng-template let-product="item" let-i="index" let-odd="odd" let-even="even">
@@ -31,8 +31,13 @@
       </ng-template>
     </ListView>
   </StackLayout>
+  <FlexLayout class="page" *ngIf="paginationData.total_count ===0">
+    <StackLayout class="form">
+      <Label class="h2" fontSize="18" horizontalAlignment="center" fontWeight="bold" text="Sorry, no result found!"></Label>
+      <Image class="logo" src="~/assets/empty-cart.png"></Image>
+      <Button text="Search Again!" class="btn btn-primary" (tap)="searchAgain()"></Button>
+    </StackLayout>
+  </FlexLayout>
 </FlexLayout>
-<ActivityIndicator [busy]="isProcessing" 
-  backgroundColor="white" borderRadius="50"
-  color="green" width="50" height="50">
+<ActivityIndicator [busy]="isProcessing" backgroundColor="white" borderRadius="50" color="green" width="50" height="50">
 </ActivityIndicator>

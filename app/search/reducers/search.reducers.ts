@@ -26,7 +26,7 @@ export function reducer(state = initialState, { type, payload }: any): IsearchSt
     case SearchActions.CLEAR_PRODUCTS:
       return state.merge({
         searchedProducts: [],
-        productsLoader: true,
+        productsLoader: payload,
         paginationData: {}
       }) as IsearchState;
 
