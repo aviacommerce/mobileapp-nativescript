@@ -118,3 +118,7 @@
   border-color: $accent-dark;
   border-width: 5 5 5 5;
 }
+
+StarRating {
+  transform: scale(0.2) translateX(-10%);
+}

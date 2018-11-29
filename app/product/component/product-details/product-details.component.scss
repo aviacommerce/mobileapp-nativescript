@@ -105,18 +105,26 @@
     white-space: normal;
   }
   .btn-primary {
-    background-color: transparent;
-    border-radius: 7px;
+    border-radius: 10px;
     width: 96%;
     margin: 10px;
-    border-color: $action-price-color;
-    color: $black;
+    border-color: $accent-dark;
+    color: $white;
+    border-width: 5,5,5,5;
   }
-}
-
-.line-through {
-  text-decoration: line-through;
-  color: $black !important;
+  .btn-outofstock {
+    background-color: gray;
+    border-radius: 10px;
+    width: 96%;
+    margin: 10px;
+    border-color: gray;
+    color: $white;
+    border-width: 5,5,5,5;
+  }
+  .line-through {
+    color: black;
+    text-decoration: line-through; 
+  }
 }
 
 .icon {

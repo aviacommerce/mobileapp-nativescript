@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
-import { registerElement } from "nativescript-angular/element-registry";
 import { Observable, Subscription } from "rxjs";
 import { switchMap } from "rxjs/operators";
 import { IappState } from "~/app.reducers";
@@ -12,7 +11,6 @@ import { environment } from "~/environments/environment";
 import { ProductActions } from "~/product/actions/product-actions";
 import { getTaxonomies } from "~/product/reducers/selectors";
 import { SearchActions } from "~/search/action/search.actions";
-registerElement("StarRating", () => require("nativescript-star-ratings").StarRating);
 @Component({
   selector: "Home",
   moduleId: module.id,
