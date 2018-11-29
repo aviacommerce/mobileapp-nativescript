@@ -3,11 +3,12 @@ import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Observable, of } from "rxjs";
-import { map, switchMap, tap } from "rxjs/operators";
+import { catchError, map, switchMap, tap } from "rxjs/operators";
 import { IappState } from "~/app.reducers";
 import { Order } from "../models/order";
 import { CheckoutActions } from "./../../checkout/actions/checkout.actions";
 import { LineItem } from "./../models/line_item";
+import { SharedService } from "./shared.service";
 
 @Injectable()
 export class CheckoutService {
@@ -16,18 +17,12 @@ export class CheckoutService {
     private http: HttpClient,
     private actions: CheckoutActions,
     private store: Store<IappState>,
+    private sharedService: SharedService,
 
     @Inject(PLATFORM_ID) private platformId: object) {
   }
 
-  /**
-   *
-   *
-   * @param {number} variant_id
-   * @returns
-   *
-   * @memberof CheckoutService
-   */
+  // tslint:disable-next-line:variable-name
   createNewLineItem(variant_id: number, quantity: number): Observable<LineItem> {
 
     if (!this.getOrderToken()) {
@@ -44,7 +39,6 @@ export class CheckoutService {
     return this.http.post<LineItem>(url, params).pipe(
       tap(
         (lineItem) => {
-
           return lineItem;
         },
         (_) => {
@@ -61,7 +55,6 @@ export class CheckoutService {
     return this.http.post<Order>(newOrderUrl, orderParams).pipe(
       tap(
         (order) => {
-          this.alert("Cart Updated");
           this.setOrderTokenInLocalStorage({ order_token: order.token, order_number: order.number });
           this.store.dispatch(this.actions.fetchCurrentOrderSuccess(order));
         }
@@ -77,9 +70,9 @@ export class CheckoutService {
           return of(order);
         } else {
           if (this.getOrderToken()) {
-            const s_order = JSON.parse(localStorage.getItem("order"));
+            const savedOrder = JSON.parse(localStorage.getItem("order"));
 
-            return this.getOrder(s_order.order_number);
+            return this.getOrder(savedOrder.order_number);
           } else {
             return of(null);
           }
@@ -91,6 +84,7 @@ export class CheckoutService {
 
           return;
         }
+        // tslint:disable-next-line:variable-name
         const { token, number } = order;
         this.setOrderTokenInLocalStorage({ order_token: token, order_number: number });
 
@@ -99,41 +93,26 @@ export class CheckoutService {
     );
   }
 
-  /**
-   *
-   *
-   * @param {string} orderNumber
-   * @returns
-   * @memberof CheckoutService
-   */
   getOrder(orderNumber: string) {
     const url = `api/v1/orders/${orderNumber}?order_token=${this.getOrderToken()}`;
+
     return this.http.get<Order>(url);
   }
 
-  /**
-   *
-   *
-   * @param {LineItem} lineItem
-   * @returns
-   *
-   * @memberof CheckoutService
-   */
   deleteLineItem(lineItem: LineItem) {
     const url = `api/v1/orders/${this.orderNumber()}/line_items/${
       lineItem.id
       }?order_token=${this.getOrderToken()}`;
 
-    return this.http.delete(url).pipe(map((_) => lineItem));
+    return this.http.delete(url).pipe(
+      map((_) => lineItem, (_) =>
+        this.sharedService.infoMessage("Some error occured while deleting item from cart!")),
+      catchError((error) => {
+        return error;
+      })
+    );
   }
 
-  /**
-   *
-   *
-   * @returns
-   *
-   * @memberof CheckoutService
-   */
   changeOrderState() {
     const url = `api/v1/checkouts/${
       this.orderNumber()
@@ -144,18 +123,10 @@ export class CheckoutService {
       .pipe(
         map((order) =>
           this.store.dispatch(this.actions.changeOrderStateSuccess(order))
-        )
+          , (error) => this.sharedService.errorMessage("Some error occuerd!"))
       );
   }
 
-  /**
-   *
-   *
-   * @param {any} params
-   * @returns
-   *
-   * @memberof CheckoutService
-   */
   updateOrder(params: any) {
     const url = `api/v1/checkouts/${
       this.orderNumber()
@@ -170,28 +141,12 @@ export class CheckoutService {
       );
   }
 
-  /**
-   *
-   *
-   * @returns
-   *
-   * @memberof CheckoutService
-   */
   availablePaymentMethods() {
-    const url = `api/v1/orders/${
-      this.orderNumber()
-      }/payments/new?order_token=${this.getOrderToken()}`;
+    const url = `api/v1/orders/${this.orderNumber()}/payments/new?order_token=${this.getOrderToken()}`;
+
     return this.http.get<any>(url);
   }
 
-  /**
-   *
-   *
-   * @param {number} paymentModeId
-   * @param {number} paymentAmount
-   * @returns
-   * @memberof CheckoutService
-   */
   createNewPayment(paymentModeId: number, paymentAmount: number) {
     return this.http
       .post(
@@ -208,14 +163,6 @@ export class CheckoutService {
       .pipe(map((_) => this.changeOrderState().subscribe()));
   }
 
-  /**
-   *
-   *
-   * @private
-   * @returns
-   *
-   * @memberof CheckoutService
-   */
   getOrderToken() {
     const order = JSON.parse(localStorage.getItem("order"));
 
@@ -232,27 +179,13 @@ export class CheckoutService {
     return this.http
       .post<{ available: boolean }>(`address/shipment_availability`, { pincode });
   }
-  /**
-   *
-   *
-   * @private
-   * @param {any} token
-   *
-   * @memberof CheckoutService
-   */
+
   setOrderTokenInLocalStorage(token: any): void {
     const jsonData = JSON.stringify(token);
     localStorage.setItem("order", jsonData);
-
   }
+
   getOrderDetail(orderNumber: string): Observable<Order> {
     return this.http.get<Order>(`api/v1/orders/${orderNumber}`);
-  }
-
-  alert(msg: string) {
-    return alert({
-      okButtonText: "OK",
-      message: msg
-    });
   }
 }

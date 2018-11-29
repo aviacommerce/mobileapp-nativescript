@@ -1,12 +1,15 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
-import { ActivatedRoute, Route, Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { RouterExtensions } from "nativescript-angular/router";
+import { Feedback, FeedbackPosition, FeedbackType } from "nativescript-feedback";
+import * as Toast from "nativescript-toast";
 import { Observable, Subscription } from "rxjs";
 import { IappState } from "~/app.reducers";
 import { CheckoutActions } from "~/checkout/actions/checkout.actions";
 import { Product } from "~/core/models/product";
 import { Variant } from "~/core/models/variant";
+import { CheckoutService } from "~/core/services/checkout.service";
 import { ProductService } from "~/core/services/product.service";
 import { VariantParserService } from "~/core/services/variant-parser.service";
 import { VariantRetriverService } from "~/core/services/variant-retriver.service";
@@ -52,6 +55,7 @@ export class ProductDetailsComponent implements OnInit {
     private searchActions: SearchActions,
     private variantParser: VariantParserService,
     private checkoutActions: CheckoutActions,
+    private checkservice: CheckoutService,
     private routerReload: Router) {
     this.routerReload.routeReuseStrategy.shouldReuseRoute = (_) => {
       return false;
@@ -119,10 +123,7 @@ export class ProductDetailsComponent implements OnInit {
 
   addToCart(productId: number) {
     this.store.dispatch(this.checkoutActions.addToCart(productId, 1));
-  }
-
-  onBack() {
-    this.router.backToPreviousPage();
+    this.checkservice.fetchCurrentOrder().subscribe();
   }
 
   // varinats selection.

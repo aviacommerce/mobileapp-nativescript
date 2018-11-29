@@ -1,15 +1,16 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { NavigationEnd, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import * as app from "application";
 import { RouterExtensions } from "nativescript-angular/router";
 import { DrawerTransitionBase, RadSideDrawer, SlideInOnTopTransition } from "nativescript-ui-sidedrawer";
 import { Subscription } from "rxjs";
-import { filter } from "rxjs/operators";
 import { IappState } from "./app.reducers";
+import { AuthActions } from "./auth/actions/auth.actions";
 import { getAuthStatus } from "./auth/reducers/selectors";
 import { User } from "./core/models/user";
 import { AuthService } from "./core/services/auth.service";
+import { CheckoutService } from "./core/services/checkout.service";
 require("nativescript-localstorage");
 
 @Component({
@@ -28,15 +29,13 @@ export class AppComponent implements OnInit, OnDestroy {
     private router: Router,
     private routerExtensions: RouterExtensions,
     private store: Store<IappState>,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private checkOutservice: CheckoutService,
+    private authActions: AuthActions) { }
 
   ngOnInit(): void {
-    this._activatedUrl = "/home";
-    this._sideDrawerTransition = new SlideInOnTopTransition();
-    this.router.events
-      .pipe(filter((event: any) => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => this._activatedUrl = event.urlAfterRedirects);
     this.checkUser();
+    this.checkOrder();
   }
 
   get sideDrawerTransition(): DrawerTransitionBase {
@@ -44,13 +43,22 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   checkUser() {
+    this.store.dispatch(this.authActions.authorize());
     this.subscriptionList$.push(
       this.store.select(getAuthStatus).subscribe((auth) => {
         this.isAuthenticated = auth;
         if (localStorage.getItem("user")) {
           this.user = JSON.parse(localStorage.getItem("user"));
+        } else {
+          this.store.dispatch(this.authActions.logoutSuccess());
         }
       })
+    );
+  }
+
+  checkOrder() {
+    this.subscriptionList$.push(
+      this.checkOutservice.fetchCurrentOrder().subscribe()
     );
   }
 
