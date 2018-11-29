@@ -5,7 +5,6 @@
     <StackLayout class="searchbox-back">
       <TextField (tap)="onSearchTapped()" hint=" &#xf002;   {{searchBoxplaceHolder}}" class="searchbox fa" [editable]="false"></TextField>
     </StackLayout>
-
     <ScrollView sdkExampleTitle sdkToggleNavButton orientation="vertical" scrollBarIndicatorVisible="false">
       <FlexboxLayout flexDirection="column" class="container">
         <StackLayout class="savetoday" orientation="horizontal">
@@ -40,6 +39,7 @@
           <Label text=" Today's Deals"></Label>
         </StackLayout>
         <!-- Today's Deals -->
+        
         <StackLayout *ngIf="products$ | async; let products" class="m-b-20">
           <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false">
             <RadListView [items]="products">

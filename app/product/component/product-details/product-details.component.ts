@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Route, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { RouterExtensions } from "nativescript-angular/router";
 import { Observable, Subscription } from "rxjs";
@@ -42,6 +42,7 @@ export class ProductDetailsComponent implements OnInit {
   mainOptions: any;
   correspondingOptions: any;
   @Output() selectedVariant = new EventEmitter<object>();
+  reload: boolean;
 
   constructor(
     private store: Store<IappState>,
@@ -50,7 +51,12 @@ export class ProductDetailsComponent implements OnInit {
     private router: RouterExtensions,
     private searchActions: SearchActions,
     private variantParser: VariantParserService,
-    private checkoutActions: CheckoutActions) { }
+    private checkoutActions: CheckoutActions,
+    private routerReload: Router) {
+    this.routerReload.routeReuseStrategy.shouldReuseRoute = (_) => {
+      return false;
+    };
+  }
 
   ngOnInit() {
     this.subscriptionList$.push(

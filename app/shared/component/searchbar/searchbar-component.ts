@@ -2,7 +2,7 @@ import { HttpParams } from "@angular/common/http";
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
-import { isAndroid } from "platform";
+import { isAndroid, isIOS } from "platform";
 import { SearchBar } from "ui/search-bar";
 import { IappState } from "~/app.reducers";
 import { environment } from "~/environments/environment";
@@ -31,6 +31,8 @@ export class SearchBarComponent {
     if (!this.clearFocus) {
       if (isAndroid) {
         searchbar.android.clearFocus();
+      } else if (isIOS) {
+        searchbar.ios.clearFocus();
       }
     }
   }

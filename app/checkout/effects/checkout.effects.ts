@@ -11,14 +11,18 @@ export class CheckoutEffects {
   @Effect()
   addToCart$ = this.actions$
     .ofType(CheckoutActions.ADD_TO_CART).pipe(
-      switchMap<Action & { payload: { variant_id: number, quantity: number } }, LineItem>((action) => {
+      switchMap<Action & { payload: { variantId: number, quantity: number } }, LineItem>((action) => {
 
         return this.checkoutService.createNewLineItem(
-          action.payload.variant_id,
+          action.payload.variantId,
           action.payload.quantity
         );
       }),
-      map((lineItem) => this.actions.addToCartSuccess(lineItem))
+      map((lineItem) => {
+        this.alert("cart updated");
+
+        return this.actions.addToCartSuccess(lineItem);
+      })
     );
 
   @Effect()
@@ -31,6 +35,12 @@ export class CheckoutEffects {
       map((lineItem) => this.actions.removeLineItemSuccess(lineItem))
     );
 
+  alert(msg: string) {
+    return alert({
+      okButtonText: "OK",
+      message: msg
+    });
+  }
   constructor(
     private actions$: Actions,
     private checkoutService: CheckoutService,

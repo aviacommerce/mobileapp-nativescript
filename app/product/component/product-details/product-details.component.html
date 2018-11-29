@@ -1,9 +1,9 @@
-<ab-component></ab-component>
-<FlexLayout class="product-detail" *ngIf="product">
-  <GridLayout class="page page-content">
+<ab-component [showName]="'Product Details'" [showBackArrow]="true"></ab-component>
+<FlexLayout class="product-detail">
+  <GridLayout class="page page-content" *ngIf="product">
     <GridLayout sdkExampleTitle sdkToggleNavButton>
       <TabView selectedIndex="0" androidTabsPosition="top">
-        <StackLayout *tabItem="{title: 'Highlights'}">
+        <StackLayout *tabItem="{title: 'Details'}">
           <ScrollView>
             <StackLayout rows="auto, auto, auto">
               <!-- product image -->
@@ -34,7 +34,7 @@
                 </StackLayout>
               </StackLayout>
               <!-- discount -->
-              <StackLayout class="p-l-10 p-r-10 p-t-5 p-b-5" orientation="horizontal" *ngIf="productDiscount!==0">
+              <StackLayout class="p-l-10 p-r-10 p-t-5 p-b-5" orientation="horizontal" *ngIf="productDiscount > 0">
                 <StackLayout width="50%" class="left" horizontalAlignment="left">
                   <Label class="h3" horizontalAlignment="left" text="You Save"></Label>
                 </StackLayout>
@@ -59,7 +59,7 @@
                 </StackLayout>
                 <Button *ngIf="isProductOderable === true" class="btn btn-primary btn-active" (tap)="addToCart(variantId)"
                   borderWidth="1" id="button" text="Add To Cart"></Button>
-                <Button *ngIf="isProductOderable === false" class="btn btn-primary btn-active" borderWidth="1" id="button"
+                <Button *ngIf="isProductOderable === false" class="btn btn-outofstock btn-active" borderWidth="1" id="button"
                   text="Out Of Stock!"></Button>
               </StackLayout>
               <!-- discription -->
@@ -70,6 +70,7 @@
                 <HtmlView html={{discription}} class="m-t-40"></HtmlView>
               </StackLayout>
               <!-- similiar product -->
+              <StackLayout row="1" class="hr-light m-t-5 m-b-5"></StackLayout>
               <StackLayout class="p-10 p-t-0" orientation="horizontal">
                 <Label class="m-0 p-t-2 p-b-2 fa icon" text="&#xf02b;" fontSize="16px;" fontWeight="bold"></Label>
                 <Label text=" Similar Products"></Label>
@@ -109,4 +110,7 @@
       </TabView>
     </GridLayout>
   </GridLayout>
+  <ActivityIndicator [busy]="!product" backgroundColor="white" borderRadius="50"
+    color="green" width="50" height="50"></ActivityIndicator>
 </FlexLayout>
+

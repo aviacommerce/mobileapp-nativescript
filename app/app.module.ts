@@ -16,7 +16,6 @@ import { reducers } from "./app.reducers";
 import { CoreModule } from "./core/core.module";
 import { SharedModule } from "./shared/shared.module";
 
-
 @NgModule({
   bootstrap: [
     AppComponent

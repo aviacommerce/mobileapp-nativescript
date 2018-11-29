@@ -61,7 +61,7 @@ export class CheckoutService {
     return this.http.post<Order>(newOrderUrl, orderParams).pipe(
       tap(
         (order) => {
-          alert("Cart Updated");
+          this.alert("Cart Updated");
           this.setOrderTokenInLocalStorage({ order_token: order.token, order_number: order.number });
           this.store.dispatch(this.actions.fetchCurrentOrderSuccess(order));
         }
@@ -247,5 +247,12 @@ export class CheckoutService {
   }
   getOrderDetail(orderNumber: string): Observable<Order> {
     return this.http.get<Order>(`api/v1/orders/${orderNumber}`);
+  }
+
+  alert(msg: string) {
+    return alert({
+      okButtonText: "OK",
+      message: msg
+    });
   }
 }
