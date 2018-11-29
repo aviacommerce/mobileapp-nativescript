@@ -1,6 +1,7 @@
 
 import { HttpClientModule } from "@angular/common/http";
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
+import { EffectsModule } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
@@ -13,6 +14,7 @@ import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angul
 import { AppRoutingModule } from "~/app-routing.module";
 import { AppComponent } from "~/app.component";
 import { reducers } from "./app.reducers";
+import { AuthenticationEffects } from "./auth/effects/auth.effects";
 import { CoreModule } from "./core/core.module";
 import { SharedModule } from "./shared/shared.module";
 
@@ -33,9 +35,9 @@ import { SharedModule } from "./shared/shared.module";
     CoreModule,
     SharedModule,
     StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument(),
+    EffectsModule.forRoot([AuthenticationEffects]),
     StoreDevtoolsModule.instrument()
-    // EffectsModule.forRoot([CheckoutEffects, SearchEffects]),
-    // StoreDevtoolsModule.instrument()
   ],
   declarations: [
     AppComponent

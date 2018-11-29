@@ -4,6 +4,7 @@ import { EffectsModule } from "@ngrx/effects";
 import { NativeScriptCommonModule } from "nativescript-angular/common";
 import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 import { CheckoutEffects } from "~/checkout/effects/checkout.effects";
+import { CoreModule } from "~/core/core.module";
 import { ProductActions } from "~/product/actions/product-actions";
 import { ProductEffects } from "~/product/effects/product.effects";
 import { ProductRoutingModule } from "~/product/product-routing.module";

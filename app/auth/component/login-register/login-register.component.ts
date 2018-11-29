@@ -5,6 +5,7 @@ import { Subscription } from "rxjs";
 import { Page } from "tns-core-modules/ui/page/page";
 import { User } from "~/core/models/user";
 import { AuthService } from "~/core/services/auth.service";
+import { SharedService } from "~/core/services/shared.service";
 import { environment } from "~/environments/environment";
 @Component({
   moduleId: module.id,
@@ -27,7 +28,8 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
     private page: Page,
     private authService: AuthService,
     private activatedRouter: ActivatedRoute,
-    private router: RouterExtensions) {
+    private router: RouterExtensions,
+    private sharedService: SharedService) {
     this.user = new User();
     this.page.actionBarHidden = false;
   }
@@ -47,7 +49,7 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
 
   submit() {
     if (!this.user.email || !this.user.password) {
-      this.alert("Please provide both an email address and password.");
+      this.sharedService.alert("Please provide both an email address and password.");
 
       return;
     }
@@ -64,17 +66,17 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
     this.subscriptionList$.push(
       this.authService.login(this.user).subscribe((_) => {
         this.isProcessing = false;
-        this.alert("Login Success!.");
+        this.sharedService.alert("Login Success!.");
       }, (error) => {
         this.isProcessing = false;
-        this.alert("Something went worng.Try again!");
+        this.sharedService.alert("Something went worng.Try again!");
       })
     );
   }
 
   register() {
     if (this.user.password !== this.user.confirmPassword) {
-      this.alert("Your passwords do not match.");
+      this.sharedService.alert("Your passwords do not match.");
 
       return;
     } else {
@@ -83,11 +85,11 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
         this.authService.register(this.user).subscribe(
           (_) => {
             this.isProcessing = false;
-            this.alert("Register Success!.");
+            this.sharedService.alert("Register Success!.");
             this.toggleForm();
           }, (_) => {
             this.isProcessing = false;
-            this.alert("Something went worng.Try again!");
+            this.sharedService.alert("Something went worng.Try again!");
           }
         )
       );
@@ -99,7 +101,7 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
   }
 
   forgotPassword() {
-    this.alert("Forget Password");
+    this.sharedService.alert("Forget Password");
   }
 
   focusPassword() {
@@ -110,13 +112,6 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
     if (!this.isLoggingIn) {
       this.confirmPassword.nativeElement.focus();
     }
-  }
-
-  alert(msg: string) {
-    return alert({
-      okButtonText: "OK",
-      message: msg
-    });
   }
 
   ngOnDestroy() {
