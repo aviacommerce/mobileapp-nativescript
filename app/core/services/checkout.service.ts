@@ -106,7 +106,7 @@ export class CheckoutService {
 
     return this.http.delete(url).pipe(
       map((_) => lineItem, (_) =>
-        this.sharedService.alert("Some error ocuured while deleting item from cart!")),
+        this.sharedService.infoMessage("Some error occured while deleting item from cart!")),
       catchError((error) => {
         return error;
       })
@@ -123,7 +123,7 @@ export class CheckoutService {
       .pipe(
         map((order) =>
           this.store.dispatch(this.actions.changeOrderStateSuccess(order))
-          , (error) => this.sharedService.alert("Some error occuerd!"))
+          , (error) => this.sharedService.errorMessage("Some error occuerd!"))
       );
   }
 

@@ -2,9 +2,9 @@ import { Component, Input, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { RouterExtensions } from "nativescript-angular/router";
 import { Observable } from "rxjs";
+import { IappState } from "~/app.reducers";
 import { getLineItems } from "~/checkout/reducers/selectors";
 import { LineItem } from "~/core/models/line_item";
-import { IappState } from "~/app.reducers";
 
 @Component({
   moduleId: module.id,

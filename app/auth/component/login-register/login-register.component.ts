@@ -49,7 +49,7 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
 
   submit() {
     if (!this.user.email || !this.user.password) {
-      this.sharedService.alert("Please provide both an email address and password.");
+      this.sharedService.infoMessage("Please provide both an email and password.");
 
       return;
     }
@@ -66,17 +66,17 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
     this.subscriptionList$.push(
       this.authService.login(this.user).subscribe((_) => {
         this.isProcessing = false;
-        this.sharedService.alert("Login Success!.");
+        this.sharedService.successMessage("Login Success!.");
       }, (error) => {
         this.isProcessing = false;
-        this.sharedService.alert("Something went worng.Try again!");
+        this.sharedService.errorMessage("Something went worng.Try again!");
       })
     );
   }
 
   register() {
     if (this.user.password !== this.user.confirmPassword) {
-      this.sharedService.alert("Your passwords do not match.");
+      this.sharedService.infoMessage("Your passwords do not match.");
 
       return;
     } else {
@@ -85,11 +85,11 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
         this.authService.register(this.user).subscribe(
           (_) => {
             this.isProcessing = false;
-            this.sharedService.alert("Register Success!.");
+            this.sharedService.successMessage("Register Success!.");
             this.toggleForm();
           }, (_) => {
             this.isProcessing = false;
-            this.sharedService.alert("Something went worng.Try again!");
+            this.sharedService.errorMessage("Something went worng.Try again!");
           }
         )
       );
@@ -101,7 +101,7 @@ export class LoginRegisterComponent implements OnInit, OnDestroy {
   }
 
   forgotPassword() {
-    this.sharedService.alert("Forget Password");
+    this.sharedService.infoMessage("Forget Password");
   }
 
   focusPassword() {

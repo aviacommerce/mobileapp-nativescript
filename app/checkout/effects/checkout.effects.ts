@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { Actions, Effect } from "@ngrx/effects";
 import { Action } from "@ngrx/store";
 import { map, switchMap } from "rxjs/operators";
-import { Order } from "~/core/models/order";
 import { SharedService } from "~/core/services/shared.service";
 import { CheckoutService } from "../../core/services/checkout.service";
 import { LineItem } from "./../../core/models/line_item";
@@ -21,7 +20,7 @@ export class CheckoutEffects {
         );
       }),
       map((lineItem) => {
-        this.sharedService.alert("Cart updated!!");
+        this.sharedService.successMessage("Cart updated!");
 
         return this.actions.addToCartSuccess(lineItem);
       })
@@ -36,7 +35,7 @@ export class CheckoutEffects {
 
       }),
       map((lineItem) => {
-        this.sharedService.alert("Item deleted form cart!");
+        this.sharedService.infoMessage("Item deleted form cart!");
 
         return this.actions.removeLineItemSuccess(lineItem);
       })

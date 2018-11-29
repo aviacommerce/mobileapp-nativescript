@@ -1,19 +1,18 @@
-<!-- <ActionBar title="Cart Items" class="actionbarbg">
-  <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="onBack()"></NavigationButton>
-</ActionBar> -->
-<ab-component></ab-component>
-<FlexLayout class="lineitem prod-item">
-  <StackLayout class="savetoday" orientation="horizontal">
-    <Label class="m-r-10 discount" text="Save 30% Today"></Label>
-    <Label class="autoship p-t-10" text="On Your First Autoship"> </Label>
-  </StackLayout>
-  <StackLayout class="p-t-0"> </StackLayout>
-  <StackLayout *ngIf="lineItems$ | async; let lineItems">
-    <RadListView [items]="lineItems">
-      <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" spanCount="1"></ListViewGridLayout>
-      <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
-        <line-item [lineItem]="item"></line-item>
-      </ng-template>
-    </RadListView>
-  </StackLayout>
-</FlexLayout>
+<ab-component [showName]="'Shopping Cart'"[showBackArrow]=true></ab-component>
+<GridLayout>
+  <FlexLayout class="lineitem prod-item">
+    <StackLayout class="savetoday" orientation="horizontal">
+      <Label class="m-r-10 discount" text="Save 30% Today"></Label>
+      <Label class="autoship p-t-10" text="On Your First Autoship"> </Label>
+    </StackLayout>
+    <StackLayout class="p-t-0"> </StackLayout>
+    <StackLayout *ngIf="lineItems$ | async; let lineItems">
+      <RadListView [items]="lineItems">
+        <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" spanCount="1"></ListViewGridLayout>
+        <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+          <line-item [lineItem]="item"></line-item>
+        </ng-template>
+      </RadListView>
+    </StackLayout>
+  </FlexLayout>
+</GridLayout>

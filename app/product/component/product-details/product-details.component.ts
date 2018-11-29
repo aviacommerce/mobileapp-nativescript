@@ -1,7 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
-import { ActivatedRoute, Route, Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { RouterExtensions } from "nativescript-angular/router";
+import { Feedback, FeedbackPosition, FeedbackType } from "nativescript-feedback";
+import * as Toast from "nativescript-toast";
 import { Observable, Subscription } from "rxjs";
 import { IappState } from "~/app.reducers";
 import { CheckoutActions } from "~/checkout/actions/checkout.actions";
@@ -53,7 +55,7 @@ export class ProductDetailsComponent implements OnInit {
     private searchActions: SearchActions,
     private variantParser: VariantParserService,
     private checkoutActions: CheckoutActions,
-    private checkservice:  CheckoutService,
+    private checkservice: CheckoutService,
     private routerReload: Router) {
     this.routerReload.routeReuseStrategy.shouldReuseRoute = (_) => {
       return false;

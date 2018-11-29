@@ -59,7 +59,7 @@ export class LineItemComponent implements OnInit {
       this.quantityCount += 1;
       this.store.dispatch(this.checkoutActions.addToCart(this.lineItem.variant_id, 1));
     } else {
-      this.sharedService.alert("Sorry! You can not add more quantity for this product.");
+      this.sharedService.infoMessage("Sorry! You can not add more quantity for this product.");
     }
   }
 }
