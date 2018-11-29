@@ -10,6 +10,7 @@ import { CheckoutService } from "./services/checkout.service";
 import { JsonApiParserService } from "./services/json-api-parser.service";
 import { PaymentService } from "./services/payment.service";
 import { ProductService } from "./services/product.service";
+import { SharedService } from "./services/shared.service";
 import { TaxonomyService } from "./services/taxonomy.service";
 import { VariantParserService } from "./services/variant-parser.service";
 import { VariantRetriverService } from "./services/variant-retriver.service";
@@ -33,6 +34,7 @@ import { VariantRetriverService } from "./services/variant-retriver.service";
     VariantParserService,
     VariantRetriverService,
     JsonApiParserService,
+    SharedService,
     AuthActions,
     SearchActions,
     CheckoutActions,

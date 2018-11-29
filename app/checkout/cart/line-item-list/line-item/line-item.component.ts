@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
+import { IappState } from "~/app.reducers";
 import { CheckoutActions } from "~/checkout/actions/checkout.actions";
 import { LineItem } from "~/core/models/line_item";
-import { IappState } from "~/app.reducers";
+import { SharedService } from "~/core/services/shared.service";
 
 @Component({
   moduleId: module.id,
@@ -21,9 +22,8 @@ export class LineItemComponent implements OnInit {
   optionTxt: string;
   constructor(
     private store: Store<IappState>,
-    private checkoutActions: CheckoutActions
-
-  ) { }
+    private checkoutActions: CheckoutActions,
+    private sharedService: SharedService) { }
 
   ngOnInit() {
     if (this.lineItem.variant.images[0]) {
@@ -34,7 +34,6 @@ export class LineItemComponent implements OnInit {
     this.amount = this.lineItem.display_amount;
     this.quantityCount = this.quantity;
     this.optionTxt = this.lineItem.variant.options_text;
-
   }
 
   removeLineItem() {
@@ -60,7 +59,7 @@ export class LineItemComponent implements OnInit {
       this.quantityCount += 1;
       this.store.dispatch(this.checkoutActions.addToCart(this.lineItem.variant_id, 1));
     } else {
-      alert("Sorry! You can not add more quantity for this product.");
+      this.sharedService.infoMessage("Sorry! You can not add more quantity for this product.");
     }
   }
 }

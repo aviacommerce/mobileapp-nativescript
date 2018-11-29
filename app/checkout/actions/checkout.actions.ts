@@ -94,10 +94,10 @@ export class CheckoutActions {
     return { type: CheckoutActions.ORDER_COMPLETE_SUCCESS };
   }
 
-  getOrderDetails(order_number: string) {
+  getOrderDetails(orderNumber: string) {
     return {
       type: CheckoutActions.GET_ORDER_DETAILS,
-      payload: order_number
+      payload: orderNumber
     };
   }
 
