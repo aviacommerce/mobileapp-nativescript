@@ -1,8 +1,8 @@
 <ab-component [showBackArrow]=true></ab-component>
-<StackLayout>
-  <sb-component [clearFocus]="clearFocus"></sb-component>
-</StackLayout>
 <FlexLayout>
+  <StackLayout>
+    <sb-component [clearFocus]="clearFocus"></sb-component>
+  </StackLayout>
   <StackLayout class="list" *ngIf="products">
     <ListView [items]="products" class="list-group" (loadMoreItems)="loadItems()">
       <ng-template let-product="item" let-i="index" let-odd="odd" let-even="even">
@@ -38,6 +38,6 @@
       <Button text="Search Again!" class="btn btn-primary" (tap)="searchAgain()"></Button>
     </StackLayout>
   </FlexLayout>
+  <ActivityIndicator [busy]="isProcessing" backgroundColor="white" borderRadius="50" color="green" width="50" height="50">
+  </ActivityIndicator>
 </FlexLayout>
-<ActivityIndicator [busy]="isProcessing" backgroundColor="white" borderRadius="50" color="green" width="50" height="50">
-</ActivityIndicator>
