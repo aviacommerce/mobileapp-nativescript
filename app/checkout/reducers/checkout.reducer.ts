@@ -90,6 +90,7 @@ export function reducer(state = initialState, { type, payload }: any): CheckoutS
       _lineItem = payload;
       _lineItemId = _lineItem.id;
       const index = state.lineItemIds.indexOf(_lineItemId);
+      
       if (index >= 0) {
         _lineItemIds = state.lineItemIds.splice(index, 1);
         _lineItemEntities = state.lineItemEntities.delete(_lineItemId);

@@ -23,9 +23,9 @@ export class CheckoutEffects {
         this.sharedService.successMessage("Cart updated!");
 
         return this.actions.addToCartSuccess(lineItem);
-      })
+      }, (error) => { this.sharedService.successMessage("Something went wrong"); })
     );
-// Todo: Refactor this.
+  // Todo: Refactor this.
   @Effect()
   removeLineItem$ = this.actions$
     .ofType(CheckoutActions.REMOVE_LINE_ITEM)

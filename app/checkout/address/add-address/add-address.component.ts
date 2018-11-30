@@ -2,12 +2,12 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { RouterExtensions } from "nativescript-angular/router";
 import { Subscription } from "rxjs";
-import { tap } from "rxjs/operators";
+import { IappState } from "~/app.reducers";
 import { getOrderState, getShipAddress } from "~/checkout/reducers/selectors";
 import { Address } from "~/core/models/address";
 import { AddressService } from "~/core/services/address.service";
 import { CheckoutService } from "~/core/services/checkout.service";
-import { IappState } from "~/app.reducers";
+import { SharedService } from "~/core/services/shared.service";
 
 @Component({
   moduleId: module.id,
@@ -26,7 +26,8 @@ export class AddAddressComponent implements OnInit, OnDestroy {
     private router: RouterExtensions,
     private addressService: AddressService,
     private checkoutService: CheckoutService,
-    private store: Store<IappState>) {
+    private store: Store<IappState>,
+    private sharedService: SharedService) {
     // this.address = new Address();
     // for demo purpose
     this.address = {
@@ -51,31 +52,18 @@ export class AddAddressComponent implements OnInit, OnDestroy {
     );
   }
 
-  onBack() {
-    this.router.backToPreviousPage();
-  }
-
   saveAddress() {
     let addressAttributes;
     addressAttributes = this.addressService.createAddresAttributes(this.address);
     this.subscriptionList$.push(
       this.checkoutService.updateOrder(addressAttributes)
-        .subscribe((_) => this.checkoutToPayment())
+        .subscribe((_) => {
+          this.sharedService.successMessage("Address Saved Successfully!");
+        }, (error) => {
+          const errorMsg = error.error.error || "Unable to save address";
+          this.sharedService.successMessage(errorMsg);
+        })
     );
-  }
-
-  checkoutToPayment() {
-    if (this.orderState === "delivery" || this.orderState === "address") {
-      this.subscriptionList$.push(
-        this.checkoutService.changeOrderState().pipe(
-          tap(() => {
-            this.router.navigate(["/checkout", "payment"]);
-          }))
-          .subscribe()
-      );
-    } else {
-      this.router.navigate(["/checkout", "payment"]);
-    }
   }
 
   ngOnDestroy() {

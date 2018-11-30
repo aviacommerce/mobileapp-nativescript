@@ -15,10 +15,7 @@ import { AuthenticationEffects } from "./effects/auth.effects";
         NativeScriptCommonModule,
         AuthRoutingModule,
         SharedModule,
-        NativeScriptFormsModule,
-        EffectsModule.forRoot([
-            AuthenticationEffects
-          ])
+        NativeScriptFormsModule
     ],
     declarations: [
         AuthComponent,

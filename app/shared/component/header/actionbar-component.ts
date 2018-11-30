@@ -4,10 +4,9 @@ import { Store } from "@ngrx/store";
 import * as app from "application";
 import { RouterExtensions } from "nativescript-angular/router";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
-import { Subscription } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { IappState } from "~/app.reducers";
 import { getTotalCartItems } from "~/checkout/reducers/selectors";
-
 @Component({
   selector: "ab-component",
   moduleId: module.id,
@@ -17,7 +16,7 @@ import { getTotalCartItems } from "~/checkout/reducers/selectors";
 
 export class ActionBarComponent implements OnInit, OnDestroy {
 
-  totalCartItems: number;
+  totalCartItems$: Observable<number>;
   @Input() showName: string;
   @Input() showBackArrow: boolean;
   subscriptionList$: Array<Subscription> = [];
@@ -28,10 +27,7 @@ export class ActionBarComponent implements OnInit, OnDestroy {
     private routerExt: RouterExtensions) { }
 
   ngOnInit() {
-    this.subscriptionList$.push(
-      this.store.select(getTotalCartItems)
-        .subscribe((cartItems) => this.totalCartItems = cartItems)
-    );
+    this.totalCartItems$ = this.store.select(getTotalCartItems);
   }
 
   navigateToCart() {
@@ -39,7 +35,7 @@ export class ActionBarComponent implements OnInit, OnDestroy {
   }
 
   navigateBack() {
-    this.routerExt.backToPreviousPage();
+    this.routerExt.back();
   }
 
   onDrawerButtonTap(): void {

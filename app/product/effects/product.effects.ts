@@ -3,10 +3,10 @@ import { Actions, Effect } from "@ngrx/effects";
 import { Action } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { map, switchMap } from "rxjs/operators";
+import { SearchActions } from "~/search/action/search.actions";
 import { Product } from "./../../core/models/product";
 import { ProductService } from "./../../core/services/product.service";
 import { ProductActions } from "./../actions/product-actions";
-import { SearchActions } from '~/search/action/search.actions';
 
 @Injectable()
 export class ProductEffects {
@@ -49,6 +49,6 @@ export class ProductEffects {
   constructor(
     private actions$: Actions,
     private productService: ProductService,
-    private productActions: ProductActions,
+    private productActions: ProductActions
   ) { }
 }

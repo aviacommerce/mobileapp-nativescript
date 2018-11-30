@@ -15,6 +15,7 @@ import { AppRoutingModule } from "~/app-routing.module";
 import { AppComponent } from "~/app.component";
 import { reducers } from "./app.reducers";
 import { AuthenticationEffects } from "./auth/effects/auth.effects";
+import { CheckoutEffects } from "./checkout/effects/checkout.effects";
 import { CoreModule } from "./core/core.module";
 import { SharedModule } from "./shared/shared.module";
 
@@ -36,7 +37,7 @@ import { SharedModule } from "./shared/shared.module";
     SharedModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument(),
-    EffectsModule.forRoot([AuthenticationEffects]),
+    EffectsModule.forRoot([AuthenticationEffects, CheckoutEffects]),
     StoreDevtoolsModule.instrument()
   ],
   declarations: [

@@ -3,8 +3,6 @@ import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { EffectsModule } from "@ngrx/effects";
 import { NativeScriptCommonModule } from "nativescript-angular/common";
 import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
-import { CheckoutEffects } from "~/checkout/effects/checkout.effects";
-import { CoreModule } from "~/core/core.module";
 import { ProductActions } from "~/product/actions/product-actions";
 import { ProductEffects } from "~/product/effects/product.effects";
 import { ProductRoutingModule } from "~/product/product-routing.module";
@@ -17,7 +15,7 @@ import { ProductVariantsComponent } from "./component/product-variants/product-v
   imports: [
     NativeScriptCommonModule,
     ProductRoutingModule,
-    EffectsModule.forRoot([ProductEffects, CheckoutEffects ]),
+    EffectsModule.forRoot([ProductEffects]),
     NativeScriptUIListViewModule,
     SharedModule
   ],
@@ -33,7 +31,7 @@ import { ProductVariantsComponent } from "./component/product-variants/product-v
   ],
   providers: [
     ProductActions,
-    CheckoutActions
+    // CheckoutActions
   ]
 })
 

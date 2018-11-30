@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
 import { IappState } from "~/app.reducers";
+import { SharedService } from "~/core/services/shared.service";
 import { Product } from "../core/models/product";
 import { SearchActions } from "./action/search.actions";
 import { getPaginationData, getProductsLoader, getSearchedProducts } from "./reducers/selectors";
@@ -28,7 +29,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     private routernomal: Router,
     private activeRoute: ActivatedRoute,
     private store: Store<IappState>,
-    private searchActions: SearchActions) { }
+    private searchActions: SearchActions,
+    private sharedService: SharedService) { }
 
   ngOnInit() {
     this.subscriptionList$.push(
@@ -38,6 +40,9 @@ export class SearchComponent implements OnInit, OnDestroy {
 
       this.store.select(getPaginationData).subscribe((pagination) => {
         this.paginationData = pagination;
+        // if (this.paginationData.total_count > 0) {
+        //   this.sharedService.toastNotification(`${this.paginationData.total_count} products found`);
+        // }
       }),
 
       this.activeRoute.queryParams.subscribe((params) => {

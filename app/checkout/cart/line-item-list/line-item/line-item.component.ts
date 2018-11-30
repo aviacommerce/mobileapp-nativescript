@@ -1,8 +1,10 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
+import { Subscription } from "rxjs";
 import { IappState } from "~/app.reducers";
 import { CheckoutActions } from "~/checkout/actions/checkout.actions";
 import { LineItem } from "~/core/models/line_item";
+import { CheckoutService } from "~/core/services/checkout.service";
 import { SharedService } from "~/core/services/shared.service";
 
 @Component({
@@ -12,7 +14,7 @@ import { SharedService } from "~/core/services/shared.service";
   styleUrls: ["./line-item.component.css"]
 })
 
-export class LineItemComponent implements OnInit {
+export class LineItemComponent implements OnInit, OnDestroy {
   @Input() lineItem: LineItem;
   image: string;
   name: string;
@@ -20,10 +22,13 @@ export class LineItemComponent implements OnInit {
   amount: number;
   quantityCount: number;
   optionTxt: string;
+  subscriptionList$: Array<Subscription> = [];
+
   constructor(
     private store: Store<IappState>,
     private checkoutActions: CheckoutActions,
-    private sharedService: SharedService) { }
+    private sharedService: SharedService,
+    private checkoutService: CheckoutService) { }
 
   ngOnInit() {
     if (this.lineItem.variant.images[0]) {
@@ -61,5 +66,9 @@ export class LineItemComponent implements OnInit {
     } else {
       this.sharedService.infoMessage("Sorry! You can not add more quantity for this product.");
     }
+  }
+
+  ngOnDestroy() {
+    this.subscriptionList$.map((sub$) => sub$.unsubscribe());
   }
 }
