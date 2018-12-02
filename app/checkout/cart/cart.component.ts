@@ -1,15 +1,13 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
-import * as app from "application";
 import { RouterExtensions } from "nativescript-angular/router";
-import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { Observable, Subscription } from "rxjs";
 import { tap } from "rxjs/operators";
+import { IappState } from "~/app.reducers";
 import { getAuthStatus } from "~/auth/reducers/selectors";
 import { getItemTotal, getOrderState, getTotalCartItems, getTotalCartValue } from "~/checkout/reducers/selectors";
 import { CheckoutService } from "~/core/services/checkout.service";
 import { environment } from "~/environments/environment";
-import { IappState } from '~/app.reducers';
 @Component({
   selector: "Cart",
   moduleId: module.id,
@@ -18,8 +16,8 @@ import { IappState } from '~/app.reducers';
 })
 
 export class CartComponent implements OnInit, OnDestroy {
+  totalCartItems: number;
   totalCartValue$: Observable<number>;
-  totalCartItems$: Observable<number>;
   shipTotal$: Observable<number>;
   itemTotal: number;
   currency = environment.config.currency_symbol;
@@ -30,18 +28,10 @@ export class CartComponent implements OnInit, OnDestroy {
   constructor(
     private router: RouterExtensions,
     private store: Store<IappState>,
-    private checkoutService: CheckoutService) {
-
-  }
-
-  onDrawerButtonTap(): void {
-    const sideDrawer = <RadSideDrawer>app.getRootView();
-    sideDrawer.showDrawer();
-  }
+    private checkoutService: CheckoutService) { }
 
   ngOnInit() {
     this.totalCartValue$ = this.store.select(getTotalCartValue);
-    this.totalCartItems$ = this.store.select(getTotalCartItems);
 
     this.subscriptionList$.push(
       this.store.select(getItemTotal)
@@ -50,14 +40,15 @@ export class CartComponent implements OnInit, OnDestroy {
       this.store.select(getOrderState)
         .subscribe((state) => this.orderState = state),
 
-      this.store.select(getAuthStatus).
-        subscribe((authStatus) => {
-          this.isAuthenticated = authStatus;
-        })
+      this.store.select(getAuthStatus)
+        .subscribe((authStatus) => this.isAuthenticated = authStatus),
+
+      this.store.select(getTotalCartItems)
+        .subscribe((cartItems) => this.totalCartItems = cartItems)
     );
   }
 
-  placeOrder() {
+  checkoutToAddress() {
     if (this.isAuthenticated) {
       if (this.orderState === "cart") {
         this.subscriptionList$.push(
@@ -71,10 +62,6 @@ export class CartComponent implements OnInit, OnDestroy {
     } else {
       this.router.navigate(["/auth", "login"]);
     }
-  }
-
-  onBack() {
-    this.router.backToPreviousPage();
   }
 
   goToHome() {

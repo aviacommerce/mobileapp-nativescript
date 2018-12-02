@@ -4,20 +4,19 @@ import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { RouterExtensions } from "nativescript-angular/router";
 import { Observable, Subscription } from "rxjs";
-import { concatMap, map } from "rxjs/operators";
+import { concatMap, map, switchMap } from "rxjs/operators";
+import { IappState } from "~/app.reducers";
 import { getAuthStatus } from "~/auth/reducers/selectors";
 import { CheckoutActions } from "~/checkout/actions/checkout.actions";
 import {
   getAdjustmentTotal, getItemTotal,
   getOrderNumber, getShipAddress, getShipTotal,
-  getTotalCartItems, getTotalCartValue
+  getTotalCartItems, getTotalCartValue, getOrderState
 } from "~/checkout/reducers/selectors";
 import { Address } from "~/core/models/address";
-import { PaymentMode } from "~/core/models/payment_mode";
 import { CheckoutService } from "~/core/services/checkout.service";
-import { PaymentService } from "~/core/services/payment.service";
 import { environment } from "~/environments/environment";
-import { IappState } from "~/app.reducers";
+import { SharedService } from '~/core/services/shared.service';
 
 @Component({
   moduleId: module.id,
@@ -34,69 +33,75 @@ export class PaymentModesComponent implements OnInit, OnDestroy {
   isAuthenticated: boolean;
   totalCartValue$: Observable<number>;
   totalCartItems$: Observable<number>;
-  address$: Observable<Address>;
   orderNumber$: Observable<number>;
   shipTotal$: Observable<number>;
   itemTotal$: Observable<number>;
   adjustmentTotal$: Observable<number>;
   currency = environment.config.currency_symbol;
   orderSub$: Subscription;
-  shipAddress$: Observable<Address>;
   freeShippingAmount = environment.config.freeShippingAmount;
+  isProcessing: boolean;
+  orderState: string;
 
   constructor(
     private router: RouterExtensions,
-    private ro: Router,
     private checkoutService: CheckoutService,
     private store: Store<IappState>,
     private checkoutAction: CheckoutActions,
-    @Inject(PLATFORM_ID) private platformId: object) {
+    private sharedService: SharedService) {
   }
 
   ngOnInit() {
+
     this.subscriptionList$.push(
       this.store.select(getAuthStatus).subscribe((auth) => this.isAuthenticated = auth),
-      this.store.select(getTotalCartValue).subscribe((oAmount) => this.orderAmount = oAmount)
+      this.store.select(getTotalCartValue).subscribe((oAmount) => this.orderAmount = oAmount),
+      this.store.select(getOrderState).subscribe((state) => this.orderState = state)
     );
+
     this.totalCartValue$ = this.store.select(getTotalCartValue);
     this.totalCartItems$ = this.store.select(getTotalCartItems);
-    this.address$ = this.store.select(getShipAddress);
     this.orderNumber$ = this.store.select(getOrderNumber);
     this.shipTotal$ = this.store.select(getShipTotal);
     this.itemTotal$ = this.store.select(getItemTotal);
     this.adjustmentTotal$ = this.store.select(getAdjustmentTotal);
-    this.shipAddress$ = this.store.select(getShipAddress);
-  }
 
-  onBack() {
-    this.router.backToPreviousPage();
+    if (this.orderAmount === 0) {
+      this.router.navigate(["/"]);
+    }
   }
 
   makeCodPayment() {
-    this.proceedOrderCOD();
+    // TODO: Payment mode is hardcoded.
+    if (this.orderState === "payment") {
+      this.isProcessing = true;
+      this.subscriptionList$.push(
+        this.checkoutService.createNewPayment(3, this.orderAmount).pipe(
+          concatMap((_) => {
+            return this.checkoutService.changeOrderState().pipe(
+              map(() => this.orderComplete())
+            );
+          })
+        ).subscribe()
+      );
+    } else {
+      this.sharedService.infoMessage("Error occured try again!");
+      this.router.navigate(["/"]);
+    }
   }
 
-  proceedOrderCOD() {
-    // TODO: Payment mode is hardcoded.
-    this.subscriptionList$.push(
-      this.checkoutService.createNewPayment(3, this.orderAmount).pipe(
-        concatMap((_) => {
-          return this.checkoutService.changeOrderState().pipe(
-            map(() => {
-              const orderInfo = isPlatformBrowser(this.platformId) ? JSON.parse(localStorage.getItem("order")) : null;
-              this.store.dispatch(this.checkoutAction.orderCompleteSuccess());
-              localStorage.removeItem("order");
-              this.redirectToNewPage(orderInfo.order_number);
-            })
-          );
-        })
-      ).subscribe()
-    );
+  orderComplete() {
+    const orderInfo = localStorage.getItem("order") ? JSON.parse(localStorage.getItem("order")) : null;
+    this.store.dispatch(this.checkoutAction.orderCompleteSuccess());
+    localStorage.removeItem("order");
+    this.isProcessing = false;
+    this.sharedService.successMessage("Your order has been placed.");
+    this.redirectToNewPage(orderInfo.order_number);
   }
 
   redirectToNewPage(orderNumber: string) {
     if (this.isAuthenticated) {
-      this.ro.navigate(["checkout/order/", orderNumber]);
+      this.router.navigate(["checkout/order/", orderNumber]);
     } else {
       this.router.navigate(["/"]);
     }

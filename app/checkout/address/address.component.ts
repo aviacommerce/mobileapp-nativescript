@@ -23,7 +23,7 @@ export class AddressComponent implements OnInit, OnDestroy {
   shipAddress: Address;
   editAddress: boolean;
   addressData: Address;
-  temp: Address;
+  subscriptionList$: Array<Subscription> = [];
 
   constructor(
     private store: Store<IappState>,
@@ -32,9 +32,14 @@ export class AddressComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.orderNumber$ = this.store.select(getOrderNumber);
-    this.store.select(getShipAddress).subscribe((address: Address) => this.shipAddress = address);
-    this.stateSub$ = this.store.select(getOrderState)
-      .subscribe((state) => this.orderState = state);
+
+    this.subscriptionList$.push(
+      this.store.select(getShipAddress)
+        .subscribe((address: Address) => this.shipAddress = address),
+
+      this.store.select(getOrderState)
+        .subscribe((state) => this.orderState = state)
+    );
   }
 
   checkoutToPayment() {
@@ -42,14 +47,14 @@ export class AddressComponent implements OnInit, OnDestroy {
       this.checkoutService.changeOrderState().pipe(
         tap(() => {
           this.router.navigate(["/checkout", "payment"]);
-        }))
-        .subscribe();
+        })
+      ).subscribe();
     } else {
       this.router.navigate(["/checkout", "payment"]);
     }
   }
 
   ngOnDestroy() {
-    this.stateSub$.unsubscribe();
+    this.subscriptionList$.map((sub$) => sub$.unsubscribe());
   }
 }

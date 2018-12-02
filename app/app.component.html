@@ -1,10 +1,10 @@
-<page-router-outlet></page-router-outlet>
+<router-outlet></router-outlet>
 <RadSideDrawer [drawerTransition]="sideDrawerTransition">
   <GridLayout tkDrawerContent rows="auto, *" class="sidedrawer sidedrawer-left">
     <StackLayout row="0" class="sidedrawer-header">
       <Label class="sidedrawer-header-image fa" text="&#xf2bd;"></Label>
-      <Label *ngIf="!isAuthenticated; else noUser" class="sidedrawer-header-brand" 
-      text="Sign in | Create Account" (tap)="onNavItemTap('/auth')">
+      <Label *ngIf="!isAuthenticated; else noUser" class="sidedrawer-header-brand" text="Sign in | Create Account"
+        (tap)="onNavItemTap('/auth')">
       </Label>
       <ng-template #noUser>
         <Label class="sidedrawer-header-brand" text="Hello!"></Label>
@@ -18,8 +18,8 @@
           <Label col="0" text="&#xf015;" class="fa"></Label>
           <Label col="1" text="Home" class="p-r-10"></Label>
         </GridLayout>
-        <StackLayout class="hr-light"></StackLayout>      
-        <GridLayout columns="auto, *" class="sidedrawer-list-item"(tap)="logout()" *ngIf="isAuthenticated">
+        <StackLayout class="hr-light"></StackLayout>
+        <GridLayout columns="auto, *" class="sidedrawer-list-item" (tap)="logout()" *ngIf="isAuthenticated">
           <Label col="0" text="&#xf08b;" class="fa"></Label>
           <Label col="1" text="Logout" class="p-r-10"></Label>
         </GridLayout>

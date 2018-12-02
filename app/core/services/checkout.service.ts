@@ -159,8 +159,7 @@ export class CheckoutService {
             amount: paymentAmount
           }
         }
-      )
-      .pipe(map((_) => this.changeOrderState().subscribe()));
+      );
   }
 
   getOrderToken() {

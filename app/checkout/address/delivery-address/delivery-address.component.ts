@@ -42,7 +42,12 @@ export class DeliveryAddressComponent implements OnInit {
     this.shipTotal$ = this.store.select(getShipTotal);
     this.itemTotal$ = this.store.select(getItemTotal);
     this.adjustmentTotal$ = this.store.select(getAdjustmentTotal);
+
     this.store.select(getOrderState).subscribe((state) => this.orderState = state);
+
+    if (this.orderState === "address") {
+      this.checkoutService.changeOrderState().subscribe();
+    }
   }
 
   checkoutToPayment() {

@@ -1,8 +1,6 @@
-<ActionBar title="Add New Address" class="actionbarbg">
-  <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="onBack()"></NavigationButton>
-</ActionBar>
 <ScrollView sdkExampleTitle sdkToggleNavButton>
   <FlexboxLayout class="page">
+    <Label text="Add address"></Label>
     <StackLayout class="form">
       <StackLayout class="input-field">
         <TextField required class="input" hint="First Name" #elementModel="ngModel" [(ngModel)]="address.firstname"></TextField>
