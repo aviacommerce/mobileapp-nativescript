@@ -6,7 +6,7 @@
   <ActionItem ios.position="right" class="fa cart">
     <AbsoluteLayout [nsRouterLink]="['/checkout/cart']" (tap)="navigateToCart()">
       <Label class="fa" text="&#xf07a;"></Label>
-      <Label [text]="totalCartItems" left="25" top="9" class="cart-items"></Label>
+      <Label [text]="(totalCartItems$| async)" left="25" top="9" class="cart-items"></Label>
     </AbsoluteLayout>
   </ActionItem>
   <Label class="action-bar-title" text="{{showName}}" *ngIf="showName"></Label>

@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { RouterExtensions } from "nativescript-angular/router";
-import { Observable } from "rxjs";
 import { IappState } from "~/app.reducers";
 import { getLineItems } from "~/checkout/reducers/selectors";
 import { LineItem } from "~/core/models/line_item";
@@ -15,20 +13,16 @@ import { LineItem } from "~/core/models/line_item";
 
 export class LineItemListComponent implements OnInit {
   @Input() itemTotal: number;
-  lineItems$: Observable<Array<LineItem>>;
+  isProcessing: boolean;
+  lineItems: Array<LineItem>;
 
-  constructor(
-    private store: Store<IappState>,
-    private router: RouterExtensions
-  ) {
-    this.lineItems$ = this.store.select(getLineItems);
-  }
+  constructor(private store: Store<IappState>) { }
 
   ngOnInit() {
-    //
-  }
-
-  onBack() {
-    this.router.backToPreviousPage();
+    this.isProcessing = true;
+    this.store.select(getLineItems).subscribe((items) => {
+      this.isProcessing = false;
+      this.lineItems = items;
+    });
   }
 }

@@ -16,7 +16,7 @@ import { PaymentModule } from "./payment/payment.module";
     CommonModule,
     RouterModule.forChild(routes),
     EffectsModule.forRoot([
-      CheckoutEffects
+      // CheckoutEffects
     ]),
     CartModule,
     SharedModule,

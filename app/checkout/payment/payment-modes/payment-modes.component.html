@@ -1,9 +1,9 @@
-<ab-component [showName]="'Make Payment'"[showBackArrow]=true></ab-component>
+<ab-component [showName]="'Make Payment'" [showBackArrow]=true></ab-component>
 <GridLayout>
-  <StackLayout height="600">
+  <StackLayout height="600" *ngIf="totalCartValue$|async; let totalCartValue">
     <StackLayout width="100%" class="p-l-10 price p-r-10 p-t-5 p-b-5" horizontalAlignment="center" orientation="horizontal"
       backgroundColor="white">
-      <Label class="" width="100%" text="You pay {{currency}} {{totalCartValue$ | async | number:'1.2-2'}} ">
+      <Label class="" width="100%" text="You pay {{currency}} {{totalCartValue| number:'1.2-2'}} ">
       </Label>
     </StackLayout>
     <ScrollView sdkExampleTitle sdkToggleNavButton height="600">
@@ -12,6 +12,7 @@
           <StackLayout class="mini-bag-summary" *ngIf="itemTotal$ | async;let itemTotal">
             <Label class="items h3 m-b-20 p-b-10" text="{{totalCartItems$ | async}} ITEMS" borderBottomWidth="1"
               borderBottomColor="#ccc"></Label>
+            <!-- order total -->
             <StackLayout class="order-total">
               <StackLayout class="m-b-10" orientation="horizontal">
                 <StackLayout width="70%" class="left" horizontalAlignment="left">
@@ -22,6 +23,7 @@
                 </StackLayout>
               </StackLayout>
             </StackLayout>
+            <!-- shipping info -->
             <StackLayout class="shipping" *ngIf="(shipTotal$ | async);let shipTotal">
               <StackLayout orientation="horizontal" *ngIf="shipTotal ==='0.0' && itemTotal >= freeShippingAmount ">
                 <StackLayout width="70%" class="left" horizontalAlignment="left">
@@ -31,11 +33,11 @@
                   <Label horizontalAlignment="left" fontSize="13" text="Free" class="free"></Label>
                 </StackLayout>
               </StackLayout>
-              <Label class="m-t-10" *ngIf="shipTotal ==='0.0' && itemTotal < freeShippingAmount " text=" Only {{currency}}
-                {{(freeShippingAmount - itemTotal)| number:'1.2-2'}} to go for free shipping.">
+              <Label class="m-t-10" *ngIf="shipTotal ==='0.0' && itemTotal < freeShippingAmount" text=" Only {{currency}}{{(freeShippingAmount - itemTotal)| number:'1.2-2'}} to go for free shipping.">
               </Label>
             </StackLayout>
           </StackLayout>
+          <!-- payment modes -->
           <StackLayout backgroundColor="White">
             <TabView id="tabViewContainer" androidSelectedTabHighlightColor="green">
               <!-- <StackLayout *tabItem="{title: 'PAYUBIZ'}">
@@ -58,4 +60,6 @@
       </FlexboxLayout>
     </ScrollView>
   </StackLayout>
+  <ActivityIndicator [busy]="isProcessing" backgroundColor="white" borderRadius="50"
+    color="green" width="50" height="50"></ActivityIndicator>
 </GridLayout>
