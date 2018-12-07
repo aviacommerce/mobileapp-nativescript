@@ -1,11 +1,15 @@
 
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Route, Router } from "@angular/router";
+import * as application from "application";
+// tslint:disable-next-line:no-duplicate-imports
+import { AndroidActivityBackPressedEventData, AndroidApplication } from "application";
+import { RouterExtensions } from "nativescript-angular/router";
 import { Subscription } from "rxjs";
+import { Page } from "tns-core-modules/ui/page/page";
 import { LineItem } from "~/core/models/line_item";
 import { Order } from "~/core/models/order";
 import { CheckoutService } from "~/core/services/checkout.service";
-
 @Component({
   selector: "order-response",
   moduleId: module.id,
@@ -20,10 +24,23 @@ export class OrderResponseComponent implements OnInit, OnDestroy {
   constructor(
     private checkoutService: CheckoutService,
     private activatedRouter: ActivatedRoute,
-    private route: Router
+    private route: RouterExtensions,
+    private page: Page
   ) { }
 
   ngOnInit() {
+
+    // redirect to home if physical back button pressed.
+    application.android.on(AndroidApplication.activityBackPressedEvent,
+      (data1: AndroidActivityBackPressedEventData) => {
+        data1.activity = true;
+        this.route.navigate(["/"], { clearHistory: true });
+      });
+
+    this.page.on("navigatingFrom", (data) => {
+      this.ngOnDestroy();
+    });
+
     this.orderReferance = this.activatedRouter.snapshot.params.id;
     this.subscriptionList$.push(
       this.checkoutService.getOrderDetail(this.orderReferance).subscribe((data) => {
@@ -39,7 +56,7 @@ export class OrderResponseComponent implements OnInit, OnDestroy {
   }
 
   backToHome() {
-    this.route.navigate(["/"]);
+    this.route.navigate(["/"], { clearHistory: true });
   }
 
   ngOnDestroy() {

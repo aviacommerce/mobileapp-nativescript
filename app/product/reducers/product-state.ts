@@ -1,4 +1,4 @@
-import { Taxonomy } from './../../core/models/taxonomy';
+import { Taxonomy } from "./../../core/models/taxonomy";
 /**
  * Read more about Immutable Records here
  * 1. https://coderwall.com/p/vxk_tg/using-immutable-js-in-typescript
@@ -7,8 +7,8 @@ import { Taxonomy } from './../../core/models/taxonomy';
  * 4. https://medium.com/azendoo-team/immutable-record-react-redux-99f389ed676#.91s1g124s
  */
 
-import { Product } from './../../core/models/product';
-import { Map, Record, List } from 'immutable';
+import { List, Map, Record } from "immutable";
+import { Product } from "./../../core/models/product";
 
 export interface ProductState extends Map<string, any> {
   productIds: List<number>;
@@ -20,6 +20,7 @@ export interface ProductState extends Map<string, any> {
   relatedProducts: List<Product>;
   productReviews: List<any>;
   rootTaxonomyId: number;
+  todaysDealsId: number;
 }
 
 export const ProductStateRecord = Record({
@@ -31,5 +32,6 @@ export const ProductStateRecord = Record({
   showAllProducts: List([]),
   relatedProducts: List([]),
   productReviews: List([]),
-  rootTaxonomyId: 0
+  rootTaxonomyId: 0,
+  todaysDealsId: null
 });

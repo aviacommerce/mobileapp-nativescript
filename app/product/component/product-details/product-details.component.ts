@@ -1,10 +1,9 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { RouterExtensions } from "nativescript-angular/router";
-import { Feedback, FeedbackPosition, FeedbackType } from "nativescript-feedback";
-import * as Toast from "nativescript-toast";
 import { Observable, Subscription } from "rxjs";
+import { Page } from "tns-core-modules/ui/page/page";
 import { IappState } from "~/app.reducers";
 import { CheckoutActions } from "~/checkout/actions/checkout.actions";
 import { Product } from "~/core/models/product";
@@ -23,7 +22,7 @@ import { getSearchedProducts } from "~/search/reducers/selectors";
   styleUrls: ["./product-details.component.scss"]
 })
 
-export class ProductDetailsComponent implements OnInit {
+export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   productSlug: any;
   subscriptionList$: Array<Subscription> = [];
@@ -46,6 +45,7 @@ export class ProductDetailsComponent implements OnInit {
   correspondingOptions: any;
   @Output() selectedVariant = new EventEmitter<object>();
   reload: boolean;
+  addToCartLoader: boolean;
 
   constructor(
     private store: Store<IappState>,
@@ -56,13 +56,18 @@ export class ProductDetailsComponent implements OnInit {
     private variantParser: VariantParserService,
     private checkoutActions: CheckoutActions,
     private checkservice: CheckoutService,
-    private routerReload: Router) {
+    private routerReload: Router,
+    private page: Page) {
     this.routerReload.routeReuseStrategy.shouldReuseRoute = (_) => {
       return false;
     };
   }
 
   ngOnInit() {
+    this.page.on("navigatingFrom", (data) => {
+      this.ngOnDestroy();
+    });
+
     this.subscriptionList$.push(
       this.activatedRouter.params.subscribe((params) => {
         this.productSlug = params;
@@ -122,11 +127,16 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addToCart(productId: number) {
+    this.addToCartLoader = true;
     this.store.dispatch(this.checkoutActions.addToCart(productId, 1));
-    this.checkservice.fetchCurrentOrder().subscribe();
+    this.subscriptionList$.push(
+      this.checkservice.fetchCurrentOrder().subscribe((data) => {
+        this.addToCartLoader = false;
+      })
+    );
   }
 
-  // varinats selection.
+  // variants selection.
   getvariantsInfo(product) {
     this.variantId = product.master.id;
     this.customOptionTypesHash = this.variantParser
@@ -175,5 +185,9 @@ export class ProductDetailsComponent implements OnInit {
 
   getSelectedVariant(variant) {
     this.selectedVariant.emit(variant);
+  }
+
+  ngOnDestroy() {
+    this.subscriptionList$.map((sub$) => sub$.unsubscribe());
   }
 }

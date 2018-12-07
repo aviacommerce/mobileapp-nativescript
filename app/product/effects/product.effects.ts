@@ -1,9 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Actions, Effect } from "@ngrx/effects";
 import { Action } from "@ngrx/store";
-import { Observable } from "rxjs";
 import { map, switchMap } from "rxjs/operators";
-import { SearchActions } from "~/search/action/search.actions";
+import { Taxonomy } from "~/core/models/taxonomy";
 import { Product } from "./../../core/models/product";
 import { ProductService } from "./../../core/services/product.service";
 import { ProductActions } from "./../actions/product-actions";
@@ -12,39 +11,20 @@ import { ProductActions } from "./../actions/product-actions";
 export class ProductEffects {
 
   @Effect()
-  getAllProducts$: Observable<Action> = this.actions$
-    .ofType(ProductActions.GET_ALL_PRODUCTS)
-    .pipe(
-      switchMap((action: any) =>
-        this.productService.getProducts(action.payload)
-      ),
-      map((data: any) => {
-        return this.productActions.getAllProductsSuccess({ products: data });
-      }
-      )
-    );
+  getProductDetail$ = this.actions$.ofType(ProductActions.GET_PRODUCT_DETAIL).pipe(
+    switchMap<Action & { payload: string }, Product>((action) => {
+      return this.productService.getProduct(action.payload);
+    }),
+    map((data: Product) => this.productActions.getProductDetailSuccess({ product: data }))
+  );
 
   @Effect()
-  getProductDetail$: Observable<Action> = this.actions$
-    .ofType(ProductActions.GET_PRODUCT_DETAIL)
-    .pipe(
-      switchMap((action: any) =>
-        this.productService.getProduct(action.payload)
-      ),
-      map((product: Product) =>
-        this.productActions.getProductDetailSuccess({ product })
-      )
-    );
-
-  @Effect()
-  getAllTaxonomies$: Observable<Action> = this.actions$
-    .ofType(ProductActions.GET_ALL_TAXONOMIES)
-    .pipe(
-      switchMap((action: any) => this.productService.getTaxonomies()),
-      map((data: any) =>
-        this.productActions.getAllTaxonomiesSuccess({ taxonomies: data })
-      )
-    );
+  getAllTaxonomies$ = this.actions$.ofType(ProductActions.GET_ALL_TAXONOMIES).pipe(
+    switchMap<Action, Array<Taxonomy>>((_) => {
+      return this.productService.getTaxonomies();
+    }),
+    map((data) => this.productActions.getAllTaxonomiesSuccess({ taxonomies: data }))
+  );
 
   constructor(
     private actions$: Actions,

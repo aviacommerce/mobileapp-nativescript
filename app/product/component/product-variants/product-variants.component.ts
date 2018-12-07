@@ -13,9 +13,11 @@ export class ProductVariantsComponent {
   @Input() currentSelectedOptions = {};
   @Input() mainOptions;
   @Input() correspondingOptions;
+  // tslint:disable-next-line:no-output-on-prefix
   @Output() onOptionClickEvent = new EventEmitter();
 
   constructor() {
+    //
   }
 
   onOptionClick(option) {

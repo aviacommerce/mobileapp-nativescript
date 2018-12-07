@@ -19,23 +19,27 @@ export function fetchAllTaxonomies(state: ProductState) {
   return state.taxonomies.toJS();
 }
 
-const fetchSelectedProduct = function(state: ProductState) {
+const fetchSelectedProduct = function (state: ProductState) {
   return state.selectedProduct;
 };
 
-const fetchAllProductSearch = function(state: ProductState) {
+const fetchAllProductSearch = function (state: ProductState) {
   return state.showAllProducts.toJS();
 };
 
-const fetchReletedProducts = function(state: ProductState) {
+const fetchReletedProducts = function (state: ProductState) {
   return state.relatedProducts.toJS();
 };
-const fetchProductReviews = function(state: ProductState) {
+const fetchProductReviews = function (state: ProductState) {
   return state.productReviews.toJS();
 };
 
-const fetchRootTaxonId = function(state: ProductState) {
+const fetchRootTaxonId = function (state: ProductState) {
   return state.rootTaxonomyId;
+};
+
+const fetchTodayDealsId = function (state: ProductState) {
+  return state.todaysDealsId;
 };
 
 // *************************** PUBLIC API's ****************************
@@ -46,3 +50,4 @@ export const showAllProducts = createSelector(getProductState, fetchAllProductSe
 export const relatedProducts = createSelector(getProductState, fetchReletedProducts);
 export const productReviews = createSelector(getProductState, fetchProductReviews);
 export const rootTaxonomyId = createSelector(getProductState, fetchRootTaxonId);
+export const getTodaysDealsId = createSelector(getProductState, fetchTodayDealsId);
