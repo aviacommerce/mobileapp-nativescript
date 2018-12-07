@@ -1,36 +1,18 @@
 export class ProductActions {
-  static GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
-  static GET_ALL_PRODUCTS_SUCCESS = "GET_ALL_PRODUCTS_SUCCESS";
+
   static GET_PRODUCT_DETAIL = "GET_PRODUCT_DETAIL";
   static GET_PRODUCT_DETAIL_SUCCESS = "GET_PRODUCT_DETAIL_SUCCESS";
   static CLEAR_SELECTED_PRODUCT = "CLEAR_SELECTED_PRODUCT";
   static GET_ALL_TAXONOMIES = "GET_ALL_TAXONOMIES";
   static GET_ALL_TAXONOMIES_SUCCESS = "GET_ALL_TAXONOMIES_SUCCESS";
   static GET_ALL_PRODUCTS_SEARCH_SUCCESS = "GET_ALL_PRODUCTS_SEARCH_SUCCESS";
-  static GET_RELATED_PRODUCT = "GET_RELATED_PRODUCT";
-  static GET_RELATED_PRODUCT_SUCCESS = "GET_RELATED_PRODUCT_SUCCESS";
-  static GET_REVIEWS = "GET_REVIEWS";
-  static GET_REVIEWS_SUCCESS = "GET_REVIEWS_SUCCESS";
-
-  getAllProducts(pageNumber = 1) {
-    return {
-      type: ProductActions.GET_ALL_PRODUCTS,
-      payload: pageNumber
-    };
-  }
+  static GET_PRODUCTS_BY_TAXON = "GET_PRODUCTS_BY_TAXON";
 
   getProductDetail(id: string) {
+
     return {
       type: ProductActions.GET_PRODUCT_DETAIL,
       payload: id
-    };
-  }
-
-  // change products type to Product[]
-  getAllProductsSuccess(products: any) {
-    return {
-      type: ProductActions.GET_ALL_PRODUCTS_SUCCESS,
-      payload: products
     };
   }
 
@@ -57,32 +39,10 @@ export class ProductActions {
     };
   }
 
-  getRelatedProduct(product_id: any) {
+  getProductsByTaxon(taxonsId: number) {
     return {
-      type: ProductActions.GET_RELATED_PRODUCT,
-      payload: product_id
-    };
-  }
-
-  getRelatedProductSuccess(products: any) {
-    return {
-      type: ProductActions.GET_RELATED_PRODUCT_SUCCESS,
-      payload: products
-    };
-  }
-
-  getProductReviews(product_id: any) {
-    return {
-
-      type: ProductActions.GET_REVIEWS,
-      payload: product_id
-    };
-  }
-
-  getProductReviewsSuccess(reviews: any) {
-    return {
-      type: ProductActions.GET_REVIEWS_SUCCESS,
-      payload: reviews
+      type: ProductActions.GET_PRODUCTS_BY_TAXON,
+      payload: taxonsId
     };
   }
 }

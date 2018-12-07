@@ -1,12 +1,13 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import * as app from "application";
 import { RouterExtensions } from "nativescript-angular/router";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
-import { Observable, Subscription } from "rxjs";
+import { Subscription } from "rxjs";
+import { isAndroid, isIOS } from "tns-core-modules/ui/page/page";
 import { IappState } from "~/app.reducers";
 import { getTotalCartItems } from "~/checkout/reducers/selectors";
+import { environment } from "~/environments/environment";
 @Component({
   selector: "ab-component",
   moduleId: module.id,
@@ -16,18 +17,25 @@ import { getTotalCartItems } from "~/checkout/reducers/selectors";
 
 export class ActionBarComponent implements OnInit, OnDestroy {
 
-  totalCartItems$: Observable<number>;
+  totalCartItems: number;
   @Input() showName: string;
   @Input() showBackArrow: boolean;
   subscriptionList$: Array<Subscription> = [];
+  logoUrl = environment.config.logoUrl;
+  isIos = isIOS;
+  isAndroid = isAndroid;
 
   constructor(
     private store: Store<IappState>,
-    private router: Router,
-    private routerExt: RouterExtensions) { }
+    private router: RouterExtensions) { }
 
   ngOnInit() {
-    this.totalCartItems$ = this.store.select(getTotalCartItems);
+    this.subscriptionList$.push(
+      this.store.select(getTotalCartItems)
+        .subscribe((items) => this.totalCartItems = items)
+    );
+
+    this.showName = this.showName ? this.showName : null;
   }
 
   navigateToCart() {
@@ -35,7 +43,7 @@ export class ActionBarComponent implements OnInit, OnDestroy {
   }
 
   navigateBack() {
-    this.routerExt.back();
+    this.router.back();
   }
 
   onDrawerButtonTap(): void {

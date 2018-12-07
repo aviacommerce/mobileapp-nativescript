@@ -1,22 +1,22 @@
-import { isPlatformBrowser } from "@angular/common";
 import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from "@angular/core";
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { RouterExtensions } from "nativescript-angular/router";
 import { Observable, Subscription } from "rxjs";
 import { concatMap, map, switchMap } from "rxjs/operators";
+import { Page } from "tns-core-modules/ui/page/page";
 import { IappState } from "~/app.reducers";
 import { getAuthStatus } from "~/auth/reducers/selectors";
 import { CheckoutActions } from "~/checkout/actions/checkout.actions";
 import {
   getAdjustmentTotal, getItemTotal,
-  getOrderNumber, getShipAddress, getShipTotal,
-  getTotalCartItems, getTotalCartValue, getOrderState
+  getOrderNumber, getOrderState, getShipAddress,
+  getShipTotal, getTotalCartItems, getTotalCartValue
 } from "~/checkout/reducers/selectors";
 import { Address } from "~/core/models/address";
 import { CheckoutService } from "~/core/services/checkout.service";
+import { SharedService } from "~/core/services/shared.service";
 import { environment } from "~/environments/environment";
-import { SharedService } from '~/core/services/shared.service';
 
 @Component({
   moduleId: module.id,
@@ -48,10 +48,14 @@ export class PaymentModesComponent implements OnInit, OnDestroy {
     private checkoutService: CheckoutService,
     private store: Store<IappState>,
     private checkoutAction: CheckoutActions,
-    private sharedService: SharedService) {
+    private sharedService: SharedService,
+    private page: Page) {
   }
 
   ngOnInit() {
+    this.page.on("navigatingFrom", (data) => {
+      this.ngOnDestroy();
+    });
 
     this.subscriptionList$.push(
       this.store.select(getAuthStatus).subscribe((auth) => this.isAuthenticated = auth),
@@ -65,10 +69,6 @@ export class PaymentModesComponent implements OnInit, OnDestroy {
     this.shipTotal$ = this.store.select(getShipTotal);
     this.itemTotal$ = this.store.select(getItemTotal);
     this.adjustmentTotal$ = this.store.select(getAdjustmentTotal);
-
-    if (this.orderAmount === 0) {
-      this.router.navigate(["/"]);
-    }
   }
 
   makeCodPayment() {

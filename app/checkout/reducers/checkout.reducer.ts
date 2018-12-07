@@ -10,9 +10,7 @@ export function reducer(state = initialState, { type, payload }: any): CheckoutS
   let _lineItems, _lineItemEntities, _lineItemIds,
     _lineItem, _lineItemEntity, _lineItemId,
     _totalCartItems = 0, _totalCartValue,
-    // tslint:disable-next-line:variable-name
-    _ship_address, _bill_address,
-    _orderState, _shipTotal = 0, _itemTotal, _adjustmentTotal;
+    _shipAddress, _billAddress, _orderState, _shipTotal = 0, _itemTotal, _adjustmentTotal;
 
   switch (type) {
 
@@ -22,15 +20,16 @@ export function reducer(state = initialState, { type, payload }: any): CheckoutS
       _lineItemIds = _lineItems.map((lineItem) => lineItem.id);
       _totalCartItems = payload.total_quantity;
       _totalCartValue = parseFloat(payload.total);
-      _ship_address = payload.ship_address;
-      _bill_address = payload.bill_address;
+      _shipAddress = payload.ship_address;
+      _billAddress = payload.bill_address;
       _orderState = payload.state;
       _shipTotal = payload.ship_total;
       _itemTotal = parseFloat(payload.item_total);
       _adjustmentTotal = payload.display_adjustment_total;
 
       _lineItemEntities = _lineItems.reduce((lineItems: { [id: number]: LineItem }, lineItem: LineItem) => {
-        return {...lineItems, [lineItem.id]: lineItem}; }, {});
+        return { ...lineItems, [lineItem.id]: lineItem };
+      }, {});
 
       return state.merge({
         orderNumber: _orderNumber,
@@ -39,8 +38,8 @@ export function reducer(state = initialState, { type, payload }: any): CheckoutS
         lineItemEntities: _lineItemEntities,
         totalCartItems: _totalCartItems,
         totalCartValue: _totalCartValue,
-        shipAddress: _ship_address,
-        billAddress: _bill_address,
+        shipAddress: _shipAddress,
+        billAddress: _billAddress,
         shipTotal: _shipTotal,
         itemTotal: _itemTotal,
         adjustmentTotal: _adjustmentTotal
@@ -90,7 +89,7 @@ export function reducer(state = initialState, { type, payload }: any): CheckoutS
       _lineItem = payload;
       _lineItemId = _lineItem.id;
       const index = state.lineItemIds.indexOf(_lineItemId);
-      
+
       if (index >= 0) {
         _lineItemIds = state.lineItemIds.splice(index, 1);
         _lineItemEntities = state.lineItemEntities.delete(_lineItemId);
@@ -111,13 +110,13 @@ export function reducer(state = initialState, { type, payload }: any): CheckoutS
 
     case CheckoutActions.CHANGE_ORDER_STATE_SUCCESS:
       _orderState = payload.state;
-      _ship_address = payload.ship_address;
-      _bill_address = payload.bill_address;
+      _shipAddress = payload.ship_address;
+      _billAddress = payload.bill_address;
 
       return state.merge({
         orderState: _orderState,
-        shipAddress: _ship_address,
-        billAddress: _bill_address,
+        shipAddress: _shipAddress,
+        billAddress: _billAddress,
 
       }) as CheckoutState;
 
@@ -125,8 +124,8 @@ export function reducer(state = initialState, { type, payload }: any): CheckoutS
       _orderState = payload.state;
       _totalCartItems = payload.total_quantity;
       _totalCartValue = parseFloat(payload.total);
-      _ship_address = payload.ship_address;
-      _bill_address = payload.bill_address;
+      _shipAddress = payload.ship_address;
+      _billAddress = payload.bill_address;
       _orderState = payload.state;
       _shipTotal = payload.ship_total;
       _itemTotal = parseFloat(payload.item_total);
@@ -135,15 +134,15 @@ export function reducer(state = initialState, { type, payload }: any): CheckoutS
       _lineItemIds = _lineItems.map((lineItem) => lineItem.id);
 
       _lineItemEntities = _lineItems.reduce((lineItems: { [id: number]: LineItem }, lineItem: LineItem) => {
-        return {...lineItems,  [lineItem.id]: lineItem};
+        return { ...lineItems, [lineItem.id]: lineItem };
       }, {});
 
       return state.merge({
         orderState: _orderState,
         totalCartItems: _totalCartItems,
         totalCartValue: _totalCartValue,
-        shipAddress: _ship_address,
-        billAddress: _bill_address,
+        shipAddress: _shipAddress,
+        billAddress: _billAddress,
         shipTotal: _shipTotal,
         itemTotal: _itemTotal,
         adjustmentTotal: _adjustmentTotal,

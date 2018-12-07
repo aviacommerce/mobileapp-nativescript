@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { RouterExtensions } from "nativescript-angular/router";
 import { Subscription } from "rxjs";
+import { Page } from "tns-core-modules/ui/page/page";
 import { IappState } from "~/app.reducers";
 import { getOrderState, getShipAddress } from "~/checkout/reducers/selectors";
 import { Address } from "~/core/models/address";
@@ -27,7 +28,8 @@ export class AddAddressComponent implements OnInit, OnDestroy {
     private addressService: AddressService,
     private checkoutService: CheckoutService,
     private store: Store<IappState>,
-    private sharedService: SharedService) {
+    private sharedService: SharedService,
+    private page: Page) {
     // this.address = new Address();
     // for demo purpose
     this.address = {
@@ -45,6 +47,11 @@ export class AddAddressComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    this.page.on("navigatingFrom", (data) => {
+      this.ngOnDestroy();
+    });
+
     this.subscriptionList$.push(
       this.store.select(getOrderState)
         .subscribe((oState) => this.orderState = oState),
