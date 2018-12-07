@@ -3,6 +3,7 @@ import { Store } from "@ngrx/store";
 import { RouterExtensions } from "nativescript-angular/router";
 import { Observable, Subscription } from "rxjs";
 import { tap } from "rxjs/operators";
+import { Page } from "tns-core-modules/ui/page/page";
 import { IappState } from "~/app.reducers";
 import { getAuthStatus } from "~/auth/reducers/selectors";
 import { getItemTotal, getOrderState, getTotalCartItems, getTotalCartValue } from "~/checkout/reducers/selectors";
@@ -28,9 +29,15 @@ export class CartComponent implements OnInit, OnDestroy {
   constructor(
     private router: RouterExtensions,
     private store: Store<IappState>,
-    private checkoutService: CheckoutService) { }
+    private checkoutService: CheckoutService,
+    private page: Page) { }
 
   ngOnInit() {
+
+    this.page.on("navigatingFrom", (data) => {
+      this.ngOnDestroy();
+    });
+
     this.totalCartValue$ = this.store.select(getTotalCartValue);
 
     this.subscriptionList$.push(

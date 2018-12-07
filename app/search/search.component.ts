@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
+import { Page } from "tns-core-modules/ui/page/page";
 import { IappState } from "~/app.reducers";
 import { SharedService } from "~/core/services/shared.service";
 import { Product } from "../core/models/product";
@@ -17,7 +18,7 @@ import { getPaginationData, getProductsLoader, getSearchedProducts } from "./red
 
 export class SearchComponent implements OnInit, OnDestroy {
   products: Array<Product>;
-  page: number;
+  paginationPage: number;
   queryParams: Params;
   counter = 1;
   subscriptionList$: Array<Subscription> = [];
@@ -30,9 +31,13 @@ export class SearchComponent implements OnInit, OnDestroy {
     private activeRoute: ActivatedRoute,
     private store: Store<IappState>,
     private searchActions: SearchActions,
-    private sharedService: SharedService) { }
+    private page: Page) { }
 
   ngOnInit() {
+    this.page.on("navigatingFrom", (data) => {
+      this.ngOnDestroy();
+    });
+
     this.subscriptionList$.push(
       this.store.select(getSearchedProducts).subscribe((productdata) => {
         this.products = productdata;
@@ -40,9 +45,6 @@ export class SearchComponent implements OnInit, OnDestroy {
 
       this.store.select(getPaginationData).subscribe((pagination) => {
         this.paginationData = pagination;
-        // if (this.paginationData.total_count > 0) {
-        //   this.sharedService.toastNotification(`${this.paginationData.total_count} products found`);
-        // }
       }),
 
       this.activeRoute.queryParams.subscribe((params) => {

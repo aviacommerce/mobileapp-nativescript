@@ -23,7 +23,8 @@
               <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" spanCount="2"></ListViewGridLayout>
               <ng-template tkListItemTemplate let-item="item" let-odd="odd">
                 <StackLayout orientation="vertical">
-                  <Label (tap)="onSelectedCategory(item.id)" shadow="8" class="box" [backgroundImage]="categories[item.name].imageUrl" [text]="item.name"></Label>
+                  <Label (tap)="onSelectedCategory(item.id)" shadow="8" class="box" [backgroundImage]="categories[item.name].imageUrl"
+                    [text]="item.name"></Label>
                 </StackLayout>
               </ng-template>
             </RadListView>
@@ -39,7 +40,7 @@
           <Label text=" Today's Deals"></Label>
         </StackLayout>
         <!-- Today's Deals -->
-        
+
         <StackLayout *ngIf="products$ | async; let products" class="m-b-20">
           <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false">
             <RadListView [items]="products">
@@ -48,7 +49,7 @@
                 <StackLayout class="product-base" borderWidth="1" rows="*, *, *" columns="*, *" (tap)="productDetail(product.slug)">
                   <StackLayout class="p-10">
                     <StackLayout row="1" class="product-img">
-                      <Image [src]="product.product_url" stretch="aspectFit" height="200" width="250" class="m-r-0"></Image>
+                      <Image [src]="product.product_url" stretch="aspectFit" height="200" width="70%" class="m-r-0"></Image>
                     </StackLayout>
                     <StackLayout row="2" class="m-t-5 m-b-5"></StackLayout>
                     <StackLayout row="3" class="product-name my-4">
@@ -58,7 +59,7 @@
                       <Label>
                         <FormattedString>
                           <Span text="&#8377;"></Span>
-                          <Span [text]="product.price"></Span>
+                          <Span text="{{product.price | number:'1.2-2'}}"></Span>
                         </FormattedString>
                       </Label>
                     </StackLayout>

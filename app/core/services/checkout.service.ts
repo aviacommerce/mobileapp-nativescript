@@ -1,8 +1,7 @@
-import { isPlatformBrowser } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { Observable, of } from "rxjs";
+import { Observable, of, throwError } from "rxjs";
 import { catchError, map, switchMap, tap } from "rxjs/operators";
 import { IappState } from "~/app.reducers";
 import { Order } from "../models/order";
@@ -17,23 +16,17 @@ export class CheckoutService {
     private http: HttpClient,
     private actions: CheckoutActions,
     private store: Store<IappState>,
-    private sharedService: SharedService,
+    private sharedService: SharedService) { }
 
-    @Inject(PLATFORM_ID) private platformId: object) {
-  }
-
-  // tslint:disable-next-line:variable-name
-  createNewLineItem(variant_id: number, quantity: number): Observable<LineItem> {
-
+  createNewLineItem(variantId: number, prodQuantity: number): Observable<LineItem> {
     if (!this.getOrderToken()) {
-      const orderParams = { order: { line_items: { 0: { variant_id, quantity } } } };
+      const orderParams = { order: { line_items: { 0: { variant_id: variantId, quantity: prodQuantity } } } };
 
       return this.createNewOrder(orderParams).pipe(map((order) => order.line_items[0]));
     }
 
-    const params = {
-      line_item: { variant_id, quantity }
-    };
+    const params = { line_item: { variant_id: variantId, quantity: prodQuantity } };
+
     const url = `api/v1/orders/${this.orderNumber()}/line_items?order_token=${this.getOrderToken()}`;
 
     return this.http.post<LineItem>(url, params).pipe(
@@ -43,22 +36,24 @@ export class CheckoutService {
         },
         (_) => {
           localStorage.removeItem("order");
-          this.createNewLineItem(variant_id, quantity).subscribe();
+          this.createNewLineItem(variantId, prodQuantity).subscribe();
         }
       )
     );
   }
 
+  // This API not works with Admin user
   createNewOrder(orderParams): Observable<Order> {
     const newOrderUrl = `api/v1/orders`;
 
     return this.http.post<Order>(newOrderUrl, orderParams).pipe(
-      tap(
-        (order) => {
-          this.setOrderTokenInLocalStorage({ order_token: order.token, order_number: order.number });
-          this.store.dispatch(this.actions.fetchCurrentOrderSuccess(order));
+      tap((order) => {
+        this.setOrderTokenInLocalStorage({ order_token: order.token, order_number: order.number });
+        this.store.dispatch(this.actions.fetchCurrentOrderSuccess(order));
+      }
+        , (_) => {
+          this.sharedService.errorMessage("Something went wrong!");
         }
-
       )
     );
   }
@@ -169,7 +164,7 @@ export class CheckoutService {
   }
 
   orderNumber() {
-    const order = isPlatformBrowser(this.platformId) ? JSON.parse(localStorage.getItem("order")) : {};
+    const order = localStorage.getItem("order") ? JSON.parse(localStorage.getItem("order")) : {};
 
     return order ? order.order_number : null;
   }

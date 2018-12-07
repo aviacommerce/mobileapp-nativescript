@@ -1,6 +1,6 @@
 @import '../../../app-variables';
 .img-logo {
-  width: 250px
+  width: 35%;
 }
 
 .cart {
@@ -8,9 +8,17 @@
 }
 
 .cart-items {
-  padding: 10px;
+  padding: 5px;
   border-radius: 100px;
   font-size: 10em;
   background-color: #ae4700;
   color: #fff;
+  text-align: center;
+  border-width: 2px;
+  border-color: white;
+}
+
+ActionBar {
+  background-color: $accent-dark;
+  color: white;
 }

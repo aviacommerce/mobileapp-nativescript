@@ -21,7 +21,7 @@
                 </StackLayout>
                 <StackLayout width="50%" class="right" horizontalAlignment="right">
                   <Label class="price" [ngClass]="productDiscount ? 'line-through' : ''" horizontalAlignment="right"
-                    text="{{product.currency_symbol}}{{productMRP}}"></Label>
+                    text="{{product.currency_symbol}}{{productMRP | number:'1.2-2'}}"></Label>
                 </StackLayout>
               </StackLayout>
               <!-- Price -->
@@ -59,6 +59,7 @@
                 </StackLayout>
                 <Button *ngIf="isProductOderable === true" class="btn btn-primary btn-active" (tap)="addToCart(variantId)"
                   borderWidth="1" id="button" text="Add To Cart"></Button>
+
                 <Button *ngIf="isProductOderable === false" class="btn btn-outofstock btn-active" borderWidth="1" id="button"
                   text="Out Of Stock!"></Button>
               </StackLayout>
@@ -73,7 +74,7 @@
               <StackLayout row="1" class="hr-light m-t-5 m-b-5"></StackLayout>
               <StackLayout class="p-10 p-t-0" orientation="horizontal">
                 <Label class="m-0 p-t-2 p-b-2 fa icon" text="&#xf02b;" fontSize="16px;" fontWeight="bold"></Label>
-                <Label text=" Similar Products"></Label>
+                <Label fontSize="16px;" text=" Similar Products"></Label>
               </StackLayout>
               <StackLayout class="p-10" *ngIf="similarProducts$ | async ; let productsList">
                 <RadListView [items]="productsList">
@@ -110,7 +111,6 @@
       </TabView>
     </GridLayout>
   </GridLayout>
-  <ActivityIndicator [busy]="!product" backgroundColor="white" borderRadius="50"
-    color="green" width="50" height="50"></ActivityIndicator>
+  <ActivityIndicator [busy]="!product" backgroundColor="white" borderRadius="50" color="green" width="50" height="50"></ActivityIndicator>
+  <ActivityIndicator [busy]="addToCartLoader" backgroundColor="white" borderRadius="50" color="green" width="50" height="50"></ActivityIndicator>
 </FlexLayout>
-

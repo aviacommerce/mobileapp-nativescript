@@ -2,15 +2,17 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
-import { switchMap } from "rxjs/operators";
+import { Page } from "tns-core-modules/ui/page/page";
 import { IappState } from "~/app.reducers";
 import { getAuthStatus } from "~/auth/reducers/selectors";
+import { CheckoutActions } from "~/checkout/actions/checkout.actions";
 import { Product } from "~/core/models/product";
 import { ProductService } from "~/core/services/product.service";
 import { environment } from "~/environments/environment";
 import { ProductActions } from "~/product/actions/product-actions";
-import { getTaxonomies } from "~/product/reducers/selectors";
+import { getTaxonomies, getTodaysDealsId } from "~/product/reducers/selectors";
 import { SearchActions } from "~/search/action/search.actions";
+import { getSearchedProducts } from "~/search/reducers/selectors";
 @Component({
   selector: "Home",
   moduleId: module.id,
@@ -36,9 +38,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     private store: Store<IappState>,
     private actions: ProductActions,
     private searchActions: SearchActions,
-    private productService: ProductService) { }
+    private page: Page) { }
 
   ngOnInit() {
+    // using nativescript page events for destroying component after navigation.
+    this.page.on("navigatingFrom", (data) => {
+      this.ngOnDestroy();
+    });
+
     this.extractData();
     this.todaysDealsProduct();
   }
@@ -81,16 +88,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   todaysDealsProduct() {
-    let taxonomiesResponse: any;
-    this.products$ = this.productService.getTaxonByName("Today's Deals").pipe(
-      switchMap((response) => {
-        taxonomiesResponse = response;
-        if (taxonomiesResponse.count > 0 && taxonomiesResponse.taxonomies[0].root.id) {
-          return this.productService.getProductsByTaxonNP(taxonomiesResponse.taxonomies[0].root.id);
-        } else {
-          return [];
+    this.subscriptionList$.push(
+      this.store.select(getTodaysDealsId).subscribe((dealsId) => {
+        if (dealsId) {
+          this.store.dispatch(this.searchActions.getProductsByTaxon(dealsId));
         }
-      }));
+      })
+    );
+    this.products$ = this.store.select(getSearchedProducts);
   }
 
   ngOnDestroy() {

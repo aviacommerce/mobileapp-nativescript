@@ -1,3 +1,7 @@
-<ab-component></ab-component>
-<add-address *ngIf="shipAddress===null"></add-address>
-<delivery-address *ngIf="shipAddress" [address]="shipAddress"></delivery-address>
+<ab-component [showName]="'Delivery address'" [showBackArrow]=true></ab-component>
+<GridLayout>
+  <add-address *ngIf="shipAddress===null"></add-address>
+  <delivery-address *ngIf="shipAddress" [address]="shipAddress"></delivery-address>
+  <ActivityIndicator [busy]="isProcessing" backgroundColor="white" borderRadius="50"
+    color="green" width="50" height="50"></ActivityIndicator>
+</GridLayout>

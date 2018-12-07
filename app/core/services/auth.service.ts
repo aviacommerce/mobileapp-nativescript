@@ -1,4 +1,3 @@
-import { isPlatformBrowser } from "@angular/common";
 import { HttpClient, HttpHeaders, HttpRequest } from "@angular/common/http";
 import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
 import { Router } from "@angular/router";
@@ -18,8 +17,7 @@ export class AuthService {
     private actions: AuthActions,
     private store: Store<IappState>,
     private router: Router,
-    private checkOutService: CheckoutService,
-    @Inject(PLATFORM_ID) private platformId: object
+    private checkOutService: CheckoutService
   ) { }
 
   authorized(): Observable<{ status: string } & User> {
@@ -47,9 +45,7 @@ export class AuthService {
   logout() {
     return this.http.get("logout.json").pipe(
       map((res: Response) => {
-        if (isPlatformBrowser(this.platformId)) {
-          localStorage.clear();
-        }
+        localStorage.clear();
         this.store.dispatch(this.actions.logoutSuccess());
 
         return res;
@@ -72,7 +68,7 @@ export class AuthService {
   }
 
   getTokenHeader(request: HttpRequest<any>): HttpHeaders {
-    const userJson = isPlatformBrowser(this.platformId) ? localStorage.getItem("user") : "{}";
+    const userJson = localStorage.getItem("user") ? localStorage.getItem("user") : "{}";
 
     const user: User =
       ["undefined", null].indexOf(userJson) === -1
@@ -93,8 +89,6 @@ export class AuthService {
 
   private setTokenInLocalStorage(userData: object): void {
     const jsonData = JSON.stringify(userData);
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem("user", jsonData);
-    }
+    localStorage.setItem("user", jsonData);
   }
 }
