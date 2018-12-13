@@ -28,6 +28,7 @@ export class SearchBarComponent {
 
   searchBarLoaded(args) {
     const searchbar: SearchBar = <SearchBar>args.object;
+    searchbar._dialogClosed();
     if (!this.clearFocus) {
       if (isAndroid) {
         searchbar.android.clearFocus();

@@ -28,7 +28,7 @@ export class DeliveryAddressComponent implements OnInit, OnDestroy {
   itemTotal$: Observable<number>;
   shipTotal$: Observable<number>;
   adjustmentTotal$: Observable<number>;
-  currency = environment.config.currency_symbol;
+  currency = environment.config.currencySymbol;
   freeShippingAmount = environment.config.freeShippingAmount;
   orderState: string;
   subscriptionList$: Array<Subscription> = [];

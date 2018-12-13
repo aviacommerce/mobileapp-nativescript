@@ -21,7 +21,7 @@ export class CartComponent implements OnInit, OnDestroy {
   totalCartValue$: Observable<number>;
   shipTotal$: Observable<number>;
   itemTotal: number;
-  currency = environment.config.currency_symbol;
+  currency = environment.config.currencySymbol;
   isAuthenticated: boolean;
   orderState: string;
   subscriptionList$: Array<Subscription> = [];

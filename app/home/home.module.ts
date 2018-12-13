@@ -9,6 +9,8 @@ import { ProductEffects } from "~/product/effects/product.effects";
 import { SearchActions } from "~/search/action/search.actions";
 import { SearchEffects } from "~/search/effects/search.effects";
 import { SharedModule } from "~/shared/shared.module";
+import { CategoryMenuComponent } from "./components/category-menu/category-menu.component";
+import { SearchBoxComponent } from "./components/search-box/search-box.component";
 import { HomeRoutingModule } from "./home-routing.module";
 import { HomeComponent } from "./home.component";
 
@@ -24,7 +26,9 @@ import { HomeComponent } from "./home.component";
     SharedModule
   ],
   declarations: [
-    HomeComponent
+    HomeComponent,
+    SearchBoxComponent,
+    CategoryMenuComponent
   ],
   schemas: [
     NO_ERRORS_SCHEMA
