@@ -41,19 +41,34 @@
       color: $accent-dark;
     }
   }
-  .box {
-    font-weight: bold;
-    font-size: 15em;
-    background-color: $background-light;
-    margin: 3dpi;
-    padding: 5dpi;
-    height: 150vh;
-    background-repeat: no-repeat;
-    background-size: 75% 85%;
-    background-position: right bottom;
-    border-radius: 5dpi;
-  }
+
 }
+
+.box {
+  font-weight: bold;
+  font-size: 15em;
+  background-color: lightgray;
+  margin: 5 0 0 5;
+  height: 180;
+  position: left top;
+  border-radius: 5;
+  color: white; 
+  background-repeat: no-repeat;
+  background-size: 75% 90%;
+  background-position: right bottom;
+  padding-left: 10;
+  padding-bottom: 120%;
+  padding-top: 10;
+}
+
+.free-delivery{
+  font-weight: bold;
+  font-size: 15em;
+  color: "red";
+  background-color: yellow;
+
+}
+
 
 .promoimg {
   padding: 20dpi 4dpi;
@@ -95,30 +110,11 @@
   horizontal-align: center;
   vertical-align: center;
   color: $accent-dark;
-  font-size: 16;
+  font-size: 14;
   text-align: center;
-  font-weight: 400;
   text-transform: uppercase;
-}
-
-.actionBar .action-bar {
-  border-color: transparent !important;
-  border-width: 1 !important;
-}
-
-.searchbox {
-  border-color: $accent-dark;
-  border-radius: 5;
-  border-width: 1 1 1 1;
-  background-color: white;
 }
 
 .searchbox-back {
   background-color: $accent-dark;
-  border-color: $accent-dark;
-  border-width: 5 5 5 5;
-}
-
-StarRating {
-  transform: scale(0.2) translateX(-10%);
 }

@@ -1,5 +1,4 @@
 <ab-component [showBackArrow]=true></ab-component>
-<FlexLayout>
   <StackLayout>
     <sb-component [clearFocus]="clearFocus"></sb-component>
   </StackLayout>
@@ -31,13 +30,12 @@
       </ng-template>
     </ListView>
   </StackLayout>
-  <FlexLayout class="page" *ngIf="paginationData.total_count ===0">
+  <!-- <FlexLayout class="page" *ngIf="paginationData.total_count ===0">
     <StackLayout class="form">
       <Label class="h2" fontSize="18" horizontalAlignment="center" fontWeight="bold" text="Sorry, no result found!"></Label>
       <Image class="logo" src="~/assets/empty-cart.png"></Image>
       <Button text="Search Again!" class="btn btn-primary" (tap)="searchAgain()"></Button>
     </StackLayout>
-  </FlexLayout>
-  <ActivityIndicator [busy]="isProcessing" backgroundColor="white" borderRadius="50" color="green" width="50" height="50">
-  </ActivityIndicator>
-</FlexLayout>
+  </FlexLayout> -->
+  <!-- <ActivityIndicator [busy]="isProcessing" backgroundColor="white" borderRadius="50" color="green" width="50" height="50">
+  </ActivityIndicator> -->

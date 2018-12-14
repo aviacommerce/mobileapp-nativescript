@@ -1,24 +1,13 @@
 @import '../../../app-variables';
-.img-logo {
-  width: 35%;
-}
 
-.cart {
-  font-size: 25em;
-}
-
-.cart-items {
-  padding: 5px;
-  border-radius: 100px;
-  font-size: 10em;
-  background-color: #ae4700;
-  color: #fff;
-  text-align: center;
-  border-width: 2px;
-  border-color: white;
-}
+// ActionBar {
+//   background-color: $accent-dark;
+//   color: white;
+// }
 
 ActionBar {
+  border-width: 1;
+  border-color: transparent;
   background-color: $accent-dark;
   color: white;
 }

@@ -1,86 +1,21 @@
 <ab-component class="actionBar"></ab-component>
-<GridLayout [rows]="showHideLoginSignup(isAuthenticated$ | async)" *ngIf="taxonomies$ | async; let taxonomies">
-  <StackLayout row="0" *ngIf="taxonomies[0]?.root.taxons">
-    <!-- search box -->
-    <StackLayout class="searchbox-back">
-      <TextField (tap)="onSearchTapped()" hint=" &#xf002;   {{searchBoxplaceHolder}}" class="searchbox fa" [editable]="false"></TextField>
-    </StackLayout>
-    <ScrollView sdkExampleTitle sdkToggleNavButton orientation="vertical" scrollBarIndicatorVisible="false">
-      <FlexboxLayout flexDirection="column" class="container">
-        <StackLayout class="savetoday" orientation="horizontal">
-          <Label class="m-r-10 discount" text="Save 30% Today"></Label>
-          <Label class="autoship p-t-10" text="On Your First Autoship"> </Label>
-        </StackLayout>
-
-        <!-- Categories -->
-        <StackLayout class="shopby" orientation="horizontal">
-          <Label class="fa icon m-r-10" text="&#xf009;"></Label>
-          <Label text="Shop by Category"> </Label>
-        </StackLayout>
-        <StackLayout>
-          <ScrollView orientation="vertical">
-            <RadListView [items]="taxonomies[0]?.root.taxons">
-              <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" spanCount="2"></ListViewGridLayout>
-              <ng-template tkListItemTemplate let-item="item" let-odd="odd">
-                <StackLayout orientation="vertical">
-                  <Label (tap)="onSelectedCategory(item.id)" shadow="8" class="box" [backgroundImage]="categories[item.name].imageUrl"
-                    [text]="item.name"></Label>
-                </StackLayout>
-              </ng-template>
-            </RadListView>
-          </ScrollView>
-        </StackLayout>
-
-        <!-- Promo image -->
+<GridLayout [rows]="showHideLoginSignup(isAuthenticated$ | async)" backgroundColor="whitesmoke">
+  <StackLayout row="0" *ngIf="taxonomies$ | async; let taxonomies">
+    <StackLayout class="main-color" searchBox></StackLayout>
+    <ScrollView sdkExampleTitle sdkToggleNavButton scrollBarIndicatorVisible="false">
+      <FlexboxLayout flexDirection="column">
+        <StackLayout backgroundColor="white" categoryMenu [taxonomies]="taxonomies" 
+          (showCategory)="onSelectedCategory($event)"></StackLayout>
         <StackLayout class="promoimg">
           <Image src="{{promoImageUrl}}" stretch="aspectFill"></Image>
         </StackLayout>
-        <StackLayout class="promoimg" orientation="horizontal">
-          <Label class="typeofproduct fa" text="&#xf02b;"></Label>
-          <Label text=" Today's Deals"></Label>
-        </StackLayout>
-        <!-- Today's Deals -->
-
-        <StackLayout *ngIf="products$ | async; let products" class="m-b-20">
-          <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false">
-            <RadListView [items]="products">
-              <ListViewLinearLayout tkListViewLayout scrollDirection="Horizontal"></ListViewLinearLayout>
-              <ng-template let-product="item" let-i="index" let-odd="odd" let-even="even">
-                <StackLayout class="product-base" borderWidth="1" rows="*, *, *" columns="*, *" (tap)="productDetail(product.slug)">
-                  <StackLayout class="p-10">
-                    <StackLayout row="1" class="product-img">
-                      <Image [src]="product.product_url" stretch="aspectFit" height="200" width="70%" class="m-r-0"></Image>
-                    </StackLayout>
-                    <StackLayout row="2" class="m-t-5 m-b-5"></StackLayout>
-                    <StackLayout row="3" class="product-name my-4">
-                      <Label class="name" [text]="product.name"></Label>
-                    </StackLayout>
-                    <StackLayout row="4" class="product-price my-4">
-                      <Label>
-                        <FormattedString>
-                          <Span text="&#8377;"></Span>
-                          <Span text="{{product.price | number:'1.2-2'}}"></Span>
-                        </FormattedString>
-                      </Label>
-                    </StackLayout>
-                  </StackLayout>
-                  <StackLayout row="5" borderTopWidth="1" class="add-to">
-                    <Label text="Add to cart"></Label>
-                  </StackLayout>
-                </StackLayout>
-              </ng-template>
-            </RadListView>
-          </ScrollView>
-        </StackLayout>
+        <StackLayout productList [listHeading]="todaysDeals" [products]="products$ | async"></StackLayout>
       </FlexboxLayout>
     </ScrollView>
   </StackLayout>
-
-  <!-- Bottom links -->
-  <StackLayout row="1" orientation="horizontal" *ngIf="!(isAuthenticated$ | async)">
+  <StackLayout row="1" orientation="horizontal" *ngIf="!(isAuthenticated$ | async)" 
+    backgroundColor="white" borderTopWidth="1" borderColor="whitesmoke">
     <Label textWrap="true" class="login-label" (tap)="goToLogin()" text="Sign in" width="50%"> </Label>
     <Label textWrap="true" class="login-label" (tap)="goToSignup()" text="Create Account" width="50%"></Label>
   </StackLayout>
-  <ActivityIndicator id="myIndicator" [busy]="!taxonomies[0]?.root.taxons" backgroundColor="white" borderRadius="50"
-    color="green" width="50" height="50"></ActivityIndicator>
 </GridLayout>

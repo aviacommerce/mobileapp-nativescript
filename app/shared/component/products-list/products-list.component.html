@@ -1,0 +1,23 @@
+<GridLayout rows="40, *" backgroundColor="white" borderWidth="1" borderColor="lightgray" *ngIf="products">
+  <FlexboxLayout padding="5">
+    <Label class="fa" text="&#xf02b;" color="orange" fontSize="20"></Label>
+    <Label fontSize="16" [text]="listHeading"></Label>
+  </FlexboxLayout>
+  <ScrollView row="1" orientation="horizontal" class="container" scrollBarIndicatorVisible="false">
+    <StackLayout orientation="horizontal">
+      <StackLayout *ngFor="let product of products" padding="5">
+        <GridLayout rows="*, auto" width="150dpi" borderWidth="1" borderColor="lightgray" borderRadius="5"
+          backgroundColor="white">
+          <Image row="0" [src]="product.product_url" stretch="aspectFill" height="200dpi" class="m-r-2"></Image>
+          <StackLayout row="1" class="list-group-item" padding="5">
+            <Label class="product-name" [text]="product.name" textWrap="true"></Label>
+            <Label color="red" fontSize="16" text="{{currency}}{{product.price | number:'1.2-2'}}"></Label>
+          </StackLayout>
+          <!-- <StackLayout row="2" borderTopWidth="1" class="add-to">
+            <Label text="Add to cart"></Label>
+          </StackLayout> -->
+        </GridLayout>
+      </StackLayout>
+    </StackLayout>
+  </ScrollView>
+</GridLayout>
