@@ -1,13 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
+import { RouterExtensions } from "nativescript-angular/router";
 import { Observable, Subscription } from "rxjs";
 import { Page } from "tns-core-modules/ui/page/page";
 import { IappState } from "~/app.reducers";
 import { getAuthStatus } from "~/auth/reducers/selectors";
-import { CheckoutActions } from "~/checkout/actions/checkout.actions";
 import { Product } from "~/core/models/product";
-import { ProductService } from "~/core/services/product.service";
 import { environment } from "~/environments/environment";
 import { ProductActions } from "~/product/actions/product-actions";
 import { getTaxonomies, getTodaysDealsId } from "~/product/reducers/selectors";
@@ -32,9 +30,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   searchBoxplaceHolder = environment.config.searchBoxPlaceholder;
   promoImageUrl = environment.config.promoImageUrl;
   categories = environment.config.categories;
+  todaysDeals = "Today's Deals";
 
   constructor(
-    private router: Router,
+    private router: RouterExtensions,
     private store: Store<IappState>,
     private actions: ProductActions,
     private searchActions: SearchActions,
@@ -42,6 +41,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // using nativescript page events for destroying component after navigation.
+
     this.page.on("navigatingFrom", (data) => {
       this.ngOnDestroy();
     });
@@ -54,11 +54,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.store.dispatch(this.actions.getAllTaxonomies());
     this.taxonomies$ = this.store.select(getTaxonomies);
     this.isAuthenticated$ = this.store.select(getAuthStatus);
-  }
-
-  onSearchTapped() {
-    this.store.dispatch(this.searchActions.clearSearchedProducts(false));
-    this.router.navigate(["/search"], { queryParams: { clearFocus: false } });
   }
 
   onSelectedCategory(categoryId: number) {

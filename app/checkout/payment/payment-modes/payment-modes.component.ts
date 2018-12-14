@@ -37,7 +37,7 @@ export class PaymentModesComponent implements OnInit, OnDestroy {
   shipTotal$: Observable<number>;
   itemTotal$: Observable<number>;
   adjustmentTotal$: Observable<number>;
-  currency = environment.config.currency_symbol;
+  currency = environment.config.currencySymbol;
   orderSub$: Subscription;
   freeShippingAmount = environment.config.freeShippingAmount;
   isProcessing: boolean;

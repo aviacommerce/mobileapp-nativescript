@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { Routes } from "@angular/router";
+import { PreloadAllModules, Routes } from "@angular/router";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 
 const routes: Routes = [
@@ -28,10 +28,10 @@ const routes: Routes = [
     loadChildren: "./product/product.module#ProductModule",
     data: { preload: true, delay: true }
   }
-
 ];
 @NgModule({
-  imports: [NativeScriptRouterModule.forRoot(routes)],
+
+  imports: [NativeScriptRouterModule.forRoot(<any>routes, { preloadingStrategy: PreloadAllModules })],
   exports: [NativeScriptRouterModule]
 })
 export class AppRoutingModule { }

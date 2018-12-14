@@ -7,10 +7,14 @@
   font-family: "FontAwesome";
 }
 
-.actionbarbg {
-  background-color: $accent-dark;
-  color: $white
+.page-backcolor{
+  background-color: lightgray;
 }
+
+.main-color{
+  background-color: $accent-dark;
+}
+
 
 // Common page class
 .page-content {

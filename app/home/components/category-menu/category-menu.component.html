@@ -1,0 +1,28 @@
+<!-- <GridLayout *ngIf="!iOS">
+    <RadListView [items]="taxonomies[0]?.root.taxons" isUserInteractionEnabled ="false" backgroundColor="gray" borderRadios>
+      <ListViewGridLayout tkListViewLayout itemHeight=150% margin="1" spanCount="2"></ListViewGridLayout>
+      <ng-template let-category="item" let-i="index" let-odd="odd">
+        <StackLayout orientation="Vertical">
+          <Label class="box" [backgroundImage]="categories[category.name].imageUrl" [text]="category.name"></Label>
+        </StackLayout>
+      </ng-template>
+    </RadListView>
+  </GridLayout> -->
+<GridLayout rows="40, *" backgroundColor="white" *ngIf="taxonomies[0]?.root.taxons">
+  <FlexboxLayout padding="5">
+    <Label class="fa" text="&#xf009;" color="orange" fontSize="20"></Label>
+    <Label fontSize="16" text=" Shop By Category"></Label>
+  </FlexboxLayout>
+  <ScrollView row="1" orientation="horizontal" scrollBarIndicatorVisible="false">
+    <StackLayout orientation="horizontal" rowSpan="2">
+      <StackLayout *ngFor="let category of taxonomies[0]?.root.taxons" padding="3">
+        <GridLayout rows="*"  height="150" width="150" borderRadius="5" backgroundColor="white" paddingBottom="10">
+          <Label row="0" class="box" (tap)="onSelectedCategory(category.id)"
+            [backgroundColor]="categories[category.name].color" 
+            [backgroundImage]="categories[category.name].imageUrl" 
+            [text]="category.name"></Label>
+        </GridLayout>
+      </StackLayout>
+    </StackLayout>
+  </ScrollView>
+</GridLayout>

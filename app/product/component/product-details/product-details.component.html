@@ -21,7 +21,7 @@
                 </StackLayout>
                 <StackLayout width="50%" class="right" horizontalAlignment="right">
                   <Label class="price" [ngClass]="productDiscount ? 'line-through' : ''" horizontalAlignment="right"
-                    text="{{product.currency_symbol}}{{productMRP | number:'1.2-2'}}"></Label>
+                    text="{{product.currencySymbol}}{{productMRP | number:'1.2-2'}}"></Label>
                 </StackLayout>
               </StackLayout>
               <!-- Price -->
@@ -39,7 +39,7 @@
                   <Label class="h3" horizontalAlignment="left" text="You Save"></Label>
                 </StackLayout>
                 <StackLayout width="50%" class="right" horizontalAlignment="right">
-                  <Label class="price" horizontalAlignment="right" text="{{product.currency_symbol}}{{productDiscount}}({{discountPercent}})"></Label>
+                  <Label class="price" horizontalAlignment="right" text="{{product.currencySymbol}}{{productDiscount}}({{discountPercent}})"></Label>
                 </StackLayout>
               </StackLayout>
               <!-- variants -->
