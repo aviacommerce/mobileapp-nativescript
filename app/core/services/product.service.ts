@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
@@ -59,10 +59,10 @@ export class ProductService {
     return this.http.get<Array<Taxonomy>>(`api/v1/taxonomies?set=nested`);
   }
 
-  getProductsByTaxon(id: string): Observable<{ pagination: object, products: Array<Product> }> {
+  getProductsByTaxon(searchParams: HttpParams): Observable<{ pagination: object, products: Array<Product> }> {
     return this.http
       .get<{ data: Array<CJsonApi>; pagination: object }>(
-        `api/v1/taxons/products?id=${id}&per_page=20&data_set=small`
+        `api/v1/taxons/products?per_page=20&data_set=small`, { params: searchParams }
       )
       .pipe(
         map((resp) => {

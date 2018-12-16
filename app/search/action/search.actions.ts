@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 
 export class SearchActions {
   static GET_PRODUCTS_BY_KEYWORD = "GET_PRODUCTS_BY_KEYWORD";
@@ -7,6 +8,7 @@ export class SearchActions {
   static CLEAR_PRODUCTS = "CLEAR_PRODUCTS";
   static GET_SEARCHED_PRODUCTS = "GET_SEARCHED_PRODUCTS";
   static SEARCH_LOADER = "SEARCH_LOADER";
+  static RESET_LOADER = "RESET_LOADER";
 
   category: string;
 
@@ -24,10 +26,10 @@ export class SearchActions {
     };
   }
 
-  getProductsByTaxon(taxonId: number) {
+  getProductsByTaxon(searchParams: HttpParams) {
     return {
       type: SearchActions.GET_PRODUCTS_BY_TAXON,
-      payload: taxonId
+      payload: searchParams
     };
   }
 
@@ -53,6 +55,13 @@ export class SearchActions {
     return {
       type: SearchActions.CLEAR_PRODUCTS,
       payload: showLoader
+    };
+  }
+
+  resetLoader(loaderState: boolean) {
+    return {
+      type: SearchActions.RESET_LOADER,
+      payload: loaderState
     };
   }
 }

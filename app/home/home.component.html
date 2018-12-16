@@ -4,8 +4,9 @@
     <StackLayout class="main-color" searchBox></StackLayout>
     <ScrollView sdkExampleTitle sdkToggleNavButton scrollBarIndicatorVisible="false">
       <FlexboxLayout flexDirection="column">
-        <StackLayout backgroundColor="white" categoryMenu [taxonomies]="taxonomies" 
-          (showCategory)="onSelectedCategory($event)"></StackLayout>
+        <ScrollView>
+          <StackLayout backgroundColor="white" categoryMenu [taxonomies]="taxonomies" (showCategory)="onSelectedCategory($event)"></StackLayout>
+        </ScrollView>
         <StackLayout class="promoimg">
           <Image src="{{promoImageUrl}}" stretch="aspectFill"></Image>
         </StackLayout>
@@ -13,9 +14,12 @@
       </FlexboxLayout>
     </ScrollView>
   </StackLayout>
-  <StackLayout row="1" orientation="horizontal" *ngIf="!(isAuthenticated$ | async)" 
-    backgroundColor="white" borderTopWidth="1" borderColor="whitesmoke">
+  <StackLayout row="1" orientation="horizontal" *ngIf="!(isAuthenticated$ | async)" backgroundColor="white"
+    borderTopWidth="1" borderColor="whitesmoke">
     <Label textWrap="true" class="login-label" (tap)="goToLogin()" text="Sign in" width="50%"> </Label>
     <Label textWrap="true" class="login-label" (tap)="goToSignup()" text="Create Account" width="50%"></Label>
   </StackLayout>
+  <!-- <ActivityIndicator [busy]="!(taxonomies$ | async)[0]?.root.taxons" backgroundColor="white" borderRadius="50" color="green" width="50"
+    height="50">
+  </ActivityIndicator> -->
 </GridLayout>

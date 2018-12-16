@@ -9,7 +9,7 @@ import { environment } from "~/environments/environment";
 import { SearchActions } from "~/search/action/search.actions";
 
 @Component({
-  selector: "sb-component",
+  selector: "sb-component, [searchBar]",
   moduleId: module.id,
   templateUrl: "./searchbar-component.html",
   styleUrls: ["./searchbar-component.scss"],
@@ -18,7 +18,8 @@ import { SearchActions } from "~/search/action/search.actions";
 
 export class SearchBarComponent {
 
-  @Input() clearFocus: boolean;
+  @Input() clearFocus1: boolean;
+  searchBar: any;
 
   searchBoxPlaceholder = environment.config.searchBoxPlaceholder;
 
@@ -27,25 +28,25 @@ export class SearchBarComponent {
     private searchActions: SearchActions) { }
 
   searchBarLoaded(args) {
-    const searchbar: SearchBar = <SearchBar>args.object;
-    searchbar._dialogClosed();
-    if (!this.clearFocus) {
+    this.searchBar = <SearchBar>args.object;
+    this.searchBar._dialogClosed();
+    if (!this.clearFocus1) {
       if (isAndroid) {
-        searchbar.android.clearFocus();
-      } else if (isIOS) {
-        searchbar.ios.clearFocus();
+        this.searchBar.android.clearFocus();
       }
     }
   }
 
   onSubmit(args) {
-    const searchBar = <SearchBar>args.object;
+    this.searchBar = <SearchBar>args.object;
     let searchParams = new HttpParams();
-    searchParams = searchParams.set("q[name_cont_any]", searchBar.text);
+    searchParams = searchParams.set("q[name_cont_any]", this.searchBar.text);
     this.store.dispatch(this.searchActions.clearSearchedProducts(true));
     this.store.dispatch(this.searchActions.getProductsByKeyword(searchParams));
+    if (isAndroid) {
+      this.searchBar.android.clearFocus();
+    }
     this.router.navigate(["/search"], { queryParams: { keywordSearchParams: searchParams.toString() } });
-    searchBar.android.clearFocus();
   }
 
   onClear() {

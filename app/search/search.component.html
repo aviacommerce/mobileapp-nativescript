@@ -1,41 +1,45 @@
 <ab-component [showBackArrow]=true></ab-component>
-  <StackLayout>
-    <sb-component [clearFocus]="clearFocus"></sb-component>
-  </StackLayout>
-  <StackLayout class="list" *ngIf="products">
-    <ListView [items]="products" class="list-group" (loadMoreItems)="loadItems()">
-      <ng-template let-product="item" let-i="index" let-odd="odd" let-even="even">
-        <GridLayout borderBottomWidth="1" class="product-base" rows="*, *, *" columns="*, *" (tap)="viewProduct(product.slug)">
-          <StackLayout col="0" class="imgcontainer" width="40%">
-            <Image [src]="product.product_url" stretch="aspectFit" height="120" class="m-r-20"></Image>
-            <Label text="More Choices Avialable" class="more"></Label>
+<GridLayout rows="50, *" columns="*">
+  <StackLayout row="0" searchBar [clearFocus1]="clearFocus"></StackLayout>
+  <FlexboxLayout row="1" *ngIf="products && paginationData.total_count !==0 ">
+    <ListView class="list-group" [items]="products" separatorColor="white">
+      <ng-template let-product="item" let-third="third">
+        <GridLayout class="list-group-item" rows="*" columns="auto, *">
+          <StackLayout col="0" class="imgcontainer" width="32%">
+            <Image [src]="product.product_url" class="thumb" height="110" width="70"></Image>
+            <Label class="more" text="More Choices Avialable"></Label>
           </StackLayout>
-          <StackLayout col="1" colSpan="2" width="90%">
-            <Label [text]="product.name" class="product-name"></Label>
-            <Label col="1" class="product-price">
+          <StackLayout col="1" borderBottomWidth="1" borderColor="whitesmoke">
+            <Label class="product-name" [text]="product.name"></Label>
+            <Label class="product-price" text="{{currency}}{{product.price | number:'1.2-2'}}"></Label>
+            <Label>
               <FormattedString>
-                <Span text="&#8377;"></Span>
-                <Span [text]="product.price"></Span>
+                <Span fontWeight="BOLD" class="free-ship" text="Free 1-2 day"></Span>
+                <Span class="free-ship" text=" shipping Over {{currency}}{{freeShipping}}"></Span>
               </FormattedString>
             </Label>
-            <Label text="30% Off First Item" horizontalAlignment="left" class="off"></Label>
-            <Label class="free-ship m-b-5 m-t-5" borderTopWidth="1" borderBottomWidth="1">
-              <FormattedString>
-                <Span class="free" text="Free 1-2 day "></Span>
-                <Span text="Shipping Over 699"></Span>
-              </FormattedString>
-            </Label>
+            <!-- rating -->
+            <!-- <FlexboxLayout isUserInteractionEnabled="false" class="rating" paddingBottom="10">
+            <StarRating isUserInteractionEnabled="false"
+              emptyBorderColor="gold" 
+              emptyColor="white" 
+              filledBorderColor="gold" 
+              filledColor="orange" value="{{product.avg_rating}}" max="5">
+            </StarRating>
+            </FlexboxLayout> -->
           </StackLayout>
         </GridLayout>
       </ng-template>
     </ListView>
-  </StackLayout>
-  <!-- <FlexLayout class="page" *ngIf="paginationData.total_count ===0">
-    <StackLayout class="form">
-      <Label class="h2" fontSize="18" horizontalAlignment="center" fontWeight="bold" text="Sorry, no result found!"></Label>
+  </FlexboxLayout>
+  <StackLayout class="page" row="1" *ngIf="paginationData.total_count === 0">
+    <FlexLayout class="form">
+      <Label fontSize="16" horizontalAlignment="center" text="Sorry, no result found!"></Label>
       <Image class="logo" src="~/assets/empty-cart.png"></Image>
-      <Button text="Search Again!" class="btn btn-primary" (tap)="searchAgain()"></Button>
-    </StackLayout>
-  </FlexLayout> -->
-  <!-- <ActivityIndicator [busy]="isProcessing" backgroundColor="white" borderRadius="50" color="green" width="50" height="50">
-  </ActivityIndicator> -->
+      <Button text="Search Again!" class="btn btn-primary btn-active" (tap)="searchAgain()"></Button>
+    </FlexLayout>
+  </StackLayout>
+  <ActivityIndicator row="1" [busy]="isProcessing" backgroundColor="white" borderRadius="50" color="green" width="50"
+    height="50">
+  </ActivityIndicator>
+</GridLayout>

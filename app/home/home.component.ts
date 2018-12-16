@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { RouterExtensions } from "nativescript-angular/router";
 import { Observable, Subscription } from "rxjs";
@@ -11,6 +12,7 @@ import { ProductActions } from "~/product/actions/product-actions";
 import { getTaxonomies, getTodaysDealsId } from "~/product/reducers/selectors";
 import { SearchActions } from "~/search/action/search.actions";
 import { getSearchedProducts } from "~/search/reducers/selectors";
+import { HttpParams } from '@angular/common/http';
 @Component({
   selector: "Home",
   moduleId: module.id,
@@ -34,10 +36,15 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: RouterExtensions,
+    private routerE: Router,
     private store: Store<IappState>,
     private actions: ProductActions,
     private searchActions: SearchActions,
-    private page: Page) { }
+    private page: Page) {
+    this.routerE.routeReuseStrategy.shouldReuseRoute = (_) => {
+      return false;
+    };
+  }
 
   ngOnInit() {
     // using nativescript page events for destroying component after navigation.
@@ -59,7 +66,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   onSelectedCategory(categoryId: number) {
     this.router.navigate(["/search"], { queryParams: { id: categoryId } });
     this.store.dispatch(this.searchActions.clearSearchedProducts(true));
-    this.store.dispatch(this.searchActions.getProductsByTaxon(categoryId));
+    let searchParams = new HttpParams();
+    searchParams = searchParams.set("id", `${categoryId}`);
+    this.store.dispatch(this.searchActions.getProductsByTaxon(searchParams));
   }
 
   showHideLoginSignup(isAuthenticated) {
@@ -86,7 +95,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.subscriptionList$.push(
       this.store.select(getTodaysDealsId).subscribe((dealsId) => {
         if (dealsId) {
-          this.store.dispatch(this.searchActions.getProductsByTaxon(dealsId));
+          let searchParams = new HttpParams();
+          searchParams = searchParams.set("id", `${dealsId}`);
+          this.store.dispatch(this.searchActions.getProductsByTaxon(searchParams));
         }
       })
     );

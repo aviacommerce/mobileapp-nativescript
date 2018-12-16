@@ -1,73 +1,38 @@
 @import '../app-variables';
 
-.result-count {
-  padding: 10dpi 5dpi;
-  text-align: left;
-  background-color: $gray-200;
-  border-radius: 3dpi;
+.imgcontainer {
+  text-align: center;
+  .more {
+    white-space: normal;
+    word-wrap: break-word;
+    text-align: center;
+    font-size: 12em;
+  }
 }
 
-.list {
-  padding-top: 50dpi;
-  box-shadow: 10;
-  
-  .product-base {
-    border-bottom-width: 1px;
-    border-bottom-color: $gray-10;
-    padding: 10dpi;
-    height: auto;
-    background-color: $background-light;
+.product-name {
+  font-size: 15em;
+  color: $secondary;
+  white-space: normal;
+  word-wrap: break-word;
+  padding-bottom: 10;
+}
 
-    .imgcontainer {
-      text-align: center;
+.product-price {
+  margin-top: 0.4em;
+  text-align: left;
+  font-size: 16em;
+  color: $action-price-color;
+  padding-bottom: 10;
+}
 
-      .more {
-        white-space: normal;
-        word-wrap: break-word;
-        text-align: center;
-      }
-    }
+.free-ship {
+  font-size: 10em;
+  padding-bottom: 10;
+}
 
-    .product-name {
-      font-size: 15em;
-      color: $secondary;
-      white-space: normal;
-      word-wrap: break-word;
-    }
-
-    .product-price {
-      white-space: normal;
-      word-wrap: break-word;
-      margin-top: 0.4em;
-      text-align: left;
-      font-size: 20em;
-      color: $action-price-color;
-    }
-
-    .off {
-      background-color: $success-dark;
-      padding: 2dpi;
-      border-radius: 5dpi;
-      width: 300px;
-      text-align: center;
-      font-size: 10em;
-    }
-
-    .free-ship {
-      display: block;
-      padding: 5dpi 0;
-      border-bottom-width: 1px;
-      border-bottom-color: $gray-10;
-      border-top-width: 1px;
-      border-top-color: $gray-10;
-      font-size: 10em;
-
-      .free {
-        font-weight: bold;
-        margin-right: 2dpi;
-      }
-    }
-  }
+.rating {
+  padding-bottom: 10;
 }
 
 .form {
@@ -79,13 +44,13 @@
 
 .logo {
   margin-bottom: 12;
-  height: 90;
+  height: 120;
   font-weight: bold;
   margin-top: 50;
 }
 
 .page {
+  padding-top: 50;
   align-items: center;
   flex-direction: column;
 }
-

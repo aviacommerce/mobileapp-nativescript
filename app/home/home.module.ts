@@ -13,7 +13,6 @@ import { CategoryMenuComponent } from "./components/category-menu/category-menu.
 import { SearchBoxComponent } from "./components/search-box/search-box.component";
 import { HomeRoutingModule } from "./home-routing.module";
 import { HomeComponent } from "./home.component";
-
 @NgModule({
   imports: [
     NativeScriptCommonModule,

@@ -8,7 +8,7 @@
       <StackLayout *ngFor="let product of products" padding="5">
         <GridLayout rows="*, auto" width="150dpi" borderWidth="1" borderColor="lightgray" borderRadius="5"
           backgroundColor="white">
-          <Image row="0" [src]="product.product_url" stretch="aspectFill" height="200dpi" class="m-r-2"></Image>
+          <Image row="0" paddingTop="5" ,  [src]="product.product_url" stretch="aspectFit" height="160dpi" class="m-t-2"></Image>
           <StackLayout row="1" class="list-group-item" padding="5">
             <Label class="product-name" [text]="product.name" textWrap="true"></Label>
             <Label color="red" fontSize="16" text="{{currency}}{{product.price | number:'1.2-2'}}"></Label>

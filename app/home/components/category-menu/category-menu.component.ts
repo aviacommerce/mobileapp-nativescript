@@ -26,6 +26,6 @@ export class CategoryMenuComponent implements OnInit {
   }
 
   onSelectedCategory(categoryId: number) {
-    // this.showCategory.emit(categoryId);
+    this.showCategory.emit(categoryId);
   }
 }
