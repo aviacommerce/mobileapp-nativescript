@@ -8,7 +8,7 @@
 android {  
   defaultConfig {  
     generatedDensities = []
-    applicationId = "org.nativescript.ofypetsapp"  
+    applicationId = "org.nativescript.ofypets"  
   }  
   aaptOptions {  
     additionalParameters "--no-version-vectors"  

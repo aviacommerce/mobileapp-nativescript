@@ -30,6 +30,11 @@ export function reducer(state = initialState, { type, payload }: any): IsearchSt
         paginationData: {}
       }) as IsearchState;
 
+      case SearchActions.RESET_LOADER:
+      return state.merge({
+        productsLoader: payload
+      }) as IsearchState;
+
     default:
       return state;
   }

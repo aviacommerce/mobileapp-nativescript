@@ -14,6 +14,7 @@ import { VariantParserService } from "~/core/services/variant-parser.service";
 import { VariantRetriverService } from "~/core/services/variant-retriver.service";
 import { SearchActions } from "~/search/action/search.actions";
 import { getSearchedProducts } from "~/search/reducers/selectors";
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   moduleId: module.id,
@@ -115,8 +116,10 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   similarProductsList(selectedProduct: Product) {
     if (this.product.taxon_ids[0]) {
+      let searchParams = new HttpParams();
+      searchParams = searchParams.set("id", `${this.product.taxon_ids[0]}`);
       this.store.dispatch(
-        this.searchActions.getProductsByTaxon(selectedProduct.taxon_ids[0])
+        this.searchActions.getProductsByTaxon(searchParams)
       );
       this.similarProducts$ = this.store.select(getSearchedProducts);
     }
