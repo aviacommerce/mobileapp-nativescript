@@ -4,7 +4,7 @@
   <FlexboxLayout row="1" *ngIf="products && paginationData.total_count !==0 ">
     <ListView class="list-group" [items]="products" separatorColor="white">
       <ng-template let-product="item" let-third="third">
-        <GridLayout class="list-group-item" rows="*" columns="auto, *">
+        <GridLayout class="list-group-item" rows="*" columns="auto, *" (tap)="viewProduct(product.slug)">
           <StackLayout col="0" class="imgcontainer" width="32%">
             <Image [src]="product.product_url" class="thumb" height="110" width="70"></Image>
             <Label class="more" text="More Choices Avialable"></Label>

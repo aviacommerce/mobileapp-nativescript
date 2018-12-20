@@ -1,4 +1,5 @@
-<ab-component [showName]="'Delivery address'" [showBackArrow]=true></ab-component>
+<ab-component *ngIf="shipAddress===null" [showName]="'Add Address'" [showBackArrow]=true></ab-component>
+<ab-component *ngIf="shipAddress" [showName]="'Order Summary'" [showBackArrow]=true></ab-component>
 <GridLayout>
   <add-address *ngIf="shipAddress===null"></add-address>
   <delivery-address *ngIf="shipAddress" [address]="shipAddress"></delivery-address>

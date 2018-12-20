@@ -5,7 +5,6 @@ import { SharedModule } from "~/shared/shared.module";
 import { CartRoutingModule } from "./cart-routing.module";
 import { CartComponent } from "./cart.component";
 import { LineItemListComponent } from "./line-item-list/line-item-list.component";
-import { LineItemComponent } from "./line-item-list/line-item/line-item.component";
 @NgModule({
   imports: [
     NativeScriptCommonModule,
@@ -15,8 +14,7 @@ import { LineItemComponent } from "./line-item-list/line-item/line-item.componen
   ],
   declarations: [
     CartComponent,
-    LineItemListComponent,
-    LineItemComponent
+    LineItemListComponent
   ],
   schemas: [
     NO_ERRORS_SCHEMA

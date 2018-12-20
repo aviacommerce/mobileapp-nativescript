@@ -1,9 +1,10 @@
+import { HttpParams } from "@angular/common/http";
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { RouterExtensions } from "nativescript-angular/router";
 import { Observable, Subscription } from "rxjs";
-import { Page } from "tns-core-modules/ui/page/page";
+import { isIOS, Page } from "tns-core-modules/ui/page/page";
 import { IappState } from "~/app.reducers";
 import { CheckoutActions } from "~/checkout/actions/checkout.actions";
 import { Product } from "~/core/models/product";
@@ -14,7 +15,6 @@ import { VariantParserService } from "~/core/services/variant-parser.service";
 import { VariantRetriverService } from "~/core/services/variant-retriver.service";
 import { SearchActions } from "~/search/action/search.actions";
 import { getSearchedProducts } from "~/search/reducers/selectors";
-import { HttpParams } from '@angular/common/http';
 
 @Component({
   moduleId: module.id,
@@ -38,8 +38,9 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   isProductOderable: boolean;
   discription: string;
   similarProducts$: Observable<any>;
+  isIos = isIOS;
 
-  // Varinats
+  // Variants
   customOptionTypesHash: any;
   currentSelectedOptions = {};
   mainOptions: any;

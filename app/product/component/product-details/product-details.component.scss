@@ -1,134 +1,169 @@
 @import '../../../app-variables';
-.result-count {
-  padding: 10dpi 5dpi;
-  text-align: left;
-  background-color: $gray-200;
-  border-radius: 3dpi;
+// .result-count {
+//   padding: 10dpi 5dpi;
+//   text-align: left;
+//   background-color: $gray-200;
+//   border-radius: 3dpi;
+// }
+// .list {
+//   padding-top: 40dpi;
+//   .product-base {
+//     border-bottom-width: 1px;
+//     border-bottom-color: $gray-10;
+//     background-color: $white;
+//     padding: 10dpi;
+//     height: auto;
+//     background-color: $background-light;
+//     border-radius: 5dpi;
+//     .imgcontainer {
+//       text-align: center;
+//       .more {
+//         white-space: normal;
+//         word-wrap: break-word;
+//         text-align: center;
+//       }
+//     }
+//     .product-name {
+//       font-size: 15em;
+//       color: $secondary;
+//       white-space: normal;
+//       word-wrap: break-word;
+//     }
+//     .product-price {
+//       white-space: normal;
+//       word-wrap: break-word;
+//       margin-top: 0.4em;
+//       text-align: left;
+//       font-size: 20em;
+//       color: $action-price-color;
+//     }
+//     .off {
+//       background-color: $success-dark;
+//       padding: 2dpi;
+//       border-radius: 5dpi;
+//       width: 300px;
+//       text-align: center;
+//       font-size: 10em;
+//     }
+//     .free-ship {
+//       display: block;
+//       padding: 5dpi 0;
+//       border-bottom-width: 1px;
+//       border-bottom-color: $gray-10;
+//       border-top-width: 1px;
+//       border-top-color: $gray-10;
+//       font-size: 10em;
+//       .free {
+//         font-weight: bold;
+//         margin-right: 2dpi;
+//       }
+//     }
+//   }
+// }
+// .product-base {
+//   width: 450px;
+//   border-radius: 7px;
+//   border-color: $gray-10;
+//   margin: 6dpi;
+//   height: auto;
+//   .product-img {
+//     text-align: center
+//   }
+//   }
+//   .product-price {
+//     font-size: 20dpi;
+//     color: $action-price-color
+//   }
+//   .add-to {
+//     border-color: $gray-10;
+//     padding: 10;
+//     text-align: center;
+//     color: $action-color;
+//   }
+// }
+// .product-json {
+//   text-overflow: normal;
+//   white-space: normal
+// }
+// .product-detail {
+//   .price {
+//     font-size: 20dpi;
+//     color: $action-price-color;
+//     text-emphasis: none;
+//     white-space: normal;
+//   }
+//   .btn-primary {
+//     border-radius: 10px;
+//     width: 96%;
+//     margin: 10px;
+//     border-color: $accent-dark;
+//     color: $white;
+//     border-width: 5,5,5,5;
+//   }
+//   .btn-outofstock {
+//     background-color: gray;
+//     border-radius: 10px;
+//     width: 96%;
+//     margin: 10px;
+//     border-color: gray;
+//     color: $white;
+//     border-width: 5,5,5,5;
+//   }
+//   .line-through {
+//     color: black;
+//     text-decoration: line-through; 
+//   }
+// }
+.product-name {
+  font-size: 15em;
+  color: $secondary;
+  white-space: normal;
+  word-wrap: break-word;
+  padding-bottom: 10;
 }
 
-.list {
-  padding-top: 40dpi;
-  .product-base {
-    border-bottom-width: 1px;
-    border-bottom-color: $gray-10;
-    background-color: $white;
-    padding: 10dpi;
-    height: auto;
-    background-color: $background-light;
-    border-radius: 5dpi;
-    .imgcontainer {
-      text-align: center;
-      .more {
-        white-space: normal;
-        word-wrap: break-word;
-        text-align: center;
-      }
-    }
-    .product-name {
-      font-size: 15em;
-      color: $secondary;
-      white-space: normal;
-      word-wrap: break-word;
-    }
-    .product-price {
-      white-space: normal;
-      word-wrap: break-word;
-      margin-top: 0.4em;
-      text-align: left;
-      font-size: 20em;
-      color: $action-price-color;
-    }
-    .off {
-      background-color: $success-dark;
-      padding: 2dpi;
-      border-radius: 5dpi;
-      width: 300px;
-      text-align: center;
-      font-size: 10em;
-    }
-    .free-ship {
-      display: block;
-      padding: 5dpi 0;
-      border-bottom-width: 1px;
-      border-bottom-color: $gray-10;
-      border-top-width: 1px;
-      border-top-color: $gray-10;
-      font-size: 10em;
-      .free {
-        font-weight: bold;
-        margin-right: 2dpi;
-      }
-    }
-  }
+.price {
+  font-size: 16em;
+  color: $action-price-color;
+  text-emphasis: none;
+  white-space: normal;
 }
 
-.product-base {
-  width: 450px;
-  border-radius: 7px;
-  border-color: $gray-10;
-  margin: 6dpi;
-  height: auto;
-  .product-img {
-    text-align: center
-  }
-  .product-name {
-    font-size: 15em;
-    color: $secondary;
-    .name {
-      white-space: normal;
-      word-wrap: break-word;
-      height: 160px;
-    }
-  }
-  .product-price {
-    font-size: 20dpi;
-    color: $action-price-color
-  }
-  .add-to {
-    border-color: $gray-10;
-    padding: 10;
-    text-align: center;
-    color: $action-color;
-  }
+.line-through {
+  font-size: 16em;
+  color: gray;
+  text-decoration: line-through;
+  text-emphasis: none;
+  white-space: normal;
 }
 
-.product-json {
-  text-overflow: normal;
-  white-space: normal
+.price-save {
+  font-size: 16em;
+  color: green;
+  text-emphasis: none;
+  white-space: normal;
 }
 
-.product-detail {
-  .price {
-    font-size: 20dpi;
-    color: $action-price-color;
-    text-emphasis: none;
-    white-space: normal;
-  }
-  .btn-primary {
-    border-radius: 10px;
-    width: 96%;
-    margin: 10px;
-    border-color: $accent-dark;
-    color: $white;
-    border-width: 5,5,5,5;
-  }
-  .btn-outofstock {
-    background-color: gray;
-    border-radius: 10px;
-    width: 96%;
-    margin: 10px;
-    border-color: gray;
-    color: $white;
-    border-width: 5,5,5,5;
-  }
-  .line-through {
-    color: black;
-    text-decoration: line-through; 
-  }
+.btn-primary {
+  border-radius: 10px;
+  margin: 10px;
+  border-color: $accent-dark;
+  color: $white;
+  width: 90%;
+  height: 50%;
 }
 
-.icon {
-  color: orange;
-  margin-top: 2dpi;
-  font-size: 28em;
+.btn-outofstock {
+  background-color: gray;
+  border-radius: 10px;
+  margin: 10px;
+  color: $white;
+  width: 90%;
+  height: 50%;
+}
+
+.discription {
+  padding: 10;
+  white-space: normal;
+  word-wrap: break-word;
 }

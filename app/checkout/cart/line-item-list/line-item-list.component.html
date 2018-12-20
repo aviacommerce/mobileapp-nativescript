@@ -1,19 +1,28 @@
 <GridLayout>
-  <FlexLayout class="lineitem prod-item" *ngIf="lineItems">
-    <StackLayout class="savetoday" orientation="horizontal">
-      <Label class="m-r-10 discount" text="Save 30% Today"></Label>
-      <Label class="autoship p-t-10" text="On Your First Autoship"> </Label>
+  <ScrollView>
+    <StackLayout>
+      <StackLayout *ngFor="let lineitem of lineItems; let i=index" padding="10">
+        <GridLayout rows="*" columns="auto, *" borderWidth="1" borderRadius="5" borderColor="whitesmoke"
+          backgroundColor="white">
+          <StackLayout col="0" class="imgcontainer" width="32%" paddingTop="20">
+            <Image [src]="lineitem.variant.images[0].product_url" stretch="aspectFit" height="75%" width="80%"></Image>
+          </StackLayout>
+          <StackLayout col="1">
+            <Label (tap)="removeLineItem(i)" class="fa remove" text="&#xf00d;"></Label>
+            <Label class="product-name" [text]="lineitem.variant.name" class="product-name"></Label>
+            <Label *ngIf="lineitem.variant.options_text" [text]="lineitem.variant.options_text" paddingBottom="10"></Label>
+            <Label class="product-price" [text]="lineitem.display_amount"></Label>
+            <StackLayout col="1" orientation="horizontal" paddingBottom="10">
+              <Label (tap)="addQuantity(i)" class="actionbtn fa" text="&#xf067;"></Label>
+              <Label [text]="lineitem.quantity" class="quantity"></Label>
+              <Label (tap)="removeQuantity(i)" class="actionbtn fa" [ngClass]="lineitem.quantity===1 ? 'passivebtn' : ''"
+                text="&#xf068;"></Label>
+            </StackLayout>
+          </StackLayout>
+        </GridLayout>
+      </StackLayout>
+      <ActivityIndicator *ngIf="lineItems" [busy]="lineItems.length === 0" backgroundColor="white" borderRadius="50"
+        color="green" width="50" height="50"></ActivityIndicator>
     </StackLayout>
-    <StackLayout class="p-t-0"> </StackLayout>
-    <ScrollView orientation="Vertical">
-      <RadListView [items]="lineItems">
-        <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" spanCount="1"></ListViewGridLayout>
-        <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
-          <line-item [lineItem]="item"></line-item>
-        </ng-template>
-      </RadListView>
-    </ScrollView>
-  </FlexLayout>
-  <ActivityIndicator id="myIndicator" [busy]="isProcessing" backgroundColor="white" borderRadius="50" color="green"
-    width="50" height="50"></ActivityIndicator>
+  </ScrollView>
 </GridLayout>

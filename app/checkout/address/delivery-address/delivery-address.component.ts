@@ -23,11 +23,11 @@ import { environment } from "~/environments/environment";
 
 export class DeliveryAddressComponent implements OnInit, OnDestroy {
   @Input() address: Address;
-  totalCartValue$: Observable<number>;
-  totalCartItems$: Observable<number>;
-  itemTotal$: Observable<number>;
-  shipTotal$: Observable<number>;
-  adjustmentTotal$: Observable<number>;
+  totalCartValue: number;
+  totalCartItems: number;
+  itemTotal: number;
+  shipTotal: number;
+  adjustmentTotal: number;
   currency = environment.config.currencySymbol;
   freeShippingAmount = environment.config.freeShippingAmount;
   orderState: string;
@@ -40,18 +40,24 @@ export class DeliveryAddressComponent implements OnInit, OnDestroy {
     private page: Page) { }
 
   ngOnInit() {
-
     this.page.on("navigatingFrom", (data) => {
       this.ngOnDestroy();
     });
 
-    this.totalCartValue$ = this.store.select(getTotalCartValue);
-    this.totalCartItems$ = this.store.select(getTotalCartItems);
-    this.shipTotal$ = this.store.select(getShipTotal);
-    this.itemTotal$ = this.store.select(getItemTotal);
-    this.adjustmentTotal$ = this.store.select(getAdjustmentTotal);
-
     this.subscriptionList$.push(
+      this.store.select(getTotalCartValue)
+        .subscribe((totalCartValue) => this.totalCartValue = totalCartValue),
+
+      this.store.select(getTotalCartItems)
+        .subscribe((totalCartItems) => this.totalCartItems = totalCartItems),
+
+      this.store.select(getShipTotal).subscribe((shipTotal) => this.shipTotal = +shipTotal),
+
+      this.store.select(getItemTotal).subscribe((itemTotal) => this.itemTotal = itemTotal),
+
+      this.store.select(getAdjustmentTotal)
+        .subscribe((adjustmentTotal) => this.adjustmentTotal = adjustmentTotal),
+
       this.store.select(getOrderState).subscribe((state) => this.orderState = state)
     );
 
@@ -74,6 +80,10 @@ export class DeliveryAddressComponent implements OnInit, OnDestroy {
     } else {
       this.router.navigate(["/checkout", "payment"]);
     }
+  }
+
+  editAddress(address: Address) {
+    //
   }
 
   ngOnDestroy() {
