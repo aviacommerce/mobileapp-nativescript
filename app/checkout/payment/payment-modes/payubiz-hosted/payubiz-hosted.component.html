@@ -1,11 +1,12 @@
-<StackLayout class="p-10">
-  <Label class="payhead label" fontSize="14" fontWeight="bold" text="Card Payment Using PayUbiz"></Label>
-  <Label class="paytext label" fontSize="13" text="We will Not save your card details."></Label>
-</StackLayout>
-<StackLayout row="1" class="hr-light m-t-5 m-b-5"></StackLayout>
-<StackLayout class="p-10">
-  <Label class="payhead label m-t-20" fontSize="14" fontWeight="bold" text="NOTE: After clicking pay button you will be redirected to payUbiz"></Label>
-</StackLayout>
-<StackLayout>
-  <Button text="Pay Now" class="btn btn-primary m-t-20"></Button>
-</StackLayout>
+<GridLayout>
+  <StackLayout>
+    <StackLayout borderBottomWidth="1" borderColor="whitesmoke">
+      <Label class="payhead" text="Card Payment Using PayUbiz"></Label>
+    </StackLayout>
+    <Label class="paytext" text="We will Not save your card details."></Label>
+    <Label class="paytext" fontWeight="bold" text="NOTE: After clicking pay button you will be redirected to payUbiz"></Label>
+    <StackLayout paddingTop="10">
+      <Button text="Pay Now" class="btn btn-primary btn-active"></Button>
+    </StackLayout>
+  </StackLayout>
+</GridLayout>

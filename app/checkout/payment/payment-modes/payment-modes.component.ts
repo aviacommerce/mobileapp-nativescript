@@ -31,12 +31,11 @@ export class PaymentModesComponent implements OnInit, OnDestroy {
   orderAmount: number;
   orderNumber: number;
   isAuthenticated: boolean;
-  totalCartValue$: Observable<number>;
-  totalCartItems$: Observable<number>;
+  totalCartItems: number;
   orderNumber$: Observable<number>;
-  shipTotal$: Observable<number>;
-  itemTotal$: Observable<number>;
-  adjustmentTotal$: Observable<number>;
+  shipTotal: number;
+  itemTotal: number;
+  adjustmentTotal: number;
   currency = environment.config.currencySymbol;
   orderSub$: Subscription;
   freeShippingAmount = environment.config.freeShippingAmount;
@@ -58,17 +57,17 @@ export class PaymentModesComponent implements OnInit, OnDestroy {
     });
 
     this.subscriptionList$.push(
+      this.checkoutService.fetchCurrentOrder().subscribe(),
       this.store.select(getAuthStatus).subscribe((auth) => this.isAuthenticated = auth),
       this.store.select(getTotalCartValue).subscribe((oAmount) => this.orderAmount = oAmount),
-      this.store.select(getOrderState).subscribe((state) => this.orderState = state)
+      this.store.select(getOrderState).subscribe((state) => this.orderState = state),
+      this.store.select(getTotalCartItems).subscribe((totalCartItems) => this.totalCartItems = totalCartItems),
+      this.store.select(getItemTotal).subscribe((itemTotal) => this.itemTotal = itemTotal),
+      this.store.select(getShipTotal).subscribe((shipTotal) => this.shipTotal = +shipTotal),
+      this.store.select(getAdjustmentTotal).subscribe((adjustmentTotal) => this.adjustmentTotal = adjustmentTotal)
     );
 
-    this.totalCartValue$ = this.store.select(getTotalCartValue);
-    this.totalCartItems$ = this.store.select(getTotalCartItems);
     this.orderNumber$ = this.store.select(getOrderNumber);
-    this.shipTotal$ = this.store.select(getShipTotal);
-    this.itemTotal$ = this.store.select(getItemTotal);
-    this.adjustmentTotal$ = this.store.select(getAdjustmentTotal);
   }
 
   makeCodPayment() {

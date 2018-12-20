@@ -7,18 +7,23 @@
 
 .payhead {
   color: $gray-900;
-  text-emphasis: none;
-  white-space: nowrap;
+  white-space: normal;
   text-transform: uppercase;
+  font-size: 14rem;
+  padding-top: 10;
+  padding-bottom: 10;
+  padding-left: 15;
+  font-weight: 600;
 }
 
 .paytext {
   color: $gray-900;
-  text-emphasis: none;
-  white-space: nowrap;
-}
-
-.label {
-  text-emphasis: none;
+  font-size: 13rem;
+  padding-left: 15;
+  padding-top: 10;
+  border-bottom: 1;
+  padding-right: 15;
+  border-color: whitesmoke;
   white-space: normal;
+  word-wrap: break-word;
 }

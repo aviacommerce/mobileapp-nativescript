@@ -1,64 +1,52 @@
 <ab-component [showName]="'Make Payment'" [showBackArrow]=true></ab-component>
-<GridLayout>
-  <StackLayout height="600" *ngIf="totalCartValue$|async; let totalCartValue">
-    <StackLayout width="100%" class="p-l-10 price p-r-10 p-t-5 p-b-5" horizontalAlignment="center" orientation="horizontal"
-      backgroundColor="white">
-      <Label class="" width="100%" text="You pay {{currency}} {{totalCartValue| number:'1.2-2'}} ">
-      </Label>
-    </StackLayout>
-    <ScrollView sdkExampleTitle sdkToggleNavButton height="600">
-      <FlexboxLayout height="500">
-        <StackLayout orientation="vertical" backgroundColor="lightgray">
-          <StackLayout class="mini-bag-summary" *ngIf="itemTotal$ | async;let itemTotal">
-            <Label class="items h3 m-b-20 p-b-10" text="{{totalCartItems$ | async}} ITEMS" borderBottomWidth="1"
-              borderBottomColor="#ccc"></Label>
-            <!-- order total -->
-            <StackLayout class="order-total">
-              <StackLayout class="m-b-10" orientation="horizontal">
-                <StackLayout width="70%" class="left" horizontalAlignment="left">
-                  <Label class="h3" horizontalAlignment="left" text="Sub Total"></Label>
-                </StackLayout>
-                <StackLayout width="30%" class="right" horizontalAlignment="right">
-                  <Label horizontalAlignment="left" fontSize="18" text="{{currency}}{{itemTotal | number:'1.2-2'}}"></Label>
-                </StackLayout>
-              </StackLayout>
-            </StackLayout>
-            <!-- shipping info -->
-            <StackLayout class="shipping" *ngIf="(shipTotal$ | async);let shipTotal">
-              <StackLayout orientation="horizontal" *ngIf="shipTotal ==='0.0' && itemTotal >= freeShippingAmount ">
-                <StackLayout width="70%" class="left" horizontalAlignment="left">
-                  <Label class="h3" horizontalAlignment="left" text="Delivery"></Label>
-                </StackLayout>
-                <StackLayout width="30%" class="right" horizontalAlignment="right">
-                  <Label horizontalAlignment="left" fontSize="13" text="Free" class="free"></Label>
-                </StackLayout>
-              </StackLayout>
-              <Label class="m-t-10" *ngIf="shipTotal ==='0.0' && itemTotal < freeShippingAmount" text=" Only {{currency}}{{(freeShippingAmount - itemTotal)| number:'1.2-2'}} to go for free shipping.">
-              </Label>
-            </StackLayout>
-          </StackLayout>
-          <!-- payment modes -->
-          <StackLayout backgroundColor="White">
-            <TabView id="tabViewContainer" androidSelectedTabHighlightColor="green">
-              <!-- <StackLayout *tabItem="{title: 'PAYUBIZ'}">
-                <ScrollView>
-                  <StackLayout>
-                    <payubiz-hosted></payubiz-hosted>
-                  </StackLayout>
-                </ScrollView>
-              </StackLayout> -->
-              <StackLayout *tabItem="{title: 'COD'}">
-                <ScrollView>
-                  <StackLayout>
-                    <cash-on-delivery (payOnDelivery)="makeCodPayment()"></cash-on-delivery>
-                  </StackLayout>
-                </ScrollView>
-              </StackLayout>
-            </TabView>
-          </StackLayout>
-        </StackLayout>
-      </FlexboxLayout>
-    </ScrollView>
+<GridLayout rows="45, *" backgroundColor="#dfdfdf" *ngIf="orderAmount > 0">
+  <StackLayout row="0" class="total">
+    <Label text="Amount Payable: {{currency}}{{orderAmount | number:'1.2-2'}}"> </Label>
   </StackLayout>
-  <ActivityIndicator [busy]="isProcessing" backgroundColor="white" borderRadius="50" color="green" width="50" height="50"></ActivityIndicator>
+  <StackLayout row="1">
+    <!-- price details -->
+    <StackLayout paddingTop="10">
+      <StackLayout class="address-content">
+        <Label class="heading" text="Price details"></Label>
+        <StackLayout orientation="horizontal" class="order-details">
+          <Label class="left" text="Price({{totalCartItems}} item)" width="50%"> </Label>
+          <Label class="right" text="{{currency}}{{itemTotal | number:'1.2-2'}}" width="50%"></Label>
+        </StackLayout>
+
+        <StackLayout orientation="horizontal" *ngIf="shipTotal > 0" class="order-details">
+          <Label class="left" text="Delivery" width="50%"> </Label>
+          <Label class="right" text="{{currency}}{{shipTotal | number:'1.2-2'}}" width="50%"></Label>
+        </StackLayout>
+
+        <StackLayout orientation="horizontal" *ngIf="shipTotal === 0" class="order-details">
+          <Label class="left" text="Delivery" width="50%"> </Label>
+          <Label class="right" color="green" text="Free" width="50%"></Label>
+        </StackLayout>
+
+        <StackLayout class="order-details" orientation="horizontal" *ngIf="adjustmentTotal > 0">
+          <Label class="left" text="Adjustment" width="50%"> </Label>
+          <Label class="right" width="50%" text="{{adjustmentTotal}}"></Label>
+        </StackLayout>
+
+        <StackLayout class="order-details" borderTopWidth="1" borderColor="whitesmoke" orientation="horizontal">
+          <Label class="left" fontWeight="600" text="Total" width="50%"> </Label>
+          <Label class="right" fontWeight="600" text="{{currency}}{{orderAmount | number:'1.2-2'}}" width="50%"></Label>
+        </StackLayout>
+      </StackLayout>
+    </StackLayout>
+
+    <StackLayout paddingTop="10">
+      <StackLayout>
+        <TabView backgroundColor="white">
+          <StackLayout *tabItem="{title: 'COD'}">
+            <StackLayout cod (payOnDelivery)="makeCodPayment()"></StackLayout>
+          </StackLayout>
+          <!-- <StackLayout *tabItem="{title: 'PAYUBIZ'}">
+            <StackLayout payubiz></StackLayout>
+          </StackLayout> -->
+        </TabView>
+      </StackLayout>
+    </StackLayout>
+    <ActivityIndicator [busy]="isProcessing" backgroundColor="white" borderRadius="50" color="green" width="50" height="50"></ActivityIndicator>
+  </StackLayout>
 </GridLayout>
