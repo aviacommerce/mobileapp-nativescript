@@ -6,9 +6,10 @@ import { tap } from "rxjs/operators";
 import { Page } from "tns-core-modules/ui/page/page";
 import { IappState } from "~/app.reducers";
 import { getAuthStatus } from "~/auth/reducers/selectors";
-import { getItemTotal, getOrderState, getTotalCartItems, getTotalCartValue } from "~/checkout/reducers/selectors";
+import { getItemTotal, getOrderState, getTotalCartItems, getTotalCartValue, getLineItems } from "~/checkout/reducers/selectors";
 import { CheckoutService } from "~/core/services/checkout.service";
 import { environment } from "~/environments/environment";
+import { LineItem } from '~/core/models/line_item';
 @Component({
   selector: "Cart",
   moduleId: module.id,
@@ -17,8 +18,9 @@ import { environment } from "~/environments/environment";
 })
 
 export class CartComponent implements OnInit, OnDestroy {
+  lineItems: Array<LineItem>;
   totalCartItems: number;
-  totalCartValue$: Observable<number>;
+  totalCartValue: number;
   shipTotal$: Observable<number>;
   itemTotal: number;
   currency = environment.config.currencySymbol;
@@ -38,8 +40,13 @@ export class CartComponent implements OnInit, OnDestroy {
       this.ngOnDestroy();
     });
 
-    this.totalCartValue$ = this.store.select(getTotalCartValue);
+    this.store.select(getTotalCartValue).subscribe((cartvalues) => {
+      this.totalCartValue = cartvalues;
+    });
 
+    this.store.select(getLineItems).subscribe((items) => {
+      this.lineItems = items;
+    });
     this.subscriptionList$.push(
       this.store.select(getItemTotal)
         .subscribe((itemsTotal) => this.itemTotal = itemsTotal),

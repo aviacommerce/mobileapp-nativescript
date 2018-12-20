@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { RouterExtensions } from "nativescript-angular/router";
 import { Product } from "~/core/models/product";
 import { environment } from "~/environments/environment";
 
@@ -15,7 +16,7 @@ export class ProductsListComponent implements OnInit {
   @Input() listHeading: string;
 
   currency = environment.config.currencySymbol;
-  constructor() {
+  constructor(private router: RouterExtensions) {
     //
   }
 
@@ -24,6 +25,6 @@ export class ProductsListComponent implements OnInit {
   }
 
   productDetail(productSlug: string) {
-    //
+    this.router.navigate(["/", productSlug]);
   }
 }

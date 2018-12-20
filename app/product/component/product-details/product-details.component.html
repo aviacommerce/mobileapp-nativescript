@@ -1,26 +1,26 @@
 <ab-component [showName]="'Product Details'" [showBackArrow]="true"></ab-component>
-<FlexLayout class="product-detail">
-  <GridLayout class="page page-content" *ngIf="product">
+<GridLayout>
+  <StackLayout *ngIf="product" backgroundColor="whitesmoke">
     <GridLayout sdkExampleTitle sdkToggleNavButton>
-      <TabView selectedIndex="0" androidTabsPosition="top" androidSelectedTabHighlightColor="green">
-        <StackLayout *tabItem="{title: 'Details'}">
+      <TabView selectedIndex="0">
+        <StackLayout *tabItem="{title: 'Details'}" backgroundColor="white">
           <ScrollView>
-            <StackLayout rows="auto, auto, auto">
+            <StackLayout>
               <!-- product image -->
-              <Image [src]="productImageUrl" height="200" class="m-b-15"></Image>
-              <StackLayout row="1" class="hr-light m-t-5 m-b-5"></StackLayout>
+              <StackLayout borderBottomWidth="1" borderColor="whitesmoke">
+                <Image [src]="productImageUrl" height="200" class="m-b-10"></Image>
+              </StackLayout>
               <!-- product name -->
               <StackLayout class="p-10">
-                <Label class="name" color="#000" fontSize="16px;" fontWeight="bold" horizontalAlignment="left" [text]="product.name"></Label>
+                <Label class="product-name" fontSize="15px;" fontWeight="bold" horizontalAlignment="left" [text]="product.name"></Label>
               </StackLayout>
-              <StackLayout row="1" class="hr-light m-t-5 m-b-5"></StackLayout>
               <!-- MRP -->
               <StackLayout class="p-l-10 p-r-10 p-t-5 p-b-5" orientation="horizontal">
                 <StackLayout width="50%" class="left" horizontalAlignment="left">
                   <Label class="h3" horizontalAlignment="left" text="M.R.P"></Label>
                 </StackLayout>
                 <StackLayout width="50%" class="right" horizontalAlignment="right">
-                  <Label class="price" [ngClass]="productDiscount ? 'line-through' : ''" horizontalAlignment="right"
+                  <Label class="price" [ngClass]="productDiscount > 0 ? 'line-through' : ''" horizontalAlignment="right"
                     text="{{product.currency_symbol}}{{productMRP | number:'1.2-2'}}"></Label>
                 </StackLayout>
               </StackLayout>
@@ -34,83 +34,40 @@
                 </StackLayout>
               </StackLayout>
               <!-- discount -->
-              <StackLayout class="p-l-10 p-r-10 p-t-5 p-b-5" orientation="horizontal" *ngIf="productDiscount > 0">
+              <StackLayout class="p-l-10 p-r-10 p-t-5 p-b-5" orientation="horizontal"  borderBottomWidth="1" borderColor="whitesmoke" *ngIf="productDiscount > 0">
                 <StackLayout width="50%" class="left" horizontalAlignment="left">
                   <Label class="h3" horizontalAlignment="left" text="You Save"></Label>
                 </StackLayout>
                 <StackLayout width="50%" class="right" horizontalAlignment="right">
-                  <Label class="price" horizontalAlignment="right" text="{{product.currencySymbol}}{{productDiscount}}({{discountPercent}})"></Label>
+                  <Label class="price-save" horizontalAlignment="right" text="{{product.currency_symbol}}{{productDiscount}}({{discountPercent}})"></Label>
                 </StackLayout>
               </StackLayout>
               <!-- variants -->
-              <StackLayout row="1" class="hr-light m-t-5 m-b-5"></StackLayout>
-              <StackLayout width="100%" class="left" horizontalAlignment="left">
+              <StackLayout horizontalAlignment="left" paddingTop="10">
                 <product-variants [customOptionTypesHash]="customOptionTypesHash" [currentSelectedOptions]="currentSelectedOptions"
                   (onOptionClickEvent)="onOptionClick($event)" [correspondingOptions]="correspondingOptions"
-                  [mainOptions]="mainOptions" class="row m-0"></product-variants>
+                  [mainOptions]="mainOptions"></product-variants>
               </StackLayout>
-
-              <StackLayout row="1" class="hr-light m-t-5 m-b-5"></StackLayout>
               <!-- add to cart -->
-              <StackLayout class="right" horizontalAlignment="center">
-                <StackLayout orientation="horizontal" horizontalAlignment="center">
-                  <Label class="m-b-10" fontWeight="bold" text="Free 1-2 Day "></Label>
-                  <Label class="" text="shipping"></Label>
-                </StackLayout>
-                <Button *ngIf="isProductOderable === true" class="btn btn-primary btn-active" (tap)="addToCart(variantId)"
-                  borderWidth="1" id="button" text="Add To Cart"></Button>
-
-                <Button *ngIf="isProductOderable === false" class="btn btn-outofstock btn-active" borderWidth="1" id="button"
-                  text="Out Of Stock!"></Button>
+              <StackLayout paddingTop="10" paddingBottom="10">
+                <Button *ngIf="isProductOderable === true" class="btn btn-primary btn-active" (tap)="addToCart(variantId)" text="Add To Cart"></Button>
+                <Button [disabled]="true" *ngIf="isProductOderable === false" class="btn btn-outofstock" text="Out Of Stock!"></Button>
               </StackLayout>
               <!-- discription -->
-              <StackLayout row="1" class="hr-light m-t-5 m-b-5"></StackLayout>
-              <StackLayout class="p-10" *ngIf="discription">
-                <Label class="h3" text="Description"></Label>
-                <StackLayout row="1" class="m-t-10 m-b-5"></StackLayout>
-                <HtmlView html={{discription}} class="m-t-40"></HtmlView>
+              <!-- Todo: needed fixes for IOS -->
+              <StackLayout class="p-l-10 p-r-10 p-t-5 p-b-5" *ngIf="discription && !isIos">
+                <Label class="h3" horizontalAlignment="left" text="Description" paddingBottom="10"></Label>
+                <HtmlView id="htmlview" html={{discription}} class="m-t-40"></HtmlView>
               </StackLayout>
               <!-- similiar product -->
-              <StackLayout row="1" class="hr-light m-t-5 m-b-5"></StackLayout>
-              <StackLayout class="p-10 p-t-0" orientation="horizontal">
-                <Label class="m-0 p-t-2 p-b-2 fa icon" text="&#xf02b;" fontSize="16px;" fontWeight="bold"></Label>
-                <Label fontSize="16px;" text=" Similar Products"></Label>
-              </StackLayout>
-              <StackLayout class="p-10" *ngIf="similarProducts$ | async ; let productsList">
-                <RadListView [items]="productsList">
-                  <ListViewLinearLayout tkListViewLayout scrollDirection="Horizontal"></ListViewLinearLayout>
-                  <ng-template let-product="item" let-i="index" let-odd="odd" let-even="even">
-                    <StackLayout class="product-base" borderWidth="1" rows="*, *, *" columns="*, *" (tap)="showProduct(product.slug)">
-                      <StackLayout class="p-15">
-                        <StackLayout row="1" class="product-img">
-                          <Image [src]="product.product_url" stretch="aspectFit" height="200" width="250" class="m-r-20"></Image>
-                        </StackLayout>
-                        <StackLayout row="2" class="m-t-5 m-b-5"></StackLayout>
-                        <StackLayout row="3" class="product-name my-4">
-                          <Label class="name" [text]="product.name"></Label>
-                        </StackLayout>
-                        <StackLayout row="4" class="product-price my-4">
-                          <Label>
-                            <FormattedString>
-                              <Span text="&#8377;"></Span>
-                              <Span [text]="product.price"></Span>
-                            </FormattedString>
-                          </Label>
-                        </StackLayout>
-                      </StackLayout>
-                      <StackLayout row="5" borderTopWidth="1" class="add-to">
-                        <Label text="Add to cart"></Label>
-                      </StackLayout>
-                    </StackLayout>
-                  </ng-template>
-                </RadListView>
-              </StackLayout>
+              <StackLayout productList [listHeading]="' Similar Products'" [products]="similarProducts$ | async"
+                paddingBottom="10" paddingTop="10"></StackLayout>
             </StackLayout>
           </ScrollView>
         </StackLayout>
       </TabView>
     </GridLayout>
-  </GridLayout>
+  </StackLayout>
   <ActivityIndicator [busy]="!product" backgroundColor="white" borderRadius="50" color="green" width="50" height="50"></ActivityIndicator>
   <ActivityIndicator [busy]="addToCartLoader" backgroundColor="white" borderRadius="50" color="green" width="50" height="50"></ActivityIndicator>
-</FlexLayout>
+</GridLayout>

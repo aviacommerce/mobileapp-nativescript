@@ -1,26 +1,21 @@
 <ab-component [showName]="'Shopping Cart'" [showBackArrow]=true></ab-component>
-<GridLayout rows="*,60">
-  <StackLayout row="0" *ngIf="totalCartItems > 0">
-    <StackLayout class="total">
-      <Label class="m-r-10 discount" text="Cart Subtotal: {{currency}} {{itemTotal | number:'1.2-2'}}"> </Label>
+<GridLayout rows="40, * ,60">
+  <StackLayout row="0" class="total" *ngIf="totalCartItems > 0">
+    <Label text="Cart Subtotal: {{currency}} {{itemTotal | number:'1.2-2'}}"> </Label>
+  </StackLayout>
+  <StackLayout row="1" flexDirection="column" class="container">
+    <StackLayout backgroundColor="whitesmoke">
+      <line-item-list [itemTotal]="totalCartValue" [lineItems]="lineItems"></line-item-list>
     </StackLayout>
-    <ScrollView sdkExampleTitle sdkToggleNavButton>
-      <FlexboxLayout flexDirection="column" backgroundColor="lightgray" class="container">
-        <StackLayout>
-          <line-item-list [itemTotal]="(totalCartValue$ |async)"></line-item-list>
-        </StackLayout>
-        <StackLayout class="p-t-0"> </StackLayout>
-      </FlexboxLayout>
-    </ScrollView>
   </StackLayout>
-  <StackLayout row="1"  orientation="horizontal" class="button-container" *ngIf="itemTotal > 0">
-    <Button class="btn btn-primary btn-active"  text="Proceed To checkout" (tap)="checkoutToAddress()"></Button>
+  <StackLayout row="2" orientation="horizontal" class="button-container" *ngIf="itemTotal > 0">
+    <Button class="btn btn-primary btn-active" text="Proceed To Checkout" (tap)="checkoutToAddress()"></Button>
   </StackLayout>
-  <FlexboxLayout class="page" *ngIf="totalCartItems === 0">
+  <FlexboxLayout row="1" class="page" *ngIf="totalCartItems === 0">
     <StackLayout class="form">
       <Label class="h2" fontSize="18" horizontalAlignment="center" fontWeight="bold" text="Your cart is empty"></Label>
       <Image class="logo" src="~/assets/empty-cart.png"></Image>
-      <Button text="Continue Shopping"  class="btn btn-primary btn-active" (tap)="goToHome()"></Button>
+      <Button text="Continue Shopping" class="btn btn-primary btn-active" (tap)="goToHome()"></Button>
     </StackLayout>
   </FlexboxLayout>
 </GridLayout>

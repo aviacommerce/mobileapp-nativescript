@@ -1,73 +1,12 @@
 @import '../../../app-variables';
-.container {
-  background-color: $white - 20;
-}
-
-.items {
-  .address-row {
-    background: $white;
-    border: 1px solid $gray-10;
-    box-shadow: 0 0 4px rgba(40, 44, 63, .08);
-    padding: 25px;
-    display: inline-block;
-    margin-right: 25px;
-    border-radius: 4px;
-    margin: 10;
-    position: relative;
-    cursor: pointer;
-    .name {
-      font-weight: 600;
-      font-size: 15px;
-      color: $gray-800;
-    }
-    .address {
-      padding-top: 10px;
-      width: 90%;
-      .address-content {
-        .address-field {
-          margin-bottom: 10;
-        }
-        color: $gray-800;
-        line-height: 1.4;
-        word-break: break-word;
-        font-size: 13px;
-        .mob {
-          padding: 8px 0;
-          .mob-no {
-            font-weight: 600;
-          }
-        }
-      }
-    }
-    .serviceability {
-      font-size: 13px;
-      padding: 10px;
-      color: $black;
-      margin: 10px;
-    }
-    .select {
-      cursor: pointer;
-      position: absolute;
-      left: 14px;
-      top: 23px;
-      width: 20px;
-      height: 20px;
-      border: none;
-      background-position: -551px 0;
-      display: inline-block;
-      overflow: hidden;
-      background-repeat: no-repeat;
-      background-size: 4250px 153px;
-      vertical-align: middle; // background-image: url(/assets/checkout_sprite.png);
-    }
-  }
-}
 
 .button-container {
   text-align: center;
   background-color: $white;
   padding: 2px 10px;
   width: 100%;
+  border-width: 1 0 0 1;
+  border-color: $accent-dark;
   .btn-primary {
     border-radius: 5;
     font-size: 16;
@@ -76,14 +15,55 @@
   }
 }
 
-.mini-bag-summary {
-  position: relative;
-  padding: 20;
-  margin: 10;
-  margin-top: 25px;
-  background-color: $white;
+.edit-address {
+  border-radius: 5;
+  background-color: orange;
+  width: 50%;
 }
 
-.free {
-  color: $action-price-color
+.address-content {
+  background-color: white;
+  padding-top: 10;
+  padding-bottom: 10;
+  .address-field {
+    font-size: 14em;
+    padding-left: 15;
+  }
+  .address-bold {
+    font-size: 14em;
+    padding: 5 5 5 15;
+    font-weight: 600;
+  }
+  .heading {
+    font-size: 14em;
+    padding-left: 15;
+    padding-bottom: 10;
+    border-bottom-width: 1;
+    border-bottom-color: whitesmoke;
+    text-transform: uppercase;
+  }
+  .order-details {
+    padding-left: 15;
+    padding-right: 15;
+    padding-top: 10;
+    padding-bottom: 10;
+  }
+}
+
+.right {
+  font-size: 14em;
+  text-align: right;
+}
+
+.left {
+  font-size: 14em;
+  text-align: left;
+}
+
+.messsge {
+  font-size: 12em;
+  text-align: right;
+  white-space: normal;
+  word-wrap: break-word;
+  color: red;
 }

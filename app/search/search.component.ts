@@ -1,3 +1,4 @@
+import { HttpParams } from "@angular/common/http";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
@@ -10,7 +11,6 @@ import { environment } from "~/environments/environment";
 import { Product } from "../core/models/product";
 import { SearchActions } from "./action/search.actions";
 import { getPaginationData, getProductsLoader, getSearchedProducts } from "./reducers/selectors";
-import { HttpParams } from '@angular/common/http';
 registerElement("StarRating", () => require("nativescript-star-ratings").StarRating);
 
 @Component({
@@ -82,7 +82,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     if (this.counter <= this.paginationData.pages) {
       this.counter = this.counter + 1;
       this.store.dispatch(this.searchActions.resetLoader(true));
-      alert("load items");
       this.loadData(this.counter);
     }
   }
