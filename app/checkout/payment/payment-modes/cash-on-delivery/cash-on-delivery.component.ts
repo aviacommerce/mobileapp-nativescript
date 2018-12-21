@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output } from "@angular/core";
 
 @Component({
   moduleId: module.id,
-  selector: "cash-on-delivery",
+  selector: "cash-on-delivery, [cod]",
   templateUrl: "./cash-on-delivery.component.html",
   styleUrls: ["./cash-on-delivery.component.scss"]
 })

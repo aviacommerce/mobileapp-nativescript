@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 
 @Component({
   moduleId: module.id,
-  selector: "payubiz-hosted",
+  selector: "payubiz-hosted, [payubiz]",
   templateUrl: "./payubiz-hosted.component.html",
   styleUrls: ["./payubiz-hosted.component.scss"]
 })

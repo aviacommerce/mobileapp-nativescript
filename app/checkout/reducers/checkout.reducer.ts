@@ -25,7 +25,7 @@ export function reducer(state = initialState, { type, payload }: any): CheckoutS
       _orderState = payload.state;
       _shipTotal = payload.ship_total;
       _itemTotal = parseFloat(payload.item_total);
-      _adjustmentTotal = payload.display_adjustment_total;
+      _adjustmentTotal = payload.adjustment_total;
 
       _lineItemEntities = _lineItems.reduce((lineItems: { [id: number]: LineItem }, lineItem: LineItem) => {
         return { ...lineItems, [lineItem.id]: lineItem };
@@ -129,7 +129,7 @@ export function reducer(state = initialState, { type, payload }: any): CheckoutS
       _orderState = payload.state;
       _shipTotal = payload.ship_total;
       _itemTotal = parseFloat(payload.item_total);
-      _adjustmentTotal = payload.display_adjustment_total;
+      _adjustmentTotal = payload.adjustment_total;
       _lineItems = payload.line_items;
       _lineItemIds = _lineItems.map((lineItem) => lineItem.id);
 

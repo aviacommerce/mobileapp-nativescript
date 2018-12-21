@@ -1,4 +1,4 @@
-<GridLayout rows="*,60" backgroundColor="whitesmoke" *ngIf="itemTotal">
+<GridLayout rows="*,60" backgroundColor="#dfdfdf" *ngIf="itemTotal">
   <ScrollView row="0">
     <GridLayout rows="*,*">
       <StackLayout row="0">
@@ -33,12 +33,12 @@
             <Label class="right messsge" width="50%" text="Only{{this.currency}}{{freeShippingAmount - itemTotal}} to go for free shipping."></Label>
           </StackLayout>
 
-          <StackLayout class="order-details" orientation="horizontal" *ngIf="shipTotal === 0 && itemTotal > freeShippingAmount">
+          <StackLayout class="order-details" orientation="horizontal" *ngIf="shipTotal === 0 && itemTotal >= freeShippingAmount">
             <Label class="left" text="Delivery" width="50%"> </Label>
             <Label class="right" color="green" text="Free" width="50%"></Label>
           </StackLayout>
 
-          <StackLayout class="order-details" orientation="horizontal" *ngIf="shipTotal > 0 || itemTotal > freeShippingAmount">
+          <StackLayout class="order-details" orientation="horizontal" borderTopWidth="1" borderColor="whitesmoke" *ngIf="shipTotal > 0 || itemTotal > freeShippingAmount">
             <Label class="left" text="Total" width="50%"> </Label>
             <Label class="right" text="{{currency}}{{totalCartValue | number:'1.2-2'}}" width="50%"></Label>
           </StackLayout>

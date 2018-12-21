@@ -1,4 +1,3 @@
-import { Address } from './../../core/models/address';
 import { LineItem } from './../../core/models/line_item';
 import { Map, Record, List, fromJS } from 'immutable';
 export interface CheckoutState extends Map<string, any> {
@@ -26,5 +25,5 @@ export const CheckoutStateRecord = Record({
   shipAddress: Map({}),
   shipTotal: 0,
   itemTotal: 0,
-  adjustmentTotal: 0,
+  adjustmentTotal: 0
 });
