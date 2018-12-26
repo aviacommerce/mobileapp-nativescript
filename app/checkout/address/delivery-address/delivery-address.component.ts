@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit, EventEmitter, Output } from "@angular/core";
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
@@ -23,6 +23,7 @@ import { environment } from "~/environments/environment";
 
 export class DeliveryAddressComponent implements OnInit, OnDestroy {
   @Input() address: Address;
+  @Output() enableAddressEdit: EventEmitter<boolean> = new EventEmitter<boolean>();
   totalCartValue: number;
   totalCartItems: number;
   itemTotal: number;
@@ -82,8 +83,8 @@ export class DeliveryAddressComponent implements OnInit, OnDestroy {
     }
   }
 
-  editAddress(address: Address) {
-    //
+  editAddress() {
+    this.enableAddressEdit.emit(true);
   }
 
   ngOnDestroy() {

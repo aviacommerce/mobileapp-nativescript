@@ -1,35 +1,59 @@
 <ab-component [showName]="'Login/Signup'" [showBackArrow]=true></ab-component>
-<GridLayout>
-  <FlexboxLayout class="page">
-    <StackLayout class="form">
-      <Image class="logo" src={{logoUrl}}></Image>
-      <StackLayout class="input-field">
-        <TextField class="input" hint="Email" keyboardType="email" autocorrect="false" autocapitalizationType="none"
-          [(ngModel)]="user.email" returnKeyType="next" (returnPress)="focusPassword()" [editable]="!isProcessing"></TextField>
-        <StackLayout class="hr-light"></StackLayout>
-      </StackLayout>
-      <StackLayout class="input-field">
-        <TextField #password class="input" hint="Password" secure="true" [(ngModel)]="user.password" [returnKeyType]="isLoggingIn ? 'done' : 'next'"
-          (returnPress)="focusConfirmPassword()" [editable]="!isProcessing"></TextField>
-        <StackLayout class="hr-light"></StackLayout>
-      </StackLayout>
-      <StackLayout *ngIf="!isLoggingIn" class="input-field">
-        <TextField #confirmPassword class="input" hint="Confirm password" secure="true" [(ngModel)]="user.confirmPassword"
-          returnKeyType="done" [editable]="!isProcessing"></TextField>
-        <StackLayout class="hr-light"></StackLayout>
-      </StackLayout>
-      <Button [text]="isLoggingIn ? 'Log In' : 'Sign Up'" (tap)="submit()" class="btn btn-primary m-t-20"></Button>
-      <!-- <Label *ngIf="isLoggingIn" text="Forgot your password?" class="login-label" (tap)="forgotPassword()"></Label> -->
+<GridLayout class="page-container">
+  <!-- signIn -->
+  <StackLayout class="page-element" [formGroup]="signInForm" *ngIf="isLoggingIn">
+    <StackLayout paddingTop="20" borderBottomWidth="1" borderColor="lightgray">
+      <Label text="Email" fontSize="14" paddingBottom="5" borderColor="white"></Label>
+      <TextField class="textfield" formControlName="email"></TextField>
     </StackLayout>
-    <StackLayout>
-      <Label class="login-label sign-up-label" (tap)="toggleForm()">
-        <FormattedString>
-          <Span [text]="isLoggingIn ? 'Don’t have an account? ' : 'Back to Login'"></Span>
-          <Span [text]="isLoggingIn ? 'Sign up' : ''" class="bold"></Span>
-        </FormattedString>
-      </Label>
+    <Label class="error-lable" text="Email address is required" *ngIf="signInForm.get('email').errors && signInForm.get('email').touched"></Label>
+    <StackLayout paddingTop="20" borderBottomWidth="1" borderColor="lightgray">
+      <Label text="Password" fontSize="14" paddingBottom="5"></Label>
+      <StackLayout orientation="horizontal">
+        <TextField class="textfield" formControlName="password" secure={{isHidePassword}} width="90%"></TextField>
+        <Label *ngIf="!isHidePassword" class="fa" horizontalAlign="center" (tap)="showPassword(isHidePassword)" text="&#xf06e;"
+          fontSize="20" width="10%"></Label>
+        <Label *ngIf="isHidePassword" class="fa" horizontalAlign="center" (tap)="showPassword(isHidePassword)" text="&#xf070;"
+          fontSize="20" width="10%"></Label>
+      </StackLayout>
     </StackLayout>
-  </FlexboxLayout>
-  <ActivityIndicator id="myIndicator" [busy]="isProcessing" backgroundColor="white" borderRadius="50" color="green"
-    width="50" height="50"></ActivityIndicator>
+    <Label class="error-lable" text="Password is required" *ngIf="signInForm.get('password').errors && signInForm.get('password').touched"></Label>
+    <StackLayout paddingTop="20">
+      <Button [disabled]="isProcessing" class="action-btn" text="Login" (tap)="login()"></Button>
+    </StackLayout>
+    <StackLayout paddingTop="20">
+      <Button [disabled]="isProcessing" class="normal-btn" text="New to {{appName}}? SIGNUP" (tap)="toggleForm()"></Button>
+    </StackLayout>
+  </StackLayout>
+  <!-- signUp -->
+  <StackLayout class="page-element" [formGroup]="signUpForm" *ngIf="!isLoggingIn">
+    <StackLayout paddingTop="20" borderBottomWidth="1" borderColor="lightgray">
+      <Label text="Email" fontSize="14" paddingBottom="5" ></Label>
+      <TextField class="textfield" formControlName="email"></TextField>
+    </StackLayout>
+    <Label class="error-lable" text="{{signUpForm.get('email').errors['msg'] || 'Email address is required'}}" *ngIf="signUpForm.get('email').errors && signUpForm.get('email').touched"></Label>
+    <StackLayout paddingTop="20" borderBottomWidth="1" borderColor="lightgray">
+      <Label text="Password" fontSize="14" paddingBottom="5"></Label>
+      <StackLayout orientation="horizontal">
+        <TextField class="textfield" formControlName="password" secure={{isHidePassword}} width="90%"></TextField>
+        <Label *ngIf="!isHidePassword" class="fa" horizontalAlign="center" (tap)="showPassword(isHidePassword)" text="&#xf06e;"
+          fontSize="20" width="10%"></Label>
+        <Label *ngIf="isHidePassword" class="fa" horizontalAlign="center" (tap)="showPassword(isHidePassword)" text="&#xf070;"
+          fontSize="20" width="10%"></Label>
+      </StackLayout>
+    </StackLayout>
+    <Label class="error-lable" text="Password must be at least 6 characters" *ngIf="signUpForm.get('password').errors && signUpForm.get('password').touched"></Label>
+    <StackLayout paddingTop="20" borderBottomWidth="1" borderColor="lightgray">
+      <Label text="Confirm password" fontSize="14" paddingBottom="5"></Label>
+      <TextField class="textfield" formControlName="password_confirmation" secure="true"></TextField>
+    </StackLayout>
+    <Label class="error-lable" text="Password must match" *ngIf="(signUpForm.get('password_confirmation').errors || signUpForm.hasError('mismatchedPasswords')) && signUpForm.get('password_confirmation').touched"></Label>
+    <StackLayout paddingTop="20">
+      <Button [disabled]="isProcessing" class="action-btn" text="Create Account" (tap)="register()"></Button>
+    </StackLayout>
+    <StackLayout paddingTop="20">
+      <Button [disabled]="isProcessing" class="normal-btn" text="Already have an account? LOGIN" (tap)="toggleForm()"></Button>
+    </StackLayout>
+  </StackLayout>
+  <ActivityIndicator [busy]="isProcessing" backgroundColor="white" borderRadius="50" color="green" width="50" height="50"></ActivityIndicator>
 </GridLayout>

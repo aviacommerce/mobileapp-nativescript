@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (isAuthenticated) {
       return "*,0";
     } else {
-      return "*,40";
+      return "*,45";
     }
   }
 

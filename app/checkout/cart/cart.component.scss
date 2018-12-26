@@ -4,15 +4,7 @@
   text-align: center;
   background-color: $white;
   padding: 2px 10px;
-  width: 100%;
-  border-width: 1 0 0 1;
-  border-color: $accent-dark;  
-  .btn-primary {
-    border-radius: 5;
-    font-size: 16;
-    font-weight: 400;
-    width: 90%;
-  }
+  width: 100%;  
 }
 
 .total {
@@ -21,8 +13,6 @@
   text-align: center;
   font-weight: 500;
   font-size: 16;
-  border-width: 0 0 1 0;
-  border-color: $accent-dark;  
 }
 
 .page {

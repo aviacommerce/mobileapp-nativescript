@@ -52,4 +52,8 @@ export class LineItemListComponent implements OnInit {
     }
   }
 
+  trackByFn(index) {
+    return index;
+  }
+
 }

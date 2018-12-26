@@ -22,7 +22,7 @@ export class AddressComponent implements OnInit, OnDestroy {
   orderState: string;
   orderNumber$: Observable<number>;
   shipAddress: Address;
-  editAddress: boolean;
+  isEditAddressPressed: boolean;
   addressData: Address;
   subscriptionList$: Array<Subscription> = [];
   isProcessing = true;
@@ -64,6 +64,14 @@ export class AddressComponent implements OnInit, OnDestroy {
     } else {
       this.router.navigate(["/checkout", "payment"]);
     }
+  }
+
+  enableAddressEdit(address) {
+    this.isEditAddressPressed = true;
+  }
+
+  isAddressEdited() {
+    this.isEditAddressPressed = false;
   }
 
   ngOnDestroy() {

@@ -3,87 +3,95 @@
   <ScrollView>
     <FlexboxLayout flexDirection="column">
       <StackLayout>
-        <StackLayout class="address-content">
-          <StackLayout class="order-details">
-            <Label class="success-msg fa" text="&#xf058; Thank you for your order"></Label>
-            <StackLayout height="60" paddingTop="5">
-              <Button class="btn btn-primary btn-active edit-address" (tap)="backToHome()" text="Continue Shopping"></Button>
+        <CardView class="cardStyle" margin="5 5 5 5" elevation="10" radius="5">
+          <StackLayout class="address-content">
+            <StackLayout class="order-details">
+              <Label class="success-msg fa" text="&#xf058; Thank you for your order"></Label>
+              <StackLayout height="60" paddingTop="10">
+                <Button class="action-btn-small" (tap)="backToHome()" text="Continue Shopping"></Button>
+              </StackLayout>
             </StackLayout>
           </StackLayout>
-        </StackLayout>
+        </CardView>
       </StackLayout>
 
       <!-- order details -->
-      <StackLayout paddingTop="10">
-        <StackLayout class="address-content">
-          <Label class="heading" text="order details"></Label>
-          <StackLayout orientation="horizontal" class="order-details">
-            <Label class="left" text="Order Number" width="40%"> </Label>
-            <Label class="right" text="{{orderDetails?.number}}({{orderDetails?.total_quantity}} Item)" width="60%"></Label>
+      <StackLayout paddingTop="5">
+        <CardView class="cardStyle" margin="5 5 5 5" elevation="10" radius="5">
+          <StackLayout class="address-content">
+            <Label class="heading" text="order details"></Label>
+            <StackLayout orientation="horizontal" class="order-details">
+              <Label class="left" text="Order Number" width="40%"> </Label>
+              <Label class="right" text="{{orderDetails?.number}}({{orderDetails?.total_quantity}} Item)" width="60%"></Label>
+            </StackLayout>
+            <StackLayout orientation="horizontal" class="order-details">
+              <Label class="left" text="Order date" width="40%"> </Label>
+              <Label class="right" text="{{orderDetails.created_at | date: 'dd-MMM-yy, hh:mm a'}}" width="60%"></Label>
+            </StackLayout>
+            <StackLayout orientation="horizontal" class="order-details">
+              <Label class="left" text="Payment mode" width="40%"> </Label>
+              <Label class="right" text="{{orderDetails.payments[0].payment_method.name}}" width="60%"></Label>
+            </StackLayout>
+            <StackLayout orientation="horizontal" class="order-details" borderTopWidth="1" borderColor="whitesmoke">
+              <Label class="left" fontWeight="bold" text="Total" width="40%"> </Label>
+              <Label class="right" fontWeight="bold" text="{{orderDetails.display_total}}" width="60%"></Label>
+            </StackLayout>
           </StackLayout>
-          <StackLayout orientation="horizontal" class="order-details">
-            <Label class="left" text="Order date" width="40%"> </Label>
-            <Label class="right" text="{{orderDetails.created_at | date: 'dd-MMM-yy, hh:mm a'}}" width="60%"></Label>
-          </StackLayout>
-          <StackLayout orientation="horizontal" class="order-details">
-            <Label class="left" text="Payment mode" width="40%"> </Label>
-            <Label class="right" text="{{orderDetails.payments[0].payment_method.name}}" width="60%"></Label>
-          </StackLayout>
-          <StackLayout orientation="horizontal" class="order-details" borderTopWidth="1" borderColor="whitesmoke">
-            <Label class="left" fontWeight="bold" text="Total" width="40%"> </Label>
-            <Label class="right" fontWeight="bold" text="{{orderDetails.display_total}}" width="60%"></Label>
-          </StackLayout>
-        </StackLayout>
+        </CardView>
       </StackLayout>
 
       <!-- Delivery details -->
-      <StackLayout paddingTop="10">
-        <StackLayout class="address-content">
-          <Label class="heading" text="Delivery details"></Label>
-          <StackLayout orientation="horizontal" class="order-details">
-            <Label class="left" text="Name" width="40%"> </Label>
-            <Label class="right" text="{{orderDetails.ship_address.full_name}}" width="60%"></Label>
+      <StackLayout paddingTop="5">
+        <CardView class="cardStyle" margin="5 5 5 5" elevation="10" radius="5">
+          <StackLayout class="address-content">
+            <Label class="heading" text="Delivery details"></Label>
+            <StackLayout orientation="horizontal" class="order-details">
+              <Label class="left" text="Name" width="40%"> </Label>
+              <Label class="right" text="{{orderDetails.ship_address.full_name}}" width="60%"></Label>
+            </StackLayout>
+            <StackLayout orientation="horizontal" class="order-details">
+              <Label class="left" text="Address" width="40%"> </Label>
+              <Label class="right" text="{{orderDetails.ship_address.address1}}, {{orderDetails.ship_address.address2}}"
+                width="60%"></Label>
+            </StackLayout>
+            <StackLayout orientation="horizontal" class="order-details">
+              <Label class="left" text="Pincode" width="40%"> </Label>
+              <Label class="right" text="{{orderDetails.ship_address.zipcode}}" width="60%"></Label>
+            </StackLayout>
+            <StackLayout orientation="horizontal" class="order-details">
+              <Label class="left" text="Phone" width="40%"> </Label>
+              <Label class="right" text="{{orderDetails.ship_address.phone}}" width="60%"></Label>
+            </StackLayout>
+            <StackLayout orientation="horizontal" class="order-details">
+              <Label class="left" text="Email" width="40%"> </Label>
+              <Label class="right" text="{{orderDetails.email}}" width="60%"></Label>
+            </StackLayout>
           </StackLayout>
-          <StackLayout orientation="horizontal" class="order-details">
-            <Label class="left" text="Address" width="40%"> </Label>
-            <Label class="right" text="{{orderDetails.ship_address.address1}}, {{orderDetails.ship_address.address2}}"
-              width="60%"></Label>
-          </StackLayout>
-          <StackLayout orientation="horizontal" class="order-details">
-            <Label class="left" text="Pincode" width="40%"> </Label>
-            <Label class="right" text="{{orderDetails.ship_address.zipcode}}" width="60%"></Label>
-          </StackLayout>
-          <StackLayout orientation="horizontal" class="order-details">
-            <Label class="left" text="Phone" width="40%"> </Label>
-            <Label class="right" text="{{orderDetails.ship_address.phone}}" width="60%"></Label>
-          </StackLayout>
-          <StackLayout orientation="horizontal" class="order-details">
-            <Label class="left" text="Email" width="40%"> </Label>
-            <Label class="right" text="{{orderDetails.email}}" width="60%"></Label>
-          </StackLayout>
-        </StackLayout>
+        </CardView>
       </StackLayout>
 
       <!-- Line Items -->
-      <StackLayout paddingTop="10">
-        <StackLayout class="address-content">
-          <Label class="heading" text="Items"></Label>
-          <StackLayout *ngFor="let item of orderDetails.line_items" borderBottomWidth="1" borderColor="whitesmoke">
-            <StackLayout orientation="horizontal">
-              <StackLayout width="40%" class="left">
-                <Image [src]="getProductImageUrl(item)" stretch="aspectFit" height="100" class="m-r-20 m-t-10 m-b-10"></Image>
-              </StackLayout>
-              <StackLayout width="60%" class="right" paddingTop="10">
-                <Label class="line-item" text="{{item.variant.name}}"></Label>
-                <Label class="line-item" color="red" text="{{item.display_amount}}"></Label>
-                <Label class="line-item" text="Qty: {{item.quantity}}"></Label>
-                <Label class="line-item" text="{{item.variant.options_text}}"></Label>
+      <StackLayout paddingTop="5">
+        <CardView class="cardStyle" margin="5 5 5 5" elevation="10" radius="5">
+          <StackLayout class="address-content">
+            <Label class="heading" text="Items"></Label>
+            <StackLayout *ngFor="let item of orderDetails.line_items" borderBottomWidth="1" borderColor="whitesmoke">
+              <StackLayout orientation="horizontal">
+                <StackLayout width="40%" class="left">
+                  <Image [src]="getProductImageUrl(item)" stretch="aspectFit" height="100" class="m-r-20 m-t-10 m-b-10"></Image>
+                </StackLayout>
+                <StackLayout width="60%" class="right" paddingTop="10">
+                  <Label class="line-item" text="{{item.variant.name}}"></Label>
+                  <Label class="line-item" color="red" text="{{item.display_amount}}"></Label>
+                  <Label class="line-item" text="Qty: {{item.quantity}}"></Label>
+                  <Label class="line-item" text="{{item.variant.options_text}}"></Label>
+                </StackLayout>
               </StackLayout>
             </StackLayout>
           </StackLayout>
-        </StackLayout>
+        </CardView>
       </StackLayout>
-
+      
     </FlexboxLayout>
   </ScrollView>
   <ActivityIndicator [busy]="isProcessing" backgroundColor="white" borderRadius="50" color="green" width="50" height="50"></ActivityIndicator>

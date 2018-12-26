@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders, HttpRequest } from "@angular/common/http";
-import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Observable, of } from "rxjs";
@@ -8,6 +8,7 @@ import { IappState } from "~/app.reducers";
 import { AuthActions } from "~/auth/actions/auth.actions";
 import { Authenticate, User } from "../models/user";
 import { CheckoutService } from "./checkout.service";
+import { SharedService } from "./shared.service";
 
 @Injectable()
 export class AuthService {
@@ -17,7 +18,8 @@ export class AuthService {
     private actions: AuthActions,
     private store: Store<IappState>,
     private router: Router,
-    private checkOutService: CheckoutService
+    private checkOutService: CheckoutService,
+    private sharedService: SharedService
   ) { }
 
   authorized(): Observable<{ status: string } & User> {
@@ -36,20 +38,12 @@ export class AuthService {
 
         return user;
       }),
-      tap(
-        (_) => this.router.navigate(["/"])
-      )
-    );
-  }
-
-  logout() {
-    return this.http.get("logout.json").pipe(
-      map((res: Response) => {
-        localStorage.clear();
-        this.store.dispatch(this.actions.logoutSuccess());
-
-        return res;
-      })
+      tap((success) => this.router.navigate(["/"]),
+        (error) => error
+      ),
+      catchError((error) => {
+        throw error;
+      }) as any
     );
   }
 
@@ -62,8 +56,25 @@ export class AuthService {
         this.store.dispatch(this.actions.loginSuccess());
 
         return user;
-      }, (error) => error
-      )
+      }),
+      tap(
+        (_) => _,
+        (_) => this.sharedService.errorMessage("Invalid/existing data!")
+      ),
+      catchError((error) => {
+        throw error.error;
+      }) as any
+    );
+  }
+
+  logout() {
+    return this.http.get("logout.json").pipe(
+      map((res: Response) => {
+        localStorage.clear();
+        this.store.dispatch(this.actions.logoutSuccess());
+
+        return res;
+      })
     );
   }
 
