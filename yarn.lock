@@ -3354,10 +3354,12 @@ nativescript-localstorage@^2.0.0:
   resolved "https://registry.yarnpkg.com/nativescript-localstorage/-/nativescript-localstorage-2.0.0.tgz#b8807e76bfbac11ed62c0e33e411f5b063727881"
   integrity sha512-5iwwCrXp4CugQlRV6Ic4upUy/MsBw4P9lg2mrnPoaDWwrUu4yOaJzFiUZVmFPJXTAF8KiJPpWXx287ImbkDjsg==
 
-nativescript-ng-shadow@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/nativescript-ng-shadow/-/nativescript-ng-shadow-2.1.0.tgz#acc5bf2abe9f6b1d20612750ece719cf455c7e65"
-  integrity sha512-8sOpwbSzyBPYvmAo1pG4mMIQ2BophwJhII3HkkxbNxQR+ZzugHNpJitjsyjHC9swgaSrrMleWMIzmJveINY25w==
+nativescript-ngx-shadow@^6.4.0:
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/nativescript-ngx-shadow/-/nativescript-ngx-shadow-6.4.0.tgz#779f958045c5290971fe8235d804c3c54fa1cffb"
+  integrity sha512-ENnjVgD6SbpOHujgL7VWBm/j0MToC6g9p1heGAcm6/LAx5vItL3GYw3+DttfSUdxEkvQuJ7UoUmWXGkcUQCDBw==
+  dependencies:
+    tslib "^1.9.0"
 
 nativescript-star-ratings@^1.0.0:
   version "1.0.0"

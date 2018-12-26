@@ -8,7 +8,7 @@ import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
-import { NgShadowModule } from "nativescript-ng-shadow";
+import { NgShadowModule } from "nativescript-ngx-shadow";
 import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angular/side-drawer-directives";
 import { AppRoutingModule } from "~/app-routing.module";
@@ -32,7 +32,6 @@ import { SharedModule } from "./shared/shared.module";
     NativeScriptRouterModule,
     NativeScriptFormsModule,
     NativeScriptUIListViewModule,
-    NgShadowModule,
     CoreModule,
     SharedModule,
     StoreModule.forRoot(reducers),

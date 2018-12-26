@@ -7,6 +7,36 @@
   font-family: "FontAwesome";
 }
 
+.page-container{
+  background-color: #dfdfdf;
+}
+
+.action-btn {
+  background-color: $action-color;
+  border-radius: 5;
+  color: $white;
+  font-size: 16;
+  font-weight: 600;
+  height: 45;
+}
+
+.action-btn-small {
+  background-color: $action-color;
+  border-radius: 5;
+  color: $white;
+  height: 45;
+  width: 50%;
+  font-size: 14;
+}
+
+.action-btn-outofstock {
+  background-color: $gray-600;
+  border-radius: 5;
+  height: 45;
+  font-size: 16;
+  color: lightgray;
+}
+
 .page-backcolor{
   background-color: lightgray;
 }
@@ -14,6 +44,7 @@
 .main-color{
   background-color: $accent-dark;
 }
+
 
 
 // Common page class

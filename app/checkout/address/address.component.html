@@ -1,8 +1,8 @@
 <ab-component *ngIf="shipAddress===null" [showName]="'Add Address'" [showBackArrow]=true></ab-component>
-<ab-component *ngIf="shipAddress" [showName]="'Order Summary'" [showBackArrow]=true></ab-component>
+<ab-component *ngIf="isEditAddressPressed!== true" [showName]="'Order Summary'" [showBackArrow]=true></ab-component>
+<ab-component *ngIf="isEditAddressPressed === true" [showName]="'Edit Address'" [showBackArrow]=true></ab-component>
 <GridLayout>
-  <add-address *ngIf="shipAddress===null"></add-address>
-  <delivery-address *ngIf="shipAddress" [address]="shipAddress"></delivery-address>
-  <ActivityIndicator [busy]="isProcessing" backgroundColor="white" borderRadius="50"
-    color="green" width="50" height="50"></ActivityIndicator>
+  <add-address *ngIf="!shipAddress || isEditAddressPressed" [isEditAddressPressed]="isEditAddressPressed" (isAddressEdited)="isAddressEdited()"></add-address>
+  <delivery-address *ngIf="!isEditAddressPressed && shipAddress" [address]="shipAddress" (enableAddressEdit)="enableAddressEdit(shipAddress)"></delivery-address>
+  <ActivityIndicator [busy]="isProcessing" backgroundColor="white" borderRadius="50" color="green" width="50" height="50"></ActivityIndicator>
 </GridLayout>

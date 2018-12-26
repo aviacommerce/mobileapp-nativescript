@@ -1,55 +1,64 @@
-<GridLayout rows="*,60" backgroundColor="#dfdfdf" *ngIf="itemTotal">
+<GridLayout rows="*,60" class="page-container" *ngIf="itemTotal">
   <ScrollView row="0">
     <GridLayout rows="*,*">
       <StackLayout row="0">
-        <StackLayout class="address-content">
-          <Label class="heading" text="Delivery Address"></Label>
-          <Label class="address-bold" text="{{address.firstname}} {{address.lastname}}"></Label>
-          <Label class="address-field" text="{{address.address1}}, {{address.address2}}"></Label>
-          <Label class="address-field" text="{{address.city}}-{{address.zipcode}}"></Label>
-          <Label class="address-field" text="{{address.state?.name}}"></Label>
-          <Label class="address-bold" text="{{address.phone}}"></Label>
-          <StackLayout height="55">
-            <Button class="btn btn-primary btn-active edit-address" (tap)="editAddress(address)" text="Change Address"></Button>
+        <CardView class="cardStyle" margin="5 5 5 5" elevation="10" radius="5">
+          <StackLayout class="address-content">
+            <Label class="heading" text="Delivery Address"></Label>
+            <Label class="address-bold" text="{{address.firstname}} {{address.lastname}}"></Label>
+            <Label class="address-field" text="{{address.address1}}, {{address.address2}}"></Label>
+            <Label class="address-field" text="{{address.city}}-{{address.zipcode}}"></Label>
+            <Label class="address-field" text="{{address.state?.name}}"></Label>
+            <Label class="address-bold" text="{{address.phone}}"></Label>
+            <StackLayout height="55">
+              <Button ripple="true" class="action-btn-small" (tap)="editAddress()" text="Change Address"></Button>
+            </StackLayout>
           </StackLayout>
-        </StackLayout>
+        </CardView>
       </StackLayout>
       <StackLayout row="1" paddingTop="10">
-        <StackLayout class="address-content">
-          <Label class="heading" text="order summery"></Label>
+        <CardView class="cardStyle" margin="5 5 5 5" elevation="10" radius="5">
+          <StackLayout class="address-content">
+            <Label class="heading" text="order summery"></Label>
 
-          <StackLayout orientation="horizontal" class="order-details">
-            <Label class="left" text="Price({{totalCartItems}} item)" width="50%"> </Label>
-            <Label class="right" text="{{currency}}{{itemTotal | number:'1.2-2'}}" width="50%"></Label>
+            <StackLayout orientation="horizontal" class="order-details">
+              <Label class="left" text="Price({{totalCartItems}} item)" width="50%"> </Label>
+              <Label class="right" text="{{currency}}{{itemTotal | number:'1.2-2'}}" width="50%"></Label>
+            </StackLayout>
+
+            <StackLayout orientation="horizontal" *ngIf="shipTotal > 0" class="order-details">
+              <Label class="left" text="Delivery" width="50%"> </Label>
+              <Label class="right" text="{{currency}}{{shipTotal | number:'1.2-2'}}" width="50%"></Label>
+            </StackLayout>
+
+            <StackLayout class="order-details" orientation="horizontal" *ngIf="shipTotal === 0 && itemTotal < freeShippingAmount">
+              <Label class="left" text="Delivery" width="50%"> </Label>
+              <Label class="right messsge" width="50%" text="Only {{this.currency}}{{freeShippingAmount - itemTotal}} to go for free shipping."></Label>
+            </StackLayout>
+
+            <StackLayout class="order-details" orientation="horizontal" *ngIf="shipTotal === 0 && itemTotal >= freeShippingAmount">
+              <Label class="left" text="Delivery" width="50%"> </Label>
+              <Label class="right" color="green" text="Free" width="50%"></Label>
+            </StackLayout>
+
+            <StackLayout class="order-details" orientation="horizontal" borderTopWidth="1" borderColor="whitesmoke"
+              *ngIf="shipTotal > 0 || itemTotal > freeShippingAmount">
+              <Label class="left" fontWeight="500" text="Total" width="50%"> </Label>
+              <Label class="right" fontWeight="500" text="{{currency}}{{totalCartValue | number:'1.2-2'}}" width="50%"></Label>
+            </StackLayout>
           </StackLayout>
-
-          <StackLayout orientation="horizontal" *ngIf="shipTotal > 0" class="order-details">
-            <Label class="left" text="Delivery" width="50%"> </Label>
-            <Label class="right" text="{{currency}}{{shipTotal | number:'1.2-2'}}" width="50%"></Label>
-          </StackLayout>
-
-          <StackLayout class="order-details" orientation="horizontal" *ngIf="shipTotal === 0 && itemTotal < freeShippingAmount">
-            <Label class="left" text="Delivery" width="50%"> </Label>
-            <Label class="right messsge" width="50%" text="Only{{this.currency}}{{freeShippingAmount - itemTotal}} to go for free shipping."></Label>
-          </StackLayout>
-
-          <StackLayout class="order-details" orientation="horizontal" *ngIf="shipTotal === 0 && itemTotal >= freeShippingAmount">
-            <Label class="left" text="Delivery" width="50%"> </Label>
-            <Label class="right" color="green" text="Free" width="50%"></Label>
-          </StackLayout>
-
-          <StackLayout class="order-details" orientation="horizontal" borderTopWidth="1" borderColor="whitesmoke" *ngIf="shipTotal > 0 || itemTotal > freeShippingAmount">
-            <Label class="left" text="Total" width="50%"> </Label>
-            <Label class="right" text="{{currency}}{{totalCartValue | number:'1.2-2'}}" width="50%"></Label>
-          </StackLayout>
-
-        </StackLayout>
+        </CardView>
       </StackLayout>
     </GridLayout>
   </ScrollView>
 
-  <StackLayout row="1" orientation="horizontal" class="button-container">
-    <Button class="btn btn-primary btn-active" (tap)="checkoutToPayment()" text="Continue To Payment">
-    </Button>
+  <StackLayout row="1" >
+    <CardView class="cardStyle" margin="5 0 0 0" elevation="10" radius="5">
+      <StackLayout class="button-container">
+
+        <Button class="action-btn m-t-5 m-b-10" (tap)="checkoutToPayment()" text="Continue To Payment">
+        </Button>
+      </StackLayout>
+    </CardView>
   </StackLayout>
 </GridLayout>

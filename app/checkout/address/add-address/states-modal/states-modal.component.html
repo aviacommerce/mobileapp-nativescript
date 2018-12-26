@@ -1,0 +1,7 @@
+<ListView [items]="states" class="list-group">
+    <ng-template let-state="item" let-i="index" let-odd="odd" let-even="even">
+        <StackLayout orientation="horizontal" class="list-group-item" (tap)="selectedState(state)">
+            <Label [text]="state.name"></Label>
+        </StackLayout>
+    </ng-template>
+</ListView>

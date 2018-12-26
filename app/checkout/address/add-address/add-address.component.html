@@ -1,56 +1,89 @@
-<ScrollView sdkExampleTitle sdkToggleNavButton>
-  <FlexboxLayout class="page">
-    <Label text="Add address"></Label>
-    <StackLayout class="form">
-      <StackLayout class="input-field">
-        <TextField required class="input" hint="First Name" #elementModel="ngModel" [(ngModel)]="address.firstname"></TextField>
-        <!-- <Label class='error' *ngIf="!elementModel.valid" text="*required"></Label> -->
-        <StackLayout class="hr-light"></StackLayout>
-      </StackLayout>
+<GridLayout>
+  <ScrollView sdkExampleTitle sdkToggleNavButton>
+    <FlexboxLayout class="page">
+      <StackLayout class="page-element" paddingLeft="10" paddingRight="10" [formGroup]="addressForm">
+        <!-- pincode locality -->
+        <StackLayout paddingTop="20">
+          <StackLayout orientation="horizontal">
+            <StackLayout width="49%">
+              <StackLayout borderBottomWidth="1" borderColor="lightgray">
+                <Label horizontalAlign="center" text="Pincode" fontSize="14"></Label>
+                <TextField class="textfield" formControlName="zipcode"></TextField>
+              </StackLayout>
+              <Label class="error-lable" text="Pincode must be 6 digits long!" *ngIf="addressForm.get('zipcode').hasError('pattern')"></Label>
+            </StackLayout>
+            <StackLayout width="2%"></StackLayout>
+            <StackLayout width="49%">
+              <StackLayout borderBottomWidth="1" borderColor="lightgray">
+                <Label horizontalAlign="center" text="Locality" fontSize="14"></Label>
+                <TextField class="textfield" formControlName="address2"></TextField>
+              </StackLayout>
+              <Label class="error-lable" text="Locality can't be blank!" *ngIf="addressForm.get('address2').errors && addressForm.get('address2').touched"></Label>
+            </StackLayout>
+          </StackLayout>
+        </StackLayout>
 
-      <StackLayout class="input-field">
-        <TextField required class="input" hint="First Name" #elementModel="ngModel" [(ngModel)]="address.lastname"></TextField>
-        <!-- <Label class='error' *ngIf="!elementModel.valid" text="*required"></Label> -->
-        <StackLayout class="hr-light"></StackLayout>
-      </StackLayout>
+        <!-- city state -->
+        <StackLayout paddingTop="20">
+          <StackLayout orientation="horizontal">
+            <StackLayout width="49%">
+              <StackLayout borderBottomWidth="1" borderColor="lightgray">
+                <Label horizontalAlign="center" text="City" fontSize="14"></Label>
+                <TextField class="textfield" formControlName="city"></TextField>
+              </StackLayout>
+              <Label class="error-lable" text="City can't be blank!" *ngIf="addressForm.get('city').errors && addressForm.get('city').touched"></Label>
+            </StackLayout>
+            <StackLayout width="2%"></StackLayout>
+            <StackLayout width="49%">
+              <StackLayout borderBottomWidth="1" borderColor="lightgray">
+                <Label horizontalAlign="center" text="State" fontSize="14"></Label>
+                <TextField [editable]="false" (tap)="onstate()" class="textfield" formControlName="state_name"></TextField>
+              </StackLayout>
+              <Label class="error-lable" text="State can't be blank!" *ngIf="addressForm.get('state_name').errors && addressForm.get('state_name').touched"></Label>
+            </StackLayout>
+          </StackLayout>
+        </StackLayout>
 
-      <StackLayout class="input-field">
-        <TextField required class="input" hint="Pin Code" #elementModel="ngModel" [(ngModel)]="address.zipcode"></TextField>
-        <!-- <Label class='error' *ngIf="!elementModel.valid" text="*required"></Label> -->
-        <StackLayout class="hr-light"></StackLayout>
+        <!-- firstname lastname -->
+        <StackLayout paddingTop="20">
+          <StackLayout orientation="horizontal">
+            <StackLayout width="49%">
+              <StackLayout borderBottomWidth="1" borderColor="lightgray">
+                <Label horizontalAlign="center" text="First Name" fontSize="14"></Label>
+                <TextField class="textfield" formControlName="firstname"></TextField>
+              </StackLayout>
+              <Label class="error-lable" text="First name can't be blank!" *ngIf="addressForm.get('firstname').errors && addressForm.get('firstname').touched"></Label>
+            </StackLayout>
+            <StackLayout width="2%"></StackLayout>
+            <StackLayout width="49%">
+              <StackLayout borderBottomWidth="1" borderColor="lightgray">
+                <Label horizontalAlign="center" text="Last Name" fontSize="14"></Label>
+                <TextField class="textfield" formControlName="lastname"></TextField>
+              </StackLayout>
+              <Label class="error-lable" text="Last name can't be blank!" *ngIf="addressForm.get('lastname').errors && addressForm.get('lastname').touched"></Label>
+            </StackLayout>
+          </StackLayout>
+        </StackLayout>
+        <!-- address -->
+        <StackLayout paddingTop="20">
+          <StackLayout borderBottomWidth="1" borderColor="lightgray">
+            <Label horizontalAlign="center" text="Address" fontSize="14"></Label>
+            <TextView class="textfield" formControlName="address1"></TextView>
+          </StackLayout>
+          <Label class="error-lable" text="Address can't be blank!" *ngIf="addressForm.get('address1').errors && addressForm.get('address1').touched"></Label>
+        </StackLayout>
+        <!-- phone -->
+        <StackLayout paddingTop="20">
+          <StackLayout borderBottomWidth="1" borderColor="lightgray">
+            <Label horizontalAlign="center" text="Mobile No" fontSize="14"></Label>
+            <TextField class="textfield" formControlName="phone"></TextField>
+          </StackLayout>
+          <Label class="error-lable" text="Mobile number can't be blank!" *ngIf="addressForm.get('phone').hasError('pattern')"></Label>
+        </StackLayout>
+        <Button [disabled]="isProcessing" text="Save Address" (tap)="saveAddress()" class="action-btn m-t-20"></Button>
       </StackLayout>
-
-      <StackLayout class="input-field">
-        <TextField required class="input" hint="Locality/Town" #elementModel="ngModel" [(ngModel)]="address.city"></TextField>
-        <!-- <Label class='error' *ngIf="!elementModel.valid" text="*required"></Label> -->
-        <StackLayout class="hr-light"></StackLayout>
-      </StackLayout>
-
-      <StackLayout class="input-field">
-        <TextField required class="input" hint="City/District" #elementModel="ngModel" [(ngModel)]="address.address2"></TextField>
-        <!-- <Label class='error' *ngIf="!elementModel.valid" text="*required"></Label> -->
-        <StackLayout class="hr-light"></StackLayout>
-      </StackLayout>
-
-      <StackLayout class="input-field">
-        <TextField required class="input" hint="Address" #elementModel="ngModel" [(ngModel)]="address.address1"></TextField>
-        <!-- <Label class='error' *ngIf="!elementModel.valid" text="*required"></Label> -->
-        <StackLayout class="hr-light"></StackLayout>
-      </StackLayout>
-
-      <StackLayout class="input-field">
-        <TextField required class="input" hint="Phone" #elementModel="ngModel" [(ngModel)]="address.phone"></TextField>
-        <!-- <Label class='error' *ngIf="!elementModel.valid" text="*required"></Label> -->
-        <StackLayout class="hr-light"></StackLayout>
-      </StackLayout>
-
-      <StackLayout class="input-field">
-        <TextField required class="input" hint="state" #elementModel="ngModel" [(ngModel)]="address.state_name"></TextField>
-        <!-- <Label class='error' *ngIf="!elementModel.valid" text="*required"></Label> -->
-        <StackLayout class="hr-light"></StackLayout>
-      </StackLayout>
-
-      <Button text="Save Address" class="btn btn-primary m-t-20" (tap)="saveAddress()"></Button>
-    </StackLayout>
-  </FlexboxLayout>
-</ScrollView>
+      </FlexboxLayout>
+  </ScrollView>
+  <ActivityIndicator [busy]="isProcessing" backgroundColor="white" borderRadius="50" color="green" width="50"
+        height="50"></ActivityIndicator>
+</GridLayout>
