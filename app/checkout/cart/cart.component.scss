@@ -1,12 +1,5 @@
 @import '../../app-variables';
 
-.button-container {
-  text-align: center;
-  background-color: $white;
-  padding: 2px 10px;
-  width: 100%;  
-}
-
 .total {
   padding: 10;
   background-color:$white;
@@ -33,3 +26,18 @@
   font-weight: bold;
   margin-top: 50;
 }
+
+.freeshipping {
+  text-align: center;
+  margin-top: 10;
+  font-size: 14;
+  color: green;
+}
+
+.delivery-text {
+  text-align: center;
+  margin-top: 10;
+  font-size: 14;
+}
+
+

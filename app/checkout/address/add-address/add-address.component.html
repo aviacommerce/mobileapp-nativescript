@@ -64,14 +64,16 @@
             </StackLayout>
           </StackLayout>
         </StackLayout>
+
         <!-- address -->
         <StackLayout paddingTop="20">
           <StackLayout borderBottomWidth="1" borderColor="lightgray">
             <Label horizontalAlign="center" text="Address" fontSize="14"></Label>
-            <TextView class="textfield" formControlName="address1"></TextView>
+            <TextField class="textfield" formControlName="address1"></TextField>
           </StackLayout>
           <Label class="error-lable" text="Address can't be blank!" *ngIf="addressForm.get('address1').errors && addressForm.get('address1').touched"></Label>
         </StackLayout>
+
         <!-- phone -->
         <StackLayout paddingTop="20">
           <StackLayout borderBottomWidth="1" borderColor="lightgray">
@@ -80,6 +82,7 @@
           </StackLayout>
           <Label class="error-lable" text="Mobile number can't be blank!" *ngIf="addressForm.get('phone').hasError('pattern')"></Label>
         </StackLayout>
+
         <Button [disabled]="isProcessing" text="Save Address" (tap)="saveAddress()" class="action-btn m-t-20"></Button>
       </StackLayout>
       </FlexboxLayout>

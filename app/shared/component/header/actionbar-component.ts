@@ -39,6 +39,7 @@ export class ActionBarComponent implements OnInit, OnDestroy {
   }
 
   navigateToCart() {
+    // this.router.navigate(["/checkout/order/22"]);
     this.router.navigate(["/checkout/cart"]);
   }
 

@@ -86,6 +86,7 @@ export class PaymentModesComponent implements OnInit, OnDestroy {
     } else {
       this.sharedService.infoMessage("Error occured try again!");
       this.router.navigate(["/"]);
+      this.isProcessing = false;
     }
   }
 

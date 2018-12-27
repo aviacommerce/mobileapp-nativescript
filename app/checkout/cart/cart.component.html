@@ -1,27 +1,31 @@
 <ab-component [showName]="'Shopping Cart'" [showBackArrow]=true></ab-component>
 <GridLayout>
-<GridLayout rows="50, * ,60" class="page-container">
-  <CardView class="cardStyle" margin="0 0 5 0" elevation="10">
-    <StackLayout row="0" class="total" *ngIf="totalCartItems > 0">
-      <Label text="Cart Subtotal: {{currency}} {{itemTotal | number:'1.2-2'}}"> </Label>
+  <GridLayout rows="70, * ,45" class="page-container">
+    <StackLayout row="0" class="total" *ngIf="totalCartItems > 0" shadow="5">
+      <Label text="Cart Subtotal: {{currency}}{{itemTotal | number:'1.2-2'}}"> </Label>
+      <StackLayout *ngIf="itemTotal < freeShippingAmount" backgroundColor="white">
+        <Label class="delivery-text" text="Only {{currency}}{{differance | number:'1.2-2'}} more for FREE SHIPPING!"></Label>
+      </StackLayout>
+      <StackLayout backgroundColor="white" *ngIf="itemTotal >= freeShippingAmount" paddinBottom="5">
+        <Label class="freeshipping" text="Your order qualifies for FREE SHIPPING!"></Label>
+      </StackLayout>
     </StackLayout>
-  </CardView>
 
-  <StackLayout row="1" flexDirection="column">
-    <StackLayout>
-      <line-item-list [itemTotal]="totalCartValue" [lineItems]="lineItems"></line-item-list>
+    <StackLayout row="1">
+      <StackLayout>
+        <line-item-list [itemTotal]="totalCartValue" [lineItems]="lineItems"></line-item-list>
+      </StackLayout>
     </StackLayout>
-  </StackLayout>
-  <StackLayout row="2" class="button-container" paddingTop="5" *ngIf="itemTotal > 0">
-    <Button class="action-btn" text="Proceed To Checkout" (tap)="checkoutToAddress()"></Button>
-  </StackLayout>
-</GridLayout>
+    <StackLayout height="60" row="2" *ngIf="itemTotal > 0">
+      <Button class="action-btn" text="Proceed To Checkout" (tap)="checkoutToAddress()"></Button>
+    </StackLayout>
+  </GridLayout>
 
-<FlexboxLayout class="page" *ngIf="totalCartItems === 0">
-  <StackLayout class="form">
-    <Label class="h2" fontSize="18" horizontalAlignment="center" fontWeight="bold" text="Your cart is empty"></Label>
-    <Image class="logo" src="~/assets/empty-cart.png"></Image>
-    <Button text="Continue Shopping" class="action-btn" (tap)="goToHome()"></Button>
-  </StackLayout>
-</FlexboxLayout>
+  <FlexboxLayout class="page" *ngIf="totalCartItems === 0">
+    <StackLayout class="form">
+      <Label class="h2" fontSize="18" horizontalAlignment="center" fontWeight="bold" text="Your cart is empty"></Label>
+      <Image class="logo" src="~/assets/empty-cart.png"></Image>
+      <Button text="Continue Shopping" class="action-btn" (tap)="goToHome()"></Button>
+    </StackLayout>
+  </FlexboxLayout>
 </GridLayout>

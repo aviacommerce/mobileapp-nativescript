@@ -5,6 +5,7 @@ import { IappState } from "~/app.reducers";
 import { CheckoutActions } from "~/checkout/actions/checkout.actions";
 import { LineItem } from "~/core/models/line_item";
 import { SharedService } from "~/core/services/shared.service";
+import { environment } from "~/environments/environment";
 
 @Component({
   moduleId: module.id,
@@ -19,6 +20,9 @@ export class LineItemListComponent implements OnInit {
   quantityCount: number;
   subscriptionList$: Array<Subscription> = [];
   lineItem: LineItem;
+  currency = environment.config.currencySymbol;
+  freeShippingAmount = environment.config.freeShippingAmount;
+  isDeleting: boolean;
 
   constructor(
     private store: Store<IappState>,

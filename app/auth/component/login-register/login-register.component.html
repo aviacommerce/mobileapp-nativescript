@@ -1,4 +1,5 @@
-<ab-component [showName]="'Login/Signup'" [showBackArrow]=true></ab-component>
+<ab-component *ngIf="isLoggingIn" [showName]="'Login'" [showBackArrow]=true></ab-component>
+<ab-component *ngIf="!isLoggingIn" [showName]="'Create Account'" [showBackArrow]=true></ab-component>
 <GridLayout class="page-container">
   <!-- signIn -->
   <StackLayout class="page-element" [formGroup]="signInForm" *ngIf="isLoggingIn">
@@ -25,6 +26,7 @@
       <Button [disabled]="isProcessing" class="normal-btn" text="New to {{appName}}? SIGNUP" (tap)="toggleForm()"></Button>
     </StackLayout>
   </StackLayout>
+
   <!-- signUp -->
   <StackLayout class="page-element" [formGroup]="signUpForm" *ngIf="!isLoggingIn">
     <StackLayout paddingTop="20" borderBottomWidth="1" borderColor="lightgray">
