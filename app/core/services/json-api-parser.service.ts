@@ -6,13 +6,11 @@ import { CJsonApi } from "../models/jsonapi";
 })
 export class JsonApiParserService {
 
-  constructor() { }
-
-  parseSingleObj(data): Object {
+  parseSingleObj(data): object {
     return Object.assign(new CJsonApi(), data).toModel();
   }
 
-  parseArrayofObject(array): Array<Object> {
+  parseArrayofObject(array): Array<object> {
     return array.map(
       (obj) => Object.assign(new CJsonApi(), obj).toModel()
     );

@@ -12,9 +12,6 @@ import { User } from "./core/models/user";
 import { AuthService } from "./core/services/auth.service";
 import { CheckoutService } from "./core/services/checkout.service";
 require("nativescript-localstorage");
-import { registerElement } from "nativescript-angular/element-registry";
-import { CardView } from "nativescript-cardview";
-registerElement("CardView", () => CardView);
 
 @Component({
   selector: "ns-app",
