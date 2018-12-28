@@ -3,6 +3,7 @@ import { EffectsModule } from "@ngrx/effects";
 import { NativeScriptCommonModule } from "nativescript-angular/common";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
+import { NgShadowModule } from "nativescript-ngx-shadow";
 import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 import { ProductActions } from "~/product/actions/product-actions";
 import { ProductEffects } from "~/product/effects/product.effects";
@@ -22,7 +23,8 @@ import { HomeComponent } from "./home.component";
     NativeScriptFormsModule,
     NativeScriptRouterModule,
     EffectsModule.forRoot([ProductEffects, SearchEffects]),
-    SharedModule
+    SharedModule,
+    NgShadowModule
   ],
   declarations: [
     HomeComponent,

@@ -1,52 +1,56 @@
 <ab-component [showName]="'Make Payment'" [showBackArrow]=true></ab-component>
-<GridLayout rows="45, *" backgroundColor="#dfdfdf" *ngIf="orderAmount > 0">
-  <StackLayout row="0" class="total">
-    <Label text="Amount Payable: {{currency}}{{orderAmount | number:'1.2-2'}}"> </Label>
-  </StackLayout>
-  <StackLayout row="1">
-    <!-- price details -->
-    <StackLayout paddingTop="10">
-      <StackLayout class="address-content">
-        <Label class="heading" text="Price details"></Label>
-        <StackLayout orientation="horizontal" class="order-details">
-          <Label class="left" text="Price({{totalCartItems}} item)" width="50%"> </Label>
-          <Label class="right" text="{{currency}}{{itemTotal | number:'1.2-2'}}" width="50%"></Label>
-        </StackLayout>
+<GridLayout>
+  <GridLayout rows="45, *" class="page-container" *ngIf="orderAmount > 0">
+    <StackLayout row="0" class="total" shadow="5">
+      <Label text="Amount Payable: {{currency}}{{orderAmount | number:'1.2-2'}}"> </Label>
+    </StackLayout>
+    <StackLayout row="1">
+      <!-- price details -->
+      <StackLayout>
+        <StackLayout class="address-content m-r-5 m-l-5 m-t-15 m-b-20" shadow="5" borderRadius="5">
+          <Label class="heading" text="Price details"></Label>
+          <StackLayout orientation="horizontal" class="order-details">
+            <Label class="left" text="Price({{totalCartItems}} item)" width="50%"> </Label>
+            <Label class="right" text="{{currency}}{{itemTotal | number:'1.2-2'}}" width="50%"></Label>
+          </StackLayout>
 
-        <StackLayout orientation="horizontal" *ngIf="shipTotal > 0" class="order-details">
-          <Label class="left" text="Delivery" width="50%"> </Label>
-          <Label class="right" text="{{currency}}{{shipTotal | number:'1.2-2'}}" width="50%"></Label>
-        </StackLayout>
+          <StackLayout orientation="horizontal" *ngIf="shipTotal > 0" class="order-details">
+            <Label class="left" text="Delivery" width="50%"> </Label>
+            <Label class="right" text="{{currency}}{{shipTotal | number:'1.2-2'}}" width="50%"></Label>
+          </StackLayout>
 
-        <StackLayout orientation="horizontal" *ngIf="shipTotal === 0" class="order-details">
-          <Label class="left" text="Delivery" width="50%"> </Label>
-          <Label class="right" color="green" text="Free" width="50%"></Label>
-        </StackLayout>
+          <StackLayout orientation="horizontal" *ngIf="shipTotal === 0" class="order-details">
+            <Label class="left" text="Delivery" width="50%"> </Label>
+            <Label class="right" color="green" text="Free" width="50%"></Label>
+          </StackLayout>
 
-        <StackLayout class="order-details" orientation="horizontal" *ngIf="adjustmentTotal > 0">
-          <Label class="left" text="Adjustment" width="50%"> </Label>
-          <Label class="right" width="50%" text="{{adjustmentTotal}}"></Label>
-        </StackLayout>
+          <StackLayout class="order-details" orientation="horizontal" *ngIf="adjustmentTotal > 0">
+            <Label class="left" text="Adjustment" width="50%"> </Label>
+            <Label class="right" width="50%" text="{{adjustmentTotal}}"></Label>
+          </StackLayout>
 
-        <StackLayout class="order-details" borderTopWidth="1" borderColor="whitesmoke" orientation="horizontal">
-          <Label class="left" fontWeight="600" text="Total" width="50%"> </Label>
-          <Label class="right" fontWeight="600" text="{{currency}}{{orderAmount | number:'1.2-2'}}" width="50%"></Label>
+          <StackLayout class="order-details" borderTopWidth="1" borderColor="whitesmoke" orientation="horizontal">
+            <Label class="left" fontWeight="600" text="Total" width="50%"> </Label>
+            <Label class="right" fontWeight="600" text="{{currency}}{{orderAmount | number:'1.2-2'}}" width="50%"></Label>
+          </StackLayout>
         </StackLayout>
       </StackLayout>
-    </StackLayout>
-
-    <StackLayout paddingTop="10">
       <StackLayout>
-        <TabView backgroundColor="white">
-          <StackLayout *tabItem="{title: 'COD'}">
-            <StackLayout cod (payOnDelivery)="makeCodPayment()"></StackLayout>
-          </StackLayout>
-          <!-- <StackLayout *tabItem="{title: 'PAYUBIZ'}">
+        <StackLayout shadow="5" class="m-l-5 m-r-5 m-b-20" borderRadius="5" color="white">
+          <TabView backgroundColor="white" tabBackgroundColor="white" androidSelectedTabHighlightColor="orange"
+            borderRadius="5">
+            <StackLayout fontSize="16" *tabItem="{title: 'COD'}">
+              <Scrollview>
+                <StackLayout cod (payOnDelivery)="makeCodPayment()" marginBottom="10"></StackLayout>
+              </Scrollview>
+            </StackLayout>
+            <!-- <StackLayout *tabItem="{title: 'PAYUBIZ'}">
             <StackLayout payubiz></StackLayout>
           </StackLayout> -->
-        </TabView>
+          </TabView>
+        </StackLayout>
       </StackLayout>
     </StackLayout>
-    <ActivityIndicator [busy]="isProcessing" backgroundColor="white" borderRadius="50" color="green" width="50" height="50"></ActivityIndicator>
-  </StackLayout>
+  </GridLayout>
+  <ActivityIndicator [busy]="isProcessing" backgroundColor="white" borderRadius="50" color="green" width="50" height="50"></ActivityIndicator>
 </GridLayout>

@@ -1,13 +1,13 @@
 <ActionBar title="{{showName}}">
   <StackLayout orientation="horizontal" *ngIf="!showName" ios:horizontalAlignment="center" android:horizontalAlignment="center">
-    <Image src="{{logoUrl}}" width="200px" *ngIf="isIos"></Image>
-    <Image src="{{logoUrl}}" width="35%" *ngIf="isAndroid"></Image>
+    <Image src="{{logoUrl}}" width="200px" *ngIf="isIos" [nsRouterLink]="['/']"></Image>
+    <Image src="{{logoUrl}}" width="35%" *ngIf="isAndroid" [nsRouterLink]="['/']"></Image>
   </StackLayout>
 
   <!-- android -->
   <NavigationButton *ngIf="!showBackArrow" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
   <NavigationButton *ngIf="showBackArrow &&  isAndroid" android.systemIcon="ic_menu_back" (tap)="navigateBack()"></NavigationButton>
-  
+
   <!-- ios -->
   <NavigationButton visibility="hidden" *ngIf="!showBackArrow && isIos"></NavigationButton>
   <ActionItem ios.position="left" (tap)="onDrawerButtonTap()" *ngIf="!showBackArrow && isIos">
@@ -15,20 +15,10 @@
   </ActionItem>
 
   <!-- cart Icon -->
-  <ActionItem horizontalAlignment="left"   ios.position="right" (tap)="navigateToCart()">
-    <Label class="fa"
-    borderRadius = "10" 
-    backgroundColor = "#ae4700"
-    fontSize = "16"
-    padding = "5"
-    color = "white"
-    borderWidth = "1"
-    borderColor = "white"
-    textAlignment = "center"
-    text="&#xf07a; {{totalCartItems}}"
-    marginLeft = 10>
-    </Label> 
+  <ActionItem horizontalAlignment="left" ios.position="right" (tap)="navigateToCart()">
+    <Label class="fa" borderRadius="10" backgroundColor="#ae4700" fontSize="16" padding="5" color="white" borderWidth="1"
+      borderColor="white" textAlignment="center" text="&#xf07a; {{totalCartItems}}" marginLeft=10>
+    </Label>
   </ActionItem>
-  
-</ActionBar>
 
+</ActionBar>

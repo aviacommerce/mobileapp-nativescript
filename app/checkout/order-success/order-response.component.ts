@@ -47,8 +47,8 @@ export class OrderResponseComponent implements OnInit, OnDestroy {
     this.isProcessing = true;
     this.subscriptionList$.push(
       this.checkoutService.getOrderDetail(this.orderReferance).subscribe((data) => {
-        this.isProcessing = false;
         this.orderDetails = data;
+        this.isProcessing = false;
       })
     );
   }

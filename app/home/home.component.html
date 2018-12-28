@@ -1,5 +1,5 @@
 <ab-component class="actionBar"></ab-component>
-<GridLayout [rows]="showHideLoginSignup(isAuthenticated$ | async)" backgroundColor="whitesmoke">
+<GridLayout [rows]="showHideLoginSignup(isAuthenticated$ | async)" class="page-container">
   <StackLayout row="0" *ngIf="taxonomies$ | async; let taxonomies">
     <StackLayout class="main-color" searchBox></StackLayout>
     <ScrollView sdkExampleTitle sdkToggleNavButton scrollBarIndicatorVisible="false">
@@ -7,19 +7,24 @@
         <ScrollView>
           <StackLayout backgroundColor="white" categoryMenu [taxonomies]="taxonomies" (showCategory)="onSelectedCategory($event)"></StackLayout>
         </ScrollView>
-        <StackLayout class="promoimg">
+        <StackLayout class="m-l-5 m-r-5 m-t-20 m-b-20">
           <Image src="{{promoImageUrl}}" stretch="aspectFill"></Image>
         </StackLayout>
-        <StackLayout productList [listHeading]="todaysDeals" [products]="products$ | async"></StackLayout>
+        <StackLayout productList shadow="8" [listHeading]="todaysDeals" [products]="products$ | async"></StackLayout>
       </FlexboxLayout>
     </ScrollView>
   </StackLayout>
+
   <StackLayout row="1" orientation="horizontal" *ngIf="!(isAuthenticated$ | async)" backgroundColor="white"
     borderTopWidth="1" borderColor="whitesmoke">
-    <Label textWrap="true" class="login-label" (tap)="goToLogin()" text="Sign in" width="50%"> </Label>
-    <Label textWrap="true" class="login-label" (tap)="goToSignup()" text="Create Account" width="50%"></Label>
+    <StackLayout width="50%" class="login-label" (tap)="goToLogin()">
+      <Label textWrap="true" class="login-label" text="Sign in"> </Label>
+    </StackLayout>
+    <StackLayout width="50%" class="login-label" (tap)="goToSignup()">
+      <Label textWrap="true" class="login-label" text="Create Account"></Label>
+    </StackLayout>
   </StackLayout>
-  <!-- <ActivityIndicator [busy]="!(taxonomies$ | async)[0]?.root.taxons" backgroundColor="white" borderRadius="50" color="green" width="50"
-    height="50">
-  </ActivityIndicator> -->
+  <ActivityIndicator [busy]="!(taxonomies$ | async)[0]?.root.taxons" backgroundColor="white" borderRadius="50" color="green"
+    width="50" height="50">
+  </ActivityIndicator>
 </GridLayout>

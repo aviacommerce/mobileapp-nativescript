@@ -1,19 +1,16 @@
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { RouterExtensions } from "nativescript-angular/router";
-import { Observable, Subscription } from "rxjs";
-import { concatMap, map, switchMap } from "rxjs/operators";
+import { Subscription } from "rxjs";
+import { concatMap, map } from "rxjs/operators";
 import { Page } from "tns-core-modules/ui/page/page";
 import { IappState } from "~/app.reducers";
 import { getAuthStatus } from "~/auth/reducers/selectors";
 import { CheckoutActions } from "~/checkout/actions/checkout.actions";
 import {
-  getAdjustmentTotal, getItemTotal,
-  getOrderNumber, getOrderState, getShipAddress,
+  getAdjustmentTotal, getItemTotal, getOrderState,
   getShipTotal, getTotalCartItems, getTotalCartValue
 } from "~/checkout/reducers/selectors";
-import { Address } from "~/core/models/address";
 import { CheckoutService } from "~/core/services/checkout.service";
 import { SharedService } from "~/core/services/shared.service";
 import { environment } from "~/environments/environment";
@@ -29,15 +26,12 @@ export class PaymentModesComponent implements OnInit, OnDestroy {
 
   subscriptionList$: Array<Subscription> = [];
   orderAmount: number;
-  orderNumber: number;
   isAuthenticated: boolean;
   totalCartItems: number;
-  orderNumber$: Observable<number>;
   shipTotal: number;
   itemTotal: number;
   adjustmentTotal: number;
   currency = environment.config.currencySymbol;
-  orderSub$: Subscription;
   freeShippingAmount = environment.config.freeShippingAmount;
   isProcessing: boolean;
   orderState: string;
@@ -52,6 +46,8 @@ export class PaymentModesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.isProcessing = true;
+
     this.page.on("navigatingFrom", (data) => {
       this.ngOnDestroy();
     });
@@ -67,7 +63,7 @@ export class PaymentModesComponent implements OnInit, OnDestroy {
       this.store.select(getAdjustmentTotal).subscribe((adjustmentTotal) => this.adjustmentTotal = adjustmentTotal)
     );
 
-    this.orderNumber$ = this.store.select(getOrderNumber);
+    this.isProcessing = false;
   }
 
   makeCodPayment() {
@@ -86,6 +82,7 @@ export class PaymentModesComponent implements OnInit, OnDestroy {
     } else {
       this.sharedService.infoMessage("Error occured try again!");
       this.router.navigate(["/"]);
+      this.isProcessing = false;
     }
   }
 

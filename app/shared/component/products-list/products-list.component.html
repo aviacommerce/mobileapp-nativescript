@@ -5,7 +5,7 @@
   </FlexboxLayout>
   <ScrollView row="1" orientation="horizontal" class="container" scrollBarIndicatorVisible="false">
     <StackLayout orientation="horizontal">
-      <StackLayout *ngFor="let product of products" padding="5">
+      <StackLayout *ngFor="let product of products; trackBy: trackByFn" padding="5">
         <GridLayout rows="*, auto" width="150dpi" borderWidth="1" borderColor="lightgray" borderRadius="5"
           backgroundColor="white" (tap)="productDetail(product.slug)">
           <Image row="0" paddingTop="5" [src]="product.product_url" stretch="aspectFit" height="160dpi" class="m-t-2"></Image>

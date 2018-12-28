@@ -1,8 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { ModalDialogParams } from "nativescript-angular/modal-dialog";
+import { Subscription } from "rxjs";
+import { Page } from "tns-core-modules/ui/page/page";
+import { IappState } from "~/app.reducers";
+import { getStatesList } from "~/checkout/reducers/selectors";
 import { CState } from "~/core/models/state";
-import { AddressService } from "~/core/services/address.service";
-import { ModalDialogService, ModalDialogParams } from 'nativescript-angular/modal-dialog';
-import { topmost } from "ui/frame";
 
 @Component({
   moduleId: module.id,
@@ -11,22 +14,33 @@ import { topmost } from "ui/frame";
   styleUrls: ["./states-modal.component.css"]
 })
 
-export class StatesModalComponent implements OnInit {
+export class StatesModalComponent implements OnInit, OnDestroy {
+
   states: Array<CState> = [];
+  subscriptionList$: Array<Subscription> = [];
 
   constructor(
-    private addrService: AddressService,
-    private params: ModalDialogParams
-  ) { //
-  }
+    private params: ModalDialogParams,
+    private store: Store<IappState>,
+    private page: Page
+  ) { }
 
-  ngOnInit() { //
-    this.addrService.getAllStates().subscribe((states) => {
-      this.states = states;
+  ngOnInit() {
+
+    this.page.on("navigatingFrom", (data) => {
+      this.ngOnDestroy();
     });
+
+    this.subscriptionList$.push(
+      this.store.select(getStatesList).subscribe((states) => this.states = states)
+    );
   }
 
   selectedState(state: CState) {
     this.params.closeCallback(state);
+  }
+
+  ngOnDestroy() {
+    this.subscriptionList$.map((sub$) => sub$.unsubscribe());
   }
 }

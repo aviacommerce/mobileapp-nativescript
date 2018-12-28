@@ -147,11 +147,16 @@ export function reducer(state = initialState, { type, payload }: any): CheckoutS
         itemTotal: _itemTotal,
         adjustmentTotal: _adjustmentTotal,
         lineItemIds: _lineItemIds,
-        lineItemEntities: _lineItemEntities,
+        lineItemEntities: _lineItemEntities
       }) as CheckoutState;
 
     case CheckoutActions.ORDER_COMPLETE_SUCCESS:
       return initialState;
+
+    case CheckoutActions.GET_STATES_LIST_SUCCESS:
+      return state.merge({
+        stateList: payload
+      }) as CheckoutState;
 
     default:
       return state;

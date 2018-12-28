@@ -1,7 +1,7 @@
-import { Component, Input, OnDestroy, OnInit, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { Router } from "@angular/router";
 import { Store } from "@ngrx/store";
-import { Observable, Subscription } from "rxjs";
+import { Subscription } from "rxjs";
 import { tap } from "rxjs/operators";
 import { Page } from "tns-core-modules/ui/page/page";
 import { IappState } from "~/app.reducers";

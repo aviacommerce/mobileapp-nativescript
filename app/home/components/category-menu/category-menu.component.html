@@ -1,14 +1,14 @@
 <GridLayout rows="auto, auto" backgroundColor="white">
-  <FlexboxLayout padding="5" row="0">
+  <FlexboxLayout class="m-l-5 m-b-10 m-t-10" row="0">
     <Label class="fa" text="&#xf009;" color="orange" fontSize="20"></Label>
     <Label fontSize="16" text=" Shop By Category"></Label>
   </FlexboxLayout>
   <!-- ToDo: Height should be responsive -->
-  <RadListView row="1" height="480" [items]="taxonomies[0]?.root.taxons">
+  <RadListView row="1" height="465" [items]="taxonomies[0]?.root.taxons">
     <ListViewGridLayout tkListViewLayout itemHeight=150%  spanCount="2"></ListViewGridLayout>
     <ng-template let-category="item" let-i="index" let-odd="odd">
       <StackLayout orientation="Vertical">
-        <Label class="box" (tap)="onSelectedCategory(category.id)"
+        <Label shadow="3" class="box" (tap)="onSelectedCategory(category.id)"
           [backgroundColor]="categories[category.name].color" 
           [backgroundImage]="categories[category.name].imageUrl"
           [text]="category.name"></Label>

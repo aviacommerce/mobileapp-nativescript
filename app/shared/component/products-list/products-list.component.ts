@@ -24,6 +24,10 @@ export class ProductsListComponent implements OnInit {
     //
   }
 
+  trackByFn(index) {
+    return index;
+  }
+
   productDetail(productSlug: string) {
     this.router.navigate(["/", productSlug]);
   }

@@ -24,6 +24,7 @@ export class CartComponent implements OnInit, OnDestroy {
   shipTotal$: Observable<number>;
   itemTotal: number;
   currency = environment.config.currencySymbol;
+  freeShippingAmount = environment.config.freeShippingAmount;
   isAuthenticated: boolean;
   orderState: string;
   subscriptionList$: Array<Subscription> = [];
@@ -80,6 +81,10 @@ export class CartComponent implements OnInit, OnDestroy {
 
   goToHome() {
     this.router.navigate(["/"]);
+  }
+
+  get differance() {
+    return this.freeShippingAmount - this.itemTotal;
   }
 
   ngOnDestroy() {

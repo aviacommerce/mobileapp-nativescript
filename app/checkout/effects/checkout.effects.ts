@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Actions, Effect } from "@ngrx/effects";
 import { Action } from "@ngrx/store";
 import { map, switchMap } from "rxjs/operators";
-import { Order } from "~/core/models/order";
+import { CState } from "~/core/models/state";
 import { SharedService } from "~/core/services/shared.service";
 import { CheckoutService } from "../../core/services/checkout.service";
 import { LineItem } from "./../../core/models/line_item";
@@ -37,6 +37,15 @@ export class CheckoutEffects {
 
       return this.actions.removeLineItemSuccess(lineItem);
     })
+  );
+
+  @Effect()
+  statesList$ = this.actions$.ofType(CheckoutActions.GET_STATES_LIST).pipe(
+    switchMap<Action & { payload }, Array<CState>>((_) => {
+
+      return this.checkoutService.getAllStates();
+    }),
+    map((states) => this.actions.getStatesListSuccess(states))
   );
 
   constructor(

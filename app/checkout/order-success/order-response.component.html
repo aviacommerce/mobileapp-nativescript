@@ -1,24 +1,22 @@
 <ab-component></ab-component>
-<GridLayout backgroundColor="#dfdfdf" *ngIf="orderDetails">
-  <ScrollView>
+<GridLayout class="page-container">
+  <ScrollView *ngIf="orderDetails">
     <FlexboxLayout flexDirection="column">
       <StackLayout>
-        <CardView class="cardStyle" margin="5 5 5 5" elevation="10" radius="5">
-          <StackLayout class="address-content">
-            <StackLayout class="order-details">
-              <Label class="success-msg fa" text="&#xf058; Thank you for your order"></Label>
-              <StackLayout height="60" paddingTop="10">
-                <Button class="action-btn-small" (tap)="backToHome()" text="Continue Shopping"></Button>
-              </StackLayout>
+        <StackLayout class="address-content m-r-5 m-l-5 m-t-20 m-b-20" shadow="5" borderRadius="5">
+          <StackLayout class="order-details">
+            <Label class="success-msg fa" text="&#xf058; Thank you for your order"></Label>
+            <StackLayout height="60" paddingTop="10">
+              <Button class="action-btn-small" fontWeight="500" (tap)="backToHome()" text="Continue Shopping"></Button>
             </StackLayout>
           </StackLayout>
-        </CardView>
+        </StackLayout>
       </StackLayout>
 
       <!-- order details -->
-      <StackLayout paddingTop="5">
-        <CardView class="cardStyle" margin="5 5 5 5" elevation="10" radius="5">
-          <StackLayout class="address-content">
+      <StackLayout>
+        <StackLayout class="m-r-5 m-l-5 m-b-20" shadow="5" borderRadius="5">
+          <StackLayout class="address-content" borderRadius="5">
             <Label class="heading" text="order details"></Label>
             <StackLayout orientation="horizontal" class="order-details">
               <Label class="left" text="Order Number" width="40%"> </Label>
@@ -37,45 +35,28 @@
               <Label class="right" fontWeight="bold" text="{{orderDetails.display_total}}" width="60%"></Label>
             </StackLayout>
           </StackLayout>
-        </CardView>
+        </StackLayout>
       </StackLayout>
 
       <!-- Delivery details -->
-      <StackLayout paddingTop="5">
-        <CardView class="cardStyle" margin="5 5 5 5" elevation="10" radius="5">
-          <StackLayout class="address-content">
+      <StackLayout>
+        <StackLayout class="m-r-5 m-l-5 m-b-20" shadow="5" borderRadius="5">
+          <StackLayout class="address-content" borderRadius="5" *ngIf="orderDetails.ship_address; let address">
             <Label class="heading" text="Delivery details"></Label>
-            <StackLayout orientation="horizontal" class="order-details">
-              <Label class="left" text="Name" width="40%"> </Label>
-              <Label class="right" text="{{orderDetails.ship_address.full_name}}" width="60%"></Label>
-            </StackLayout>
-            <StackLayout orientation="horizontal" class="order-details">
-              <Label class="left" text="Address" width="40%"> </Label>
-              <Label class="right" text="{{orderDetails.ship_address.address1}}, {{orderDetails.ship_address.address2}}"
-                width="60%"></Label>
-            </StackLayout>
-            <StackLayout orientation="horizontal" class="order-details">
-              <Label class="left" text="Pincode" width="40%"> </Label>
-              <Label class="right" text="{{orderDetails.ship_address.zipcode}}" width="60%"></Label>
-            </StackLayout>
-            <StackLayout orientation="horizontal" class="order-details">
-              <Label class="left" text="Phone" width="40%"> </Label>
-              <Label class="right" text="{{orderDetails.ship_address.phone}}" width="60%"></Label>
-            </StackLayout>
-            <StackLayout orientation="horizontal" class="order-details">
-              <Label class="left" text="Email" width="40%"> </Label>
-              <Label class="right" text="{{orderDetails.email}}" width="60%"></Label>
-            </StackLayout>
+            <Label class="address-bold" text="{{address.firstname}} {{address.lastname}},"></Label>
+            <Label class="address-field" text="{{(address.address1).trim()}}, {{(address.address2).trim()}},"></Label>
+            <Label class="address-field" text="{{address.city}}-{{address.zipcode}}, {{(address.state?.name).trim()}}"></Label>
+            <Label class="address-bold" text="{{address.phone}}"></Label>
           </StackLayout>
-        </CardView>
+        </StackLayout>
       </StackLayout>
 
       <!-- Line Items -->
-      <StackLayout paddingTop="5">
-        <CardView class="cardStyle" margin="5 5 5 5" elevation="10" radius="5">
-          <StackLayout class="address-content">
+      <StackLayout>
+        <StackLayout class="m-r-5 m-l-5 m-b-20" shadow="5" borderRadius="5">
+          <StackLayout class="address-content" borderRadius="5">
             <Label class="heading" text="Items"></Label>
-            <StackLayout *ngFor="let item of orderDetails.line_items" borderBottomWidth="1" borderColor="whitesmoke">
+            <StackLayout *ngFor="let item of orderDetails.line_items" borderTopWidth="1" borderColor="whitesmoke">
               <StackLayout orientation="horizontal">
                 <StackLayout width="40%" class="left">
                   <Image [src]="getProductImageUrl(item)" stretch="aspectFit" height="100" class="m-r-20 m-t-10 m-b-10"></Image>
@@ -89,9 +70,8 @@
               </StackLayout>
             </StackLayout>
           </StackLayout>
-        </CardView>
+        </StackLayout>
       </StackLayout>
-      
     </FlexboxLayout>
   </ScrollView>
   <ActivityIndicator [busy]="isProcessing" backgroundColor="white" borderRadius="50" color="green" width="50" height="50"></ActivityIndicator>

@@ -6,6 +6,7 @@ import { Observable, Subscription } from "rxjs";
 import { tap } from "rxjs/operators";
 import { Page } from "tns-core-modules/ui/page/page";
 import { IappState } from "~/app.reducers";
+import { CheckoutActions } from "../actions/checkout.actions";
 import { Address } from "./../../core/models/address";
 import { CheckoutService } from "./../../core/services/checkout.service";
 import { getOrderNumber, getOrderState, getShipAddress } from "./../reducers/selectors";
@@ -30,6 +31,7 @@ export class AddressComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<IappState>,
     private checkoutService: CheckoutService,
+    private checkoutAction: CheckoutActions,
     private router: Router,
     private page: Page) { }
 
@@ -38,6 +40,7 @@ export class AddressComponent implements OnInit, OnDestroy {
       this.ngOnDestroy();
     });
 
+    this.store.dispatch(this.checkoutAction.getStatesLists());
     this.orderNumber$ = this.store.select(getOrderNumber);
 
     this.subscriptionList$.push(

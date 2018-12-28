@@ -1,10 +1,11 @@
 import { HttpClient } from "@angular/common/http";
-import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { Observable, of, throwError } from "rxjs";
+import { Observable, of } from "rxjs";
 import { catchError, map, switchMap, tap } from "rxjs/operators";
 import { IappState } from "~/app.reducers";
 import { Order } from "../models/order";
+import { CState } from "../models/state";
 import { CheckoutActions } from "./../../checkout/actions/checkout.actions";
 import { LineItem } from "./../models/line_item";
 import { SharedService } from "./shared.service";
@@ -42,7 +43,7 @@ export class CheckoutService {
     );
   }
 
-  // This API not works with Admin user
+  // This API do not works with Admin user
   createNewOrder(orderParams): Observable<Order> {
     const newOrderUrl = `api/v1/orders`;
 
@@ -182,4 +183,12 @@ export class CheckoutService {
   getOrderDetail(orderNumber: string): Observable<Order> {
     return this.http.get<Order>(`api/v1/orders/${orderNumber}`);
   }
+
+  // Country ID: 105 is for INDIA.
+  getAllStates(): Observable<Array<CState>> {
+    return this.http
+      .get<{ states: Array<CState> }>(`api/v1/countries/105/states`)
+      .pipe(map((res) => res.states));
+  }
+
 }
