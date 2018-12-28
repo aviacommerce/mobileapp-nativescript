@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
+import { Page } from "tns-core-modules/ui/page/page";
 import { IappState } from "~/app.reducers";
 import { CheckoutActions } from "~/checkout/actions/checkout.actions";
 import { LineItem } from "~/core/models/line_item";
@@ -14,7 +15,7 @@ import { environment } from "~/environments/environment";
   styleUrls: ["./line-item-list.component.scss"]
 })
 
-export class LineItemListComponent implements OnInit {
+export class LineItemListComponent implements OnInit, OnDestroy {
   @Input() lineItems: Array<LineItem>;
   @Input() itemTotal: number;
   quantityCount: number;
@@ -26,11 +27,14 @@ export class LineItemListComponent implements OnInit {
 
   constructor(
     private store: Store<IappState>,
+    private page: Page,
     private checkoutActions: CheckoutActions,
     private sharedService: SharedService) { }
 
   ngOnInit() {
-    //
+    this.page.on("navigatingFrom", (data) => {
+      this.ngOnDestroy();
+    });
   }
 
   removeLineItem(index: number) {
@@ -58,6 +62,10 @@ export class LineItemListComponent implements OnInit {
 
   trackByFn(index) {
     return index;
+  }
+
+  ngOnDestroy() {
+    this.subscriptionList$.map((sub$) => sub$.unsubscribe());
   }
 
 }

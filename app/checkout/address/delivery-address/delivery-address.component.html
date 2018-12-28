@@ -1,4 +1,4 @@
-<GridLayout rows="*,45" class="page-container" *ngIf="itemTotal">
+<GridLayout rows="*, 45" class="page-container" *ngIf="itemTotal">
   <ScrollView row="0">
     <GridLayout rows="*,*">
       <StackLayout row="0" class="m-t-20 m-l-5 m-r-5" shadow="5" borderRadius="5">
@@ -9,7 +9,7 @@
           <Label class="address-field" text="{{address.city}}-{{address.zipcode}}"></Label>
           <Label class="address-field" text="{{address.state?.name}}"></Label>
           <Label class="address-bold" text="{{address.phone}}"></Label>
-          <StackLayout class="m-b-15">
+          <StackLayout class="m-b-10">
             <Button fontWeight="500" class="action-btn-small" (tap)="editAddress()" text="Change Address"></Button>
           </StackLayout>
         </StackLayout>
@@ -50,7 +50,6 @@
   </ScrollView>
 
   <StackLayout row="1">
-    <Button class="action-btn" (tap)="checkoutToPayment()" text="Continue To Payment">
-    </Button>
+      <Button text="Continue To Payment" class="action-btn" (tap)="checkoutToPayment()"></Button>
   </StackLayout>
 </GridLayout>

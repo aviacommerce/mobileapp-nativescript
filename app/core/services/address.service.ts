@@ -1,9 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormBuilder, FormControl, Validators } from "@angular/forms";
-import { Observable } from "rxjs";
-import { map, tap } from "rxjs/operators";
-import { CState } from "../models/state";
+import { tap } from "rxjs/operators";
 import { SharedService } from "./shared.service";
 
 @Injectable()
@@ -44,13 +42,6 @@ export class AddressService {
     const isValid = !isWhitespace;
 
     return isValid ? null : { whitespace: true };
-  }
-
-  // Country ID: 105 is for INDIA.
-  getAllStates(): Observable<Array<CState>> {
-    return this.http
-      .get<{ states: Array<CState> }>(`api/v1/countries/105/states`)
-      .pipe(map((res) => res.states));
   }
 
   updateAddress(updatedAddress, addressId, orderNumber) {

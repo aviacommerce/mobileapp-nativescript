@@ -1,6 +1,6 @@
 <ab-component [showName]="'Shopping Cart'" [showBackArrow]=true></ab-component>
 <GridLayout>
-  <GridLayout rows="70, * ,45" class="page-container">
+  <GridLayout rows="70, * ,45" class="page-container"  *ngIf="itemTotal > 0">
     <StackLayout row="0" class="total" *ngIf="totalCartItems > 0" shadow="5">
       <Label text="Cart Subtotal: {{currency}}{{itemTotal | number:'1.2-2'}}"> </Label>
       <StackLayout *ngIf="itemTotal < freeShippingAmount" backgroundColor="white">
@@ -16,8 +16,9 @@
         <line-item-list [itemTotal]="totalCartValue" [lineItems]="lineItems"></line-item-list>
       </StackLayout>
     </StackLayout>
-    <StackLayout height="60" row="2" *ngIf="itemTotal > 0">
-      <Button class="action-btn" text="Proceed To Checkout" (tap)="checkoutToAddress()"></Button>
+
+    <StackLayout row="2">
+        <Button text="Proceed To Checkout" class="action-btn" (tap)="checkoutToAddress()"></Button>
     </StackLayout>
   </GridLayout>
 
@@ -25,7 +26,7 @@
     <StackLayout class="form">
       <Label class="h2" fontSize="18" horizontalAlignment="center" fontWeight="bold" text="Your cart is empty"></Label>
       <Image class="logo" src="~/assets/empty-cart.png"></Image>
-      <Button text="Continue Shopping" class="action-btn" (tap)="goToHome()"></Button>
+      <Button text="Continue Shopping" class="action-btn" borderRadius="5" (tap)="goToHome()"></Button>
     </StackLayout>
   </FlexboxLayout>
 </GridLayout>

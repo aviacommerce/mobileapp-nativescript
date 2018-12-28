@@ -4,11 +4,11 @@
     <Label fontSize="16" text=" Shop By Category"></Label>
   </FlexboxLayout>
   <!-- ToDo: Height should be responsive -->
-  <RadListView row="1" height="480" [items]="taxonomies[0]?.root.taxons">
+  <RadListView row="1" height="465" [items]="taxonomies[0]?.root.taxons">
     <ListViewGridLayout tkListViewLayout itemHeight=150%  spanCount="2"></ListViewGridLayout>
     <ng-template let-category="item" let-i="index" let-odd="odd">
       <StackLayout orientation="Vertical">
-        <Label shadow="5" class="box" (tap)="onSelectedCategory(category.id)"
+        <Label shadow="3" class="box" (tap)="onSelectedCategory(category.id)"
           [backgroundColor]="categories[category.name].color" 
           [backgroundImage]="categories[category.name].imageUrl"
           [text]="category.name"></Label>

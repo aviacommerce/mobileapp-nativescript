@@ -6,7 +6,7 @@ import { RouterExtensions } from "nativescript-angular/router";
 import { Subscription } from "rxjs";
 import { Page } from "tns-core-modules/ui/page/page";
 import { IappState } from "~/app.reducers";
-import { getOrderNumber, getOrderState, getShipAddress } from "~/checkout/reducers/selectors";
+import { getOrderNumber, getOrderState, getShipAddress, getStatesList } from "~/checkout/reducers/selectors";
 import { Address } from "~/core/models/address";
 import { CState } from "~/core/models/state";
 import { AddressService } from "~/core/services/address.service";
@@ -53,7 +53,7 @@ export class AddAddressComponent implements OnInit, OnDestroy {
     });
 
     this.subscriptionList$.push(
-      this.addrService.getAllStates().subscribe((states) => this.states = states),
+      this.store.select(getStatesList).subscribe((states) => this.states = states),
       this.store.select(getOrderState).subscribe((oState) => this.orderState = oState),
       this.store.select(getShipAddress).subscribe((ship) => this.shipAddress = ship),
       this.store.select(getOrderNumber).subscribe((oNumber) => this.orderNumber = oNumber)
@@ -129,7 +129,7 @@ export class AddAddressComponent implements OnInit, OnDestroy {
     const options: ModalDialogOptions = {
       viewContainerRef: this._vcRef,
       context: "",
-      fullscreen: false
+      fullscreen: true
     };
 
     this._modalService.showModal(StatesModalComponent, options).then((state: CState) => {

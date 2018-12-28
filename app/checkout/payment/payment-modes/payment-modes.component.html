@@ -7,7 +7,7 @@
     <StackLayout row="1">
       <!-- price details -->
       <StackLayout>
-        <StackLayout class="address-content m-r-5 m-l-5 m-t-20 m-b-20" shadow="5" borderRadius="5">
+        <StackLayout class="address-content m-r-5 m-l-5 m-t-15 m-b-20" shadow="5" borderRadius="5">
           <Label class="heading" text="Price details"></Label>
           <StackLayout orientation="horizontal" class="order-details">
             <Label class="left" text="Price({{totalCartItems}} item)" width="50%"> </Label>
@@ -36,8 +36,9 @@
         </StackLayout>
       </StackLayout>
       <StackLayout>
-        <StackLayout shadow="5" class="m-l-5 m-r-5 m-b-20" borderRadius="5">
-          <TabView backgroundColor="white">
+        <StackLayout shadow="5" class="m-l-5 m-r-5 m-b-20" borderRadius="5" color="white">
+          <TabView backgroundColor="white" tabBackgroundColor="white" androidSelectedTabHighlightColor="orange"
+            borderRadius="5">
             <StackLayout fontSize="16" *tabItem="{title: 'COD'}">
               <Scrollview>
                 <StackLayout cod (payOnDelivery)="makeCodPayment()" marginBottom="10"></StackLayout>

@@ -1,5 +1,6 @@
-import { LineItem } from './../../core/models/line_item';
-import { Map, Record, List, fromJS } from 'immutable';
+import { List, Map, Record } from "immutable";
+import { LineItem } from "./../../core/models/line_item";
+
 export interface CheckoutState extends Map<string, any> {
   orderNumber: number;
   orderState: string;
@@ -12,6 +13,7 @@ export interface CheckoutState extends Map<string, any> {
   shipTotal: number;
   itemTotal: number;
   adjustmentTotal: number;
+  stateList: List<number>;
 }
 
 export const CheckoutStateRecord = Record({
@@ -25,5 +27,6 @@ export const CheckoutStateRecord = Record({
   shipAddress: Map({}),
   shipTotal: 0,
   itemTotal: 0,
-  adjustmentTotal: 0
+  adjustmentTotal: 0,
+  stateList: List([])
 });

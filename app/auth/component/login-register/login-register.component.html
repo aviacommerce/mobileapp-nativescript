@@ -20,7 +20,7 @@
     </StackLayout>
     <Label class="error-lable" text="Password is required" *ngIf="signInForm.get('password').errors && signInForm.get('password').touched"></Label>
     <StackLayout paddingTop="20">
-      <Button [disabled]="isProcessing" class="action-btn" text="Login" (tap)="login()"></Button>
+      <Button [disabled]="isProcessing" class="action-btn" borderRadius="5" text="Login" (tap)="login()"></Button>
     </StackLayout>
     <StackLayout paddingTop="20">
       <Button [disabled]="isProcessing" class="normal-btn" text="New to {{appName}}? SIGNUP" (tap)="toggleForm()"></Button>
@@ -54,7 +54,7 @@
       <Button [disabled]="isProcessing" class="action-btn" text="Create Account" (tap)="register()"></Button>
     </StackLayout>
     <StackLayout paddingTop="20">
-      <Button [disabled]="isProcessing" class="normal-btn" text="Already have an account? LOGIN" (tap)="toggleForm()"></Button>
+      <Button [disabled]="isProcessing" class="normal-btn" borderRadius="5" text="Already have an account? LOGIN" (tap)="toggleForm()"></Button>
     </StackLayout>
   </StackLayout>
   <ActivityIndicator [busy]="isProcessing" backgroundColor="white" borderRadius="50" color="green" width="50" height="50"></ActivityIndicator>

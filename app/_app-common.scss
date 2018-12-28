@@ -10,7 +10,7 @@
 
 .action-btn {
   background-color: $action-color;
-  // border-radius: 5;
+  border-radius: 1;
   color: $white;
   font-size: 16;
   font-weight: 600;
@@ -21,7 +21,7 @@
   background-color: $action-color;
   border-radius: 5;
   color: $white;
-  height: 35;
+  height: 40;
   width: 50%;
   font-size: 14;
 }

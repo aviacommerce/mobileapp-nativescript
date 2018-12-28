@@ -4,7 +4,7 @@
       <!-- Line Items -->
       <StackLayout class="line-items-card" *ngFor="let lineitem of lineItems; let i=index trackBy: trackByFn" shadow="5">
         <GridLayout rows="*" columns="auto, *" backgroundColor="white" borderRadius="5">
-          <StackLayout col="0" class="imgcontainer" width="32%" paddingTop="20">
+          <StackLayout col="0" class="imgcontainer" width="32%" marginTop="25">
             <Image [src]="lineitem.variant.images[0].product_url" stretch="aspectFit" height="75%" width="80%"></Image>
           </StackLayout>
           <StackLayout col="1">

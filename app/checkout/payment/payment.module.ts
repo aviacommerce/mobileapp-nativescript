@@ -8,18 +8,17 @@ import { PaymentModesComponent } from "./payment-modes/payment-modes.component";
 import { PayubizHostedComponent } from "./payment-modes/payubiz-hosted/payubiz-hosted.component";
 
 @NgModule({
-    imports: [
-        NativeScriptCommonModule,
-        SharedModule,
-        NativeScriptFormsModule,
-        NgShadowModule
-    ],
-    declarations: [PaymentModesComponent, CashOnDeliveryComponent, PayubizHostedComponent],
+  imports: [
+    NativeScriptCommonModule,
+    SharedModule,
+    NativeScriptFormsModule,
+    NgShadowModule
+  ],
+  declarations: [PaymentModesComponent, CashOnDeliveryComponent, PayubizHostedComponent],
 
-    providers: []
-    ,
-    schemas: [
-        NO_ERRORS_SCHEMA
-    ]
+  providers: [],
+  schemas: [
+    NO_ERRORS_SCHEMA
+  ]
 })
 export class PaymentModule { }

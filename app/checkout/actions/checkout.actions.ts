@@ -1,3 +1,4 @@
+import { CState } from "~/core/models/state";
 import { LineItem } from "./../../core/models/line_item";
 import { Order } from "./../../core/models/order";
 
@@ -16,6 +17,8 @@ export class CheckoutActions {
   static ORDER_COMPLETE_SUCCESS = "ORDER_COMPLETE_SUCCESS";
   static GET_ORDER_DETAILS = "GET_ORDER_DETAILS";
   static GET_ORDER_DETAILS_SUCCESS = "GET_ORDER_DETAILS_SUCCESS";
+  static GET_STATES_LIST = "GET_STATES_LIST";
+  static GET_STATES_LIST_SUCCESS = "GET_STATES_LIST_SUCCESS";
 
   fetchCurrentOrderSuccess(order: Order) {
     return {
@@ -100,6 +103,19 @@ export class CheckoutActions {
     return {
       type: CheckoutActions.GET_ORDER_DETAILS,
       payload: order
+    };
+  }
+
+  getStatesLists() {
+    return {
+      type: CheckoutActions.GET_STATES_LIST
+    };
+  }
+
+  getStatesListSuccess(states: Array<CState>) {
+    return {
+      type: CheckoutActions.GET_STATES_LIST_SUCCESS,
+      payload: states
     };
   }
 }
